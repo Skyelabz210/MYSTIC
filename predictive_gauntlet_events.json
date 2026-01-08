@@ -1,0 +1,97 @@
+[
+  {
+    "id": "camp_mystic_2007",
+    "name": "Camp Mystic Flood (2007)",
+    "hazard_type": "FLASH_FLOOD",
+    "expected_risk": "CRITICAL",
+    "expected_min_score": 70,
+    "lead_window_ratio": 0.6,
+    "lead_min_score": 50,
+    "usgs_csv": "nine65_v2_complete/data/historical/usgs_camp_mystic_2007.csv",
+    "met_csv": "nine65_v2_complete/data/meteorological/weather_camp_mystic_2007.csv",
+    "record_reference": "USGS NWIS, Texas Hill Country flood records"
+  },
+  {
+    "id": "halloween_2013",
+    "name": "Halloween Floods (2013)",
+    "hazard_type": "FLASH_FLOOD",
+    "expected_risk": "HIGH",
+    "expected_min_score": 50,
+    "lead_window_ratio": 0.6,
+    "lead_min_score": 40,
+    "usgs_csv": "nine65_v2_complete/data/historical/usgs_halloween_2013.csv",
+    "met_csv": "nine65_v2_complete/data/meteorological/weather_halloween_2013.csv",
+    "record_reference": "USGS NWIS, NOAA storm summaries"
+  },
+  {
+    "id": "harvey_2017",
+    "name": "Hurricane Harvey (2017)",
+    "hazard_type": "HURRICANE",
+    "expected_risk": "CRITICAL",
+    "expected_min_score": 70,
+    "lead_window_ratio": 0.5,
+    "lead_min_score": 60,
+    "usgs_csv": "nine65_v2_complete/data/historical/usgs_hurricane_harvey_2017.csv",
+    "met_csv": "nine65_v2_complete/data/meteorological/weather_hurricane_harvey_2017.csv",
+    "record_reference": "NOAA NHC reports, USGS NWIS"
+  },
+  {
+    "id": "llano_2018",
+    "name": "Llano River Flood (2018)",
+    "hazard_type": "FLASH_FLOOD",
+    "expected_risk": "HIGH",
+    "expected_min_score": 50,
+    "lead_window_ratio": 0.6,
+    "lead_min_score": 40,
+    "usgs_csv": "nine65_v2_complete/data/historical/usgs_llano_river_2018.csv",
+    "met_csv": "nine65_v2_complete/data/meteorological/weather_llano_river_2018.csv",
+    "record_reference": "USGS NWIS, NWS event summaries"
+  },
+  {
+    "id": "memorial_day_2015",
+    "name": "Memorial Day Floods (2015)",
+    "hazard_type": "FLASH_FLOOD",
+    "expected_risk": "CRITICAL",
+    "expected_min_score": 70,
+    "lead_window_ratio": 0.6,
+    "lead_min_score": 50,
+    "usgs_csv": "nine65_v2_complete/data/historical/usgs_memorial_day_2015.csv",
+    "met_csv": "nine65_v2_complete/data/meteorological/weather_memorial_day_2015.csv",
+    "record_reference": "USGS NWIS, NOAA storm database"
+  },
+  {
+    "id": "memorial_day_2016",
+    "name": "Memorial Day Floods (2016)",
+    "hazard_type": "FLASH_FLOOD",
+    "expected_risk": "HIGH",
+    "expected_min_score": 50,
+    "lead_window_ratio": 0.6,
+    "lead_min_score": 40,
+    "usgs_csv": "nine65_v2_complete/data/historical/usgs_memorial_day_2016_flood.csv",
+    "record_reference": "USGS NWIS, NOAA storm database"
+  },
+  {
+    "id": "tax_day_2016",
+    "name": "Tax Day Flood (2016)",
+    "hazard_type": "FLASH_FLOOD",
+    "expected_risk": "HIGH",
+    "expected_min_score": 50,
+    "lead_window_ratio": 0.6,
+    "lead_min_score": 40,
+    "usgs_csv": "nine65_v2_complete/data/historical/usgs_tax_day_2016.csv",
+    "met_csv": "nine65_v2_complete/data/meteorological/weather_tax_day_2016.csv",
+    "record_reference": "USGS NWIS, NOAA storm database"
+  },
+  {
+    "id": "imelda_2019",
+    "name": "Tropical Storm Imelda (2019)",
+    "hazard_type": "HURRICANE",
+    "expected_risk": "CRITICAL",
+    "expected_min_score": 70,
+    "lead_window_ratio": 0.5,
+    "lead_min_score": 60,
+    "usgs_csv": "nine65_v2_complete/data/historical/usgs_tropical_storm_imelda_2019.csv",
+    "met_csv": "nine65_v2_complete/data/meteorological/weather_ts_imelda_2019.csv",
+    "record_reference": "NOAA NHC reports, USGS NWIS"
+  }
+]

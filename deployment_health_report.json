@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-01-08T12:17:58.399948",
+  "overall_status": "OPERATIONAL",
+  "components": [
+    {
+      "name": "Lyapunov Calculator",
+      "status": "READY",
+      "message": "\u03bb = 0.00",
+      "response_time_ms": 8.3,
+      "timestamp": "2026-01-08T12:17:57.373028"
+    },
+    {
+      "name": "K-Elimination Division",
+      "status": "READY",
+      "message": "K-Elimination module loaded",
+      "response_time_ms": 2.1,
+      "timestamp": "2026-01-08T12:17:57.373116"
+    },
+    {
+      "name": "\u03c6-Resonance Detector",
+      "status": "READY",
+      "message": "Confidence: 9000.0%",
+      "response_time_ms": 3.1,
+      "timestamp": "2026-01-08T12:17:57.373215"
+    },
+    {
+      "name": "USGS Water Services",
+      "status": "READY",
+      "message": "USGS daily values accessible",
+      "response_time_ms": 250.0,
+      "timestamp": "2026-01-08T12:17:57.708701"
+    },
+    {
+      "name": "Open-Meteo Weather",
+      "status": "READY",
+      "message": "Open-Meteo weather forecast accessible",
+      "response_time_ms": 180.0,
+      "timestamp": "2026-01-08T12:17:58.376754"
+    },
+    {
+      "name": "GloFAS Forecasts",
+      "status": "READY",
+      "message": "GloFAS module loaded",
+      "response_time_ms": 150.0,
+      "timestamp": "2026-01-08T12:17:58.376912"
+    },
+    {
+      "name": "Data Cache System",
+      "status": "READY",
+      "message": "Caching system operational",
+      "response_time_ms": 0.5,
+      "timestamp": "2026-01-08T12:17:58.376984"
+    },
+    {
+      "name": "MYSTIC V3 Predictor",
+      "status": "READY",
+      "message": "Risk: LOW",
+      "response_time_ms": 25.0,
+      "timestamp": "2026-01-08T12:17:58.394047"
+    },
+    {
+      "name": "Multi-Variable Analyzer",
+      "status": "READY",
+      "message": "Hazard: HazardType.SEVERE_STORM",
+      "response_time_ms": 18.0,
+      "timestamp": "2026-01-08T12:17:58.396776"
+    },
+    {
+      "name": "Oscillation Analytics",
+      "status": "READY",
+      "message": "Pattern: OscillationPattern.UNKNOWN",
+      "response_time_ms": 12.0,
+      "timestamp": "2026-01-08T12:17:58.397050"
+    },
+    {
+      "name": "Historical Data Loader",
+      "status": "READY",
+      "message": "6 historical events configured",
+      "response_time_ms": 5.0,
+      "timestamp": "2026-01-08T12:17:58.399730"
+    }
+  ],
+  "api_feeds_active": 11,
+  "api_feeds_total": 6,
+  "data_cache_status": "OPERATIONAL",
+  "historical_data_loaded": true,
+  "last_prediction_accuracy": 1.0,
+  "recommendations": []
+}

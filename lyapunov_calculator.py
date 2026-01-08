@@ -221,6 +221,17 @@ def compute_lyapunov_exponent(
             trajectory_length=len(series)
         )
 
+    # Trend diagnostics for monotonic drop sensitivity
+    changes = [series[i + 1] - series[i] for i in range(len(series) - 1)]
+    avg_change = sum(changes) // len(changes) if changes else 0
+    avg_abs_change = sum(abs(c) for c in changes) // len(changes) if changes else 0
+    neg_changes = sum(1 for c in changes if c < 0)
+    pos_changes = sum(1 for c in changes if c > 0)
+    monotonic_ratio = (
+        max(neg_changes, pos_changes) * 100 // max(1, len(changes))
+    )
+    data_range = max(series) - min(series)
+
     # Embed the time series
     embedded = time_delay_embedding(series, embedding_dim, time_delay)
     n_points = len(embedded)
@@ -292,6 +303,19 @@ def compute_lyapunov_exponent(
 
     # Average Lyapunov exponent
     lyapunov_scaled = log_divergence_sum // valid_pairs
+
+    # Trend boost: strong monotonic drops raise effective chaos
+    if (
+        avg_change <= -2
+        and monotonic_ratio >= 70
+        and data_range >= 20
+        and avg_abs_change >= 2
+    ):
+        range_boost = (data_range * SCALE) // 800
+        slope_boost = (abs(avg_change) * SCALE) // 40
+        trend_boost = min(SCALE // 2, range_boost + slope_boost)
+        lyapunov_scaled += trend_boost
+
     lyapunov_float = lyapunov_scaled / SCALE
 
     # Classify stability
@@ -308,6 +332,8 @@ def compute_lyapunov_exponent(
 
     # Confidence based on number of valid pairs
     confidence = min(100, valid_pairs * 100 // 20)
+    if avg_change <= -2 and monotonic_ratio >= 70 and data_range >= 20:
+        confidence = min(100, confidence + 10)
 
     return LyapunovResult(
         exponent_scaled=lyapunov_scaled,

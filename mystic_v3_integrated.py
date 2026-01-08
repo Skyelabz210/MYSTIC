@@ -16,7 +16,7 @@ Author: Claude (K-Elimination Expert)
 Date: 2026-01-07
 """
 
-from typing import Dict, List, Tuple, Any, Optional
+from typing import Dict, List, Tuple, Any, Optional, Set
 from dataclasses import dataclass
 import json
 import time
@@ -35,6 +35,19 @@ from k_elimination import (
 from phi_resonance_detector import detect_phi_resonance
 from fibonacci_phi_validator import phi_from_fibonacci
 from shadow_entropy import ShadowEntropyPRNG
+try:
+    from multi_variable_analyzer import MultiVariableAnalyzer
+except ImportError:
+    MultiVariableAnalyzer = None
+
+
+def scale_by_percent(score: int, percent: int) -> int:
+    """Scale a signed score by a percentage using integer math."""
+    if percent <= 0:
+        return 0
+    if score >= 0:
+        return (score * percent) // 100
+    return -((abs(score) * percent) // 100)
 
 # Load attractor basins
 try:
@@ -66,6 +79,7 @@ class PredictionResult:
     location: str
     hazard_type: str
     time_series_length: int
+    multi_variable_summary: Optional[Dict[str, Any]] = None
 
 
 class MYSTICPredictorV3:
@@ -101,6 +115,7 @@ class MYSTICPredictorV3:
 
         # Evolution matrices cache (keyed by dimension)
         self._evolution_matrices: Dict[int, MatrixFp2] = {}
+        self._multi_variable_analyzer = MultiVariableAnalyzer() if MultiVariableAnalyzer else None
 
     def _get_evolution_matrix(self, dim: int) -> MatrixFp2:
         """Get or create evolution matrix for given dimension."""
@@ -112,11 +127,77 @@ class MYSTICPredictorV3:
             self._evolution_matrices[dim] = U
         return self._evolution_matrices[dim]
 
+    def _analyze_trend(self, time_series: List[int]) -> Tuple[str, Dict[str, Any]]:
+        """
+        Analyze time series trend with oscillation detection.
+
+        Returns (trend_direction, metrics)
+        """
+        if len(time_series) < 3:
+            return "INSUFFICIENT_DATA", {}
+
+        changes = [time_series[i + 1] - time_series[i] for i in range(len(time_series) - 1)]
+
+        sign_changes = sum(
+            1 for i in range(len(changes) - 1)
+            if (changes[i] > 0) != (changes[i + 1] > 0)
+        )
+
+        avg_change = sum(changes) // len(changes)
+        avg_abs_change = sum(abs(c) for c in changes) // len(changes)
+        change_variance = sum((c - avg_change) ** 2 for c in changes) // len(changes)
+
+        oscillation_ratio = (sign_changes * 100) // max(1, len(changes) - 1)
+
+        if oscillation_ratio > 60 and avg_abs_change <= 2 and change_variance <= 4:
+            trend = "STABLE"
+        elif oscillation_ratio > 60:
+            trend = "OSCILLATING"
+        elif avg_change * 2 > avg_abs_change:
+            trend = "RISING"
+        elif avg_change * 2 < -avg_abs_change:
+            trend = "FALLING"
+        else:
+            trend = "STABLE"
+
+        metrics = {
+            "avg_change": avg_change,
+            "avg_abs_change": avg_abs_change,
+            "sign_changes": sign_changes,
+            "oscillation_ratio": oscillation_ratio,
+            "change_variance": change_variance,
+            "is_monotonic": oscillation_ratio < 20,
+            "is_exponential": self._check_exponential(time_series),
+            "micro_oscillation": oscillation_ratio > 60 and avg_abs_change <= 2 and change_variance <= 4
+        }
+
+        return trend, metrics
+
+    def _check_exponential(self, series: List[int]) -> bool:
+        """Check if series shows exponential growth/decay."""
+        if len(series) < 5:
+            return False
+
+        ratio_scale = 1000
+        ratios = []
+        for i in range(1, len(series)):
+            if series[i - 1] != 0:
+                ratios.append((series[i] * ratio_scale) // series[i - 1])
+
+        if not ratios:
+            return False
+
+        avg_ratio = sum(ratios) // len(ratios)
+        variance = sum((r - avg_ratio) ** 2 for r in ratios) // len(ratios)
+
+        return variance < 100000 and abs(avg_ratio - ratio_scale) > 50
+
     def predict(
         self,
         time_series: List[int],
         location: str = "UNKNOWN",
-        hazard_type: str = "GENERAL"
+        hazard_type: str = "GENERAL",
+        multi_variable_data: Optional[Dict[str, List[int]]] = None
     ) -> PredictionResult:
         """
         Generate comprehensive disaster prediction.
@@ -131,11 +212,18 @@ class MYSTICPredictorV3:
         """
         timestamp = time.time()
 
+        # 0. Trend analysis
+        trend, trend_metrics = self._analyze_trend(time_series)
+
         # 1. φ-Resonance Detection
         phi_result = detect_phi_resonance(time_series)
 
         # 2. Attractor Basin Classification
-        attractor_class, attractor_score = self._classify_attractor(time_series)
+        attractor_class, attractor_score = self._classify_attractor(
+            time_series,
+            trend,
+            trend_metrics
+        )
 
         # 3. Real-time Lyapunov Exponent
         lyapunov = compute_lyapunov_exponent(
@@ -149,14 +237,33 @@ class MYSTICPredictorV3:
         # 4. Cayley Evolution Stability Check
         evolution_stable, evolution_drift = self._check_evolution_stability(time_series)
 
-        # 5. Integrate all components for risk assessment
+        # 5. Multi-variable analysis (optional)
+        multi_variable_result = None
+        multi_variable_summary = None
+        if multi_variable_data and self._multi_variable_analyzer:
+            multi_variable_result = self._multi_variable_analyzer.analyze(
+                multi_variable_data,
+                location=location
+            )
+            multi_variable_summary = {
+                "hazard_type": multi_variable_result.hazard_type.value,
+                "composite_risk": multi_variable_result.composite_risk,
+                "composite_score": multi_variable_result.composite_score,
+                "confidence": multi_variable_result.confidence,
+                "signals": list(multi_variable_result.signals),
+            }
+
+        # 6. Integrate all components for risk assessment
         risk_level, risk_score, confidence = self._assess_risk(
             phi_result=phi_result,
             attractor_class=attractor_class,
             attractor_score=attractor_score,
             lyapunov=lyapunov,
             evolution_stable=evolution_stable,
-            time_series=time_series
+            trend=trend,
+            metrics=trend_metrics,
+            time_series=time_series,
+            multi_variable_result=multi_variable_result
         )
 
         return PredictionResult(
@@ -172,10 +279,16 @@ class MYSTICPredictorV3:
             timestamp=timestamp,
             location=location,
             hazard_type=hazard_type,
-            time_series_length=len(time_series)
+            time_series_length=len(time_series),
+            multi_variable_summary=multi_variable_summary
         )
 
-    def _classify_attractor(self, time_series: List[int]) -> Tuple[str, float]:
+    def _classify_attractor(
+        self,
+        time_series: List[int],
+        trend: str,
+        metrics: Dict[str, Any]
+    ) -> Tuple[str, float]:
         """
         Classify time series into attractor basin using exact arithmetic.
 
@@ -184,40 +297,66 @@ class MYSTICPredictorV3:
         if len(time_series) < 3:
             return "INSUFFICIENT_DATA", float('inf')
 
-        # Calculate metrics using K-Elimination for exact division where needed
-        changes = [time_series[i + 1] - time_series[i] for i in range(len(time_series) - 1)]
-        avg_change = sum(changes) // len(changes)
-
         avg = sum(time_series) // len(time_series)
         variance = sum((x - avg) ** 2 for x in time_series) // len(time_series)
-
-        max_change = max(abs(c) for c in changes) if changes else 0
         data_range = max(time_series) - min(time_series)
+        avg_change = metrics.get("avg_change", 0)
+        osc_ratio = metrics.get("oscillation_ratio", 0)
+        is_oscillating = trend == "OSCILLATING"
+        is_exponential = metrics.get("is_exponential", False)
+
+        if trend == "STABLE" and variance < 100 and abs(avg_change) <= 1:
+            return "CLEAR", 5
+
+        if trend == "STABLE" and data_range >= 150 and variance >= 3000 and not is_exponential:
+            return "WATCH", 25
+
+        if trend == "FALLING" and avg_change <= -2 and variance < 5000 and not is_exponential:
+            return "WATCH", 20
+
+        if is_oscillating:
+            if variance < 5000:
+                return "STEADY_RAIN", 10
+            return "WATCH", 50
+
+        if is_exponential and trend == "RISING":
+            return "FLASH_FLOOD", 5
 
         best_match = "UNKNOWN"
         best_score = float('inf')
 
         for basin_name, signature in self.attractor_signatures.items():
-            # Score based on multiple factors
             sig_pressure = signature.get("pressure_tendency_hpa_hr", 0.0)
-            pressure_score = abs(avg_change - sig_pressure * 10)
+            sig_pressure_scaled = int(sig_pressure * 10)
+            pressure_score = abs(avg_change - sig_pressure_scaled)
 
             sig_lyapunov = signature.get("lyapunov_scaled", 0)
-            lyapunov_match = 0
-            if sig_lyapunov < 0 and variance < 100:
-                lyapunov_match = -50  # Bonus for stable match
-            elif sig_lyapunov > 0 and variance > 200:
-                lyapunov_match = -50  # Bonus for chaotic match
+            stability_score = 0
+            if sig_lyapunov < 0:
+                if variance < 100:
+                    stability_score = -30
+                elif variance > 1000:
+                    stability_score = 50
+            else:
+                if variance > 500:
+                    stability_score = -30
+                elif variance < 100:
+                    stability_score = 50
 
-            score = pressure_score + lyapunov_match + variance * 0.1
+            score = pressure_score + stability_score
 
-            # Special pattern matching
-            if basin_name in ["FLASH_FLOOD", "TORNADO"] and avg_change < -3:
-                score *= 0.3
-            elif basin_name == "CLEAR" and avg_change >= 0 and variance < 50:
-                score *= 0.3
-            elif basin_name == "WATCH" and -5 < avg_change < 0:
-                score *= 0.5
+            if basin_name == "CLEAR" and trend == "STABLE" and variance < 100:
+                score = scale_by_percent(score, 20)
+            elif basin_name == "STEADY_RAIN" and is_oscillating:
+                score = scale_by_percent(score, 30)
+            elif basin_name == "STEADY_RAIN" and trend == "FALLING":
+                score += 50
+            elif basin_name == "STEADY_RAIN" and data_range >= 150 and variance >= 3000 and osc_ratio < 80:
+                score += 80
+            elif basin_name in ["FLASH_FLOOD", "TORNADO"] and trend == "FALLING" and avg_change < -5:
+                score = scale_by_percent(score, 30)
+            elif basin_name == "WATCH" and trend == "FALLING" and -10 < avg_change <= -2:
+                score = scale_by_percent(score, 40)
 
             if score < best_score:
                 best_score = score
@@ -263,7 +402,10 @@ class MYSTICPredictorV3:
         attractor_score: float,
         lyapunov: LyapunovResult,
         evolution_stable: bool,
-        time_series: List[int]
+        trend: str,
+        metrics: Dict[str, Any],
+        time_series: List[int],
+        multi_variable_result: Optional[Any] = None
     ) -> Tuple[str, int, int]:
         """
         Integrate all components for final risk assessment.
@@ -272,71 +414,105 @@ class MYSTICPredictorV3:
         """
         risk_score = 0
         confidence = 0
+        confidence_sources: Set[str] = set()
 
-        # 1. φ-Resonance contribution (0-25 points)
+        # 1. φ-Resonance contribution (0-20 points)
         if phi_result.get("has_resonance", False):
-            phi_conf = phi_result.get("confidence", 0)
-            risk_score += 25 * (phi_conf / 100)
+            phi_conf = int(phi_result.get("confidence", 0))
+            risk_score += (20 * phi_conf) // 100
             confidence += phi_conf
+            confidence_sources.add("phi")
 
-        # 2. Attractor classification contribution (0-50 points)
+        # 2. Attractor classification contribution (0-40 points)
         attractor_risk = {
-            "TORNADO": 50,
-            "FLASH_FLOOD": 45,
-            "HURRICANE": 45,
-            "WATCH": 30,
-            "STORM": 25,
-            "STEADY_RAIN": 10,
+            "TORNADO": 40,
+            "FLASH_FLOOD": 40,
+            "HURRICANE": 40,
+            "WATCH": 25,
+            "STORM": 20,
+            "STEADY_RAIN": 5,
             "CLEAR": 0,
-            "UNKNOWN": 15,
-            "INSUFFICIENT_DATA": 10
+            "UNKNOWN": 10,
+            "INSUFFICIENT_DATA": 5
         }
         risk_score += attractor_risk.get(attractor_class, 15)
 
-        # Bonus confidence for good attractor match
-        if attractor_score < 100:
-            confidence += 80
-        elif attractor_score < 500:
-            confidence += 50
+        if attractor_score < 50:
+            confidence += 90
+        elif attractor_score < 200:
+            confidence += 60
         else:
-            confidence += 20
+            confidence += 30
+        confidence_sources.add("attractor")
 
-        # 3. Lyapunov exponent contribution (0-30 points)
-        if lyapunov.stability in ["HIGHLY_CHAOTIC", "CHAOTIC"]:
-            risk_score += 30
+        # 3. Lyapunov exponent contribution (0-35 points)
+        if lyapunov.stability == "HIGHLY_CHAOTIC":
+            risk_score += 35
             confidence += lyapunov.confidence
+            confidence_sources.add("lyapunov")
+        elif lyapunov.stability == "CHAOTIC":
+            risk_score += 25
+            confidence += lyapunov.confidence
+            confidence_sources.add("lyapunov")
         elif lyapunov.stability == "MARGINALLY_STABLE":
-            risk_score += 15
+            risk_score += 10
             confidence += lyapunov.confidence // 2
-        elif lyapunov.stability in ["STABLE", "HIGHLY_STABLE"]:
+            confidence_sources.add("lyapunov")
+        else:
             risk_score += 0
             confidence += lyapunov.confidence
+            confidence_sources.add("lyapunov")
 
-        # 4. Evolution stability contribution (0-20 points)
-        if not evolution_stable:
-            risk_score += 20  # Numerical instability suggests chaotic system
-
-        # 5. Time series trend analysis (0-20 points)
-        if len(time_series) > 2:
-            changes = [time_series[i + 1] - time_series[i] for i in range(len(time_series) - 1)]
-            avg_change = sum(changes) // len(changes)
-            max_neg_change = min(changes) if changes else 0
-
-            if avg_change < -5:  # Strong negative trend
-                risk_score += 15
-            if max_neg_change < -10:  # Sharp drop
+        # 4. Trend analysis (0-30 points)
+        if trend == "FALLING":
+            avg_change = metrics.get("avg_change", 0)
+            if avg_change < -10:
+                risk_score += 30
+                confidence_sources.add("trend")
+            elif avg_change < -5:
+                risk_score += 20
+                confidence_sources.add("trend")
+            elif avg_change < -2:
                 risk_score += 10
+                confidence_sources.add("trend")
+        elif trend == "RISING" and metrics.get("is_exponential", False):
+            risk_score += 25
+            confidence_sources.add("trend")
+
+        if trend == "OSCILLATING":
+            risk_score = max(0, risk_score - 20)
+
+        # 5. Evolution stability contribution (0-15 points)
+        if not evolution_stable:
+            risk_score += 15
+
+        # Multi-variable fusion (optional)
+        if multi_variable_result is not None:
+            mv_score = int(getattr(multi_variable_result, "composite_score", 0))
+            mv_scaled = min(100, mv_score)
+            mv_risk = getattr(multi_variable_result, "composite_risk", "")
+            mv_floor = {
+                "LOW": 0,
+                "MODERATE": 35,
+                "HIGH": 60,
+                "CRITICAL": 80
+            }.get(mv_risk, 0)
+            risk_score = max(risk_score, mv_scaled, mv_floor)
+            mv_conf = int(getattr(multi_variable_result, "confidence", 0))
+            if mv_conf:
+                confidence += mv_conf
+                confidence_sources.add("multi_variable")
 
         # Normalize confidence
-        num_components = 4
-        avg_confidence = min(100, confidence // num_components)
+        confidence_divisor = max(1, len(confidence_sources))
+        avg_confidence = min(100, confidence // confidence_divisor)
 
         # Determine risk level
-        if risk_score < 20:
+        if risk_score < 15:
             risk_level = "LOW"
-        elif risk_score < 50:
+        elif risk_score < 40:
             risk_level = "MODERATE"
-        elif risk_score < 80:
+        elif risk_score < 70:
             risk_level = "HIGH"
         else:
             risk_level = "CRITICAL"

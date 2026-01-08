@@ -11,7 +11,13 @@ Implements zero-drift chaos prediction using exact integer arithmetic.
 from typing import Dict, List, Tuple, Any
 import json
 import math
+import os
+import sys
 import time
+
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if REPO_ROOT not in sys.path:
+    sys.path.insert(0, REPO_ROOT)
 
 # Import our validated components
 from phi_resonance_detector import detect_phi_resonance
@@ -20,8 +26,18 @@ from cayley_transform import Fp2Element, Fp2Matrix, create_skew_hermitian_matrix
 from shadow_entropy import ShadowEntropyPRNG, Fp2EntropySource
 
 # Load attractor basins from JSON
-with open('/home/acid/Desktop/weather_attractor_basins.json', 'r') as f:
-    ATTRACTOR_BASES = json.load(f)
+ATTRACTOR_BASES = None
+for candidate in [
+    os.path.join(REPO_ROOT, "weather_attractor_basins.json"),
+    "/home/acid/Desktop/weather_attractor_basins.json",
+]:
+    if os.path.exists(candidate):
+        with open(candidate, "r") as f:
+            ATTRACTOR_BASES = json.load(f)
+        break
+
+if ATTRACTOR_BASES is None:
+    raise FileNotFoundError("weather_attractor_basins.json not found in repo or Desktop")
 
 
 class MYSTICPredictor:

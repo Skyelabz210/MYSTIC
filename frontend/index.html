@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MYSTIC Field Console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="scene">
+      <header class="topbar reveal" style="--delay: 0.05s">
+        <div class="brand">
+          <div class="logo">M</div>
+          <div class="brand-text">
+            <span class="title">MYSTIC</span>
+            <span class="subtitle">Quantum Hazard Console</span>
+          </div>
+        </div>
+        <div class="status">
+          <span class="badge pulse">LIVE READY</span>
+          <span class="timestamp" id="timestamp">SYNCING</span>
+        </div>
+      </header>
+
+      <main class="main-grid">
+        <section class="hero reveal" style="--delay: 0.1s">
+          <p class="eyebrow">Field Intelligence Layer</p>
+          <h1>Predict extreme events before they cross the threshold.</h1>
+          <p class="lead">
+            MYSTIC fuses chaos dynamics, exact arithmetic, and multi-variable signals
+            to surface early warnings with deterministic confidence.
+          </p>
+          <div class="hero-actions">
+            <button class="btn primary" id="runAnalysis">Run Analysis</button>
+            <button class="btn ghost" id="loadSample">Load Sample</button>
+          </div>
+          <div class="hero-badges">
+            <span class="chip">K-Elimination Active</span>
+            <span class="chip">Lyapunov Live</span>
+            <span class="chip">FHE Layer Ready</span>
+          </div>
+          <div class="signal-strip">
+            <div class="signal-card">
+              <span class="label">Primary</span>
+              <span class="value" id="primarySignal">PRESSURE</span>
+            </div>
+            <div class="signal-card">
+              <span class="label">Hazard</span>
+              <span class="value" id="hazardType">FIRE_WEATHER</span>
+            </div>
+            <div class="signal-card">
+              <span class="label">Confidence</span>
+              <span class="value" id="confidenceValue">93%</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel risk-card reveal" style="--delay: 0.15s">
+          <div class="panel-header">
+            <h2>Risk Vector</h2>
+            <span class="tag" id="riskLevel">CRITICAL</span>
+          </div>
+          <div class="risk-dial" id="riskDial" style="--risk: 70">
+            <div class="dial-core">
+              <span class="dial-value" id="riskScore">70</span>
+              <span class="dial-label">Score</span>
+            </div>
+          </div>
+          <div class="risk-metrics">
+            <div class="metric">
+              <span class="label">Attractor</span>
+              <span class="value" id="attractorValue">STEADY_RAIN</span>
+            </div>
+            <div class="metric">
+              <span class="label">Lyapunov</span>
+              <span class="value" id="lyapunovValue">HIGHLY_CHAOTIC</span>
+            </div>
+            <div class="metric">
+              <span class="label">Trend</span>
+              <span class="value" id="trendValue">RISING</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel feed-card reveal" style="--delay: 0.2s">
+          <div class="panel-header">
+            <h2>Data Feeds</h2>
+            <span class="tag neutral">6 Sources</span>
+          </div>
+          <ul class="feed-list">
+            <li><span>USGS IV</span><span class="state ok">OK</span></li>
+            <li><span>Open-Meteo Wx</span><span class="state ok">OK</span></li>
+            <li><span>GloFAS</span><span class="state warn">WARM</span></li>
+            <li><span>NOAA SWPC</span><span class="state ok">OK</span></li>
+            <li><span>NWS Alerts</span><span class="state ok">OK</span></li>
+            <li><span>CO-OPS</span><span class="state ok">OK</span></li>
+          </ul>
+          <div class="feed-note">Latency target: under 90s per source.</div>
+        </section>
+
+        <section class="panel signal-card-large reveal" style="--delay: 0.25s">
+          <div class="panel-header">
+            <h2>Multi-Variable Signals</h2>
+            <span class="tag">Fusion On</span>
+          </div>
+          <div class="signal-grid">
+            <div class="signal-tile">
+              <span class="label">Humidity</span>
+              <span class="value">LOW</span>
+              <span class="delta" id="humidityDelta">-12%</span>
+            </div>
+            <div class="signal-tile">
+              <span class="label">Wind</span>
+              <span class="value">HIGH</span>
+              <span class="delta" id="windDelta">+18</span>
+            </div>
+            <div class="signal-tile">
+              <span class="label">Streamflow</span>
+              <span class="value">SURGE</span>
+              <span class="delta" id="streamDelta">+6x</span>
+            </div>
+            <div class="signal-tile">
+              <span class="label">Pressure</span>
+              <span class="value">FALLING</span>
+              <span class="delta" id="pressureDelta">-4</span>
+            </div>
+          </div>
+          <div class="signal-tags" id="signalTags">
+            <span>HIGH_FIRE_DANGER_HUMIDITY</span>
+            <span>HIGH_WIND</span>
+            <span>EXTREME_STREAMFLOW_RISE</span>
+          </div>
+        </section>
+
+        <section class="panel stream-card reveal" style="--delay: 0.3s">
+          <div class="panel-header">
+            <h2>Live Stream</h2>
+            <span class="tag neutral">48 pts</span>
+          </div>
+          <div class="sparkline" id="sparkline">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="stream-footer">
+            <span>Primary: pressure</span>
+            <span class="mono" id="streamMeta">range 10020 - 10170</span>
+          </div>
+        </section>
+
+        <section class="panel control-card reveal" style="--delay: 0.35s">
+          <div class="panel-header">
+            <h2>Control Deck</h2>
+            <span class="tag neutral">Field Ops</span>
+          </div>
+          <div class="control-grid">
+            <label>
+              Region
+              <input type="text" value="Texas Hill Country" id="regionInput">
+            </label>
+            <label>
+              Latitude
+              <input type="text" value="30.05" id="latInput">
+            </label>
+            <label>
+              Longitude
+              <input type="text" value="-99.17" id="lonInput">
+            </label>
+            <label>
+              Hazard Focus
+              <select id="hazardSelect">
+                <option>FLASH_FLOOD</option>
+                <option selected>FIRE_WEATHER</option>
+                <option>HURRICANE</option>
+                <option>TORNADO</option>
+                <option>SEVERE_STORM</option>
+                <option>STABLE</option>
+              </select>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span>Use Multi-Variable Fusion</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span>Enable IV Streamflow</span>
+            </label>
+          </div>
+          <div class="control-actions">
+            <button class="btn ghost">Export Snapshot</button>
+            <button class="btn primary">Queue Alert</button>
+          </div>
+        </section>
+
+        <section class="panel timeline-card reveal" style="--delay: 0.4s">
+          <div class="panel-header">
+            <h2>Event Timeline</h2>
+            <span class="tag">Last 72h</span>
+          </div>
+          <ul class="timeline">
+            <li>
+              <span class="time">02:14</span>
+              <span class="event">Humidity broke 18% threshold</span>
+              <span class="state warn">WARN</span>
+            </li>
+            <li>
+              <span class="time">03:05</span>
+              <span class="event">Wind acceleration detected</span>
+              <span class="state ok">CONF</span>
+            </li>
+            <li>
+              <span class="time">04:32</span>
+              <span class="event">Streamflow surge aligns with GloFAS</span>
+              <span class="state hot">ALERT</span>
+            </li>
+            <li>
+              <span class="time">06:10</span>
+              <span class="event">MYSTIC V3 fused risk escalated</span>
+              <span class="state hot">ALERT</span>
+            </li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

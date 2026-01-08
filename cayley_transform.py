@@ -6,8 +6,8 @@ Implements the Cayley transform for exact unitary evolution in F_p² field.
 This enables zero-drift weather prediction by maintaining unitarity exactly.
 
 Mathematical Foundation:
-- Cayley Transform: U = (A + iI)(A - iI)^(-1) where A is skew-Hermitian
-- In F_p²: U = (A + iI)(A - iI)^{-1} where arithmetic is exact modulo p
+- Cayley Transform: U = (I + A)(I - A)^(-1) where A is skew-Hermitian
+- In F_p²: U = (I + A)(I - A)^{-1} where arithmetic is exact modulo p
 - Ensures ||Ux|| = ||x|| always (perfect preservation of norms)
 """
 
@@ -217,45 +217,41 @@ def create_skew_hermitian_matrix(size: int, p: int) -> Fp2Matrix:
 
 def cayley_transform(skew_hermitian: Fp2Matrix) -> Fp2Matrix:
     """
-    Apply Cayley transform: U = (A + iI)(A - iI)^(-1)
+    Apply Cayley transform: U = (I + A)(I - A)^(-1)
     where A is skew-Hermitian, ensuring U is unitary.
     """
     p = skew_hermitian.rows[0][0].p
     n = skew_hermitian.nrows
     assert n == skew_hermitian.ncols, "Matrix must be square"
     
-    # Create iI (identity matrix multiplied by i)
-    i_identity_rows = []
+    # Create identity matrix I
+    identity_rows = []
     for i in range(n):
         row = []
         for j in range(n):
             if i == j:
-                row.append(Fp2Element(0, 1, p))  # i on diagonal
+                row.append(Fp2Element(1, 0, p))
             else:
-                row.append(Fp2Element(0, 0, p))  # 0 elsewhere
-        i_identity_rows.append(row)
-    i_identity = Fp2Matrix(i_identity_rows)
+                row.append(Fp2Element(0, 0, p))
+        identity_rows.append(row)
+    identity = Fp2Matrix(identity_rows)
     
-    # Compute A + iI
-    a_plus_i = Fp2Matrix([
-        [skew_hermitian[i][j] + i_identity[i][j] for j in range(n)] 
+    # Compute I + A
+    i_plus_a = Fp2Matrix([
+        [identity[i][j] + skew_hermitian[i][j] for j in range(n)]
         for i in range(n)
     ])
     
-    # Compute A - iI
-    neg_i_identity = Fp2Matrix([
-        [Fp2Element((-elem.a) % p, (-elem.b) % p, p) for elem in row] 
-        for row in i_identity.rows
-    ])
-    a_minus_i = Fp2Matrix([
-        [skew_hermitian[i][j] + neg_i_identity[i][j] for j in range(n)] 
+    # Compute I - A
+    i_minus_a = Fp2Matrix([
+        [identity[i][j] - skew_hermitian[i][j] for j in range(n)]
         for i in range(n)
     ])
     
-    # Compute (A - iI)^(-1) using adjugate/determinant method
+    # Compute (I - A)^(-1) using adjugate/determinant method
     # For now, implement for 2x2 matrices as a start
     if n == 2:
-        return _matrix_inverse_2x2_and_multiply(a_minus_i, a_plus_i, p)
+        return _matrix_inverse_2x2_and_multiply(i_minus_a, i_plus_a, p)
     else:
         raise NotImplementedError("Cayley transform for n > 2 not yet implemented")
 
@@ -333,7 +329,7 @@ def test_cayley_unitarity():
                            for i in range(2) for j in range(2))
     print(f"  A† = -A: {is_skew_hermitian} ✓")
     
-    print(f"\n[Test 2] Applying Cayley transform: U = (A + iI)(A - iI)^(-1)")
+    print(f"\n[Test 2] Applying Cayley transform: U = (I + A)(I - A)^(-1)")
     try:
         unitary = cayley_transform(skew)
         print(f"  Unitary matrix U:")
@@ -361,30 +357,40 @@ def test_cayley_unitarity():
     
     orig_norm_sq = sum(x.norm_squared() for x in vec)
     result_norm_sq = sum(x.norm_squared() for x in result)
+    orig_norm_mod = orig_norm_sq % p
+    result_norm_mod = result_norm_sq % p
     
-    print(f"  Original vector norm²: {orig_norm_sq}")
-    print(f"  Transformed vector norm²: {result_norm_sq}")
-    print(f"  Norm preserved: {orig_norm_sq == result_norm_sq} {'✓' if orig_norm_sq == result_norm_sq else '✗'}")
+    print(f"  Original vector norm²: {orig_norm_mod}")
+    print(f"  Transformed vector norm²: {result_norm_mod}")
+    norm_ok = orig_norm_mod == result_norm_mod
+    print(f"  Norm preserved: {norm_ok} {'✓' if norm_ok else '✗'}")
     
     print(f"\n[Test 4] Multiple transformations (checking for drift)")
     current_vec = vec[:]
-    initial_norm = orig_norm_sq
+    initial_norm = orig_norm_mod
     
+    drift_ok = True
     for i in range(10):
         current_vec = [
             unitary[0][0] * current_vec[0] + unitary[0][1] * current_vec[1],
             unitary[1][0] * current_vec[0] + unitary[1][1] * current_vec[1]
         ]
         
-        current_norm = sum(x.norm_squared() for x in current_vec)
+        current_norm = sum(x.norm_squared() for x in current_vec) % p
         drifted = current_norm != initial_norm
         
+        if drifted:
+            drift_ok = False
         print(f"  Step {i+1}: norm²={current_norm}, drift={drifted} {'✓' if not drifted else '✗'}")
     
     print("\n" + "=" * 70)
-    print("✓ CAYLEY UNITARY TRANSFORM VALIDATED") 
-    print("✓ Zero-drift transformations confirmed")
-    print("✓ Ready for MYSTIC weather evolution integration!")
+    if is_unitary and norm_ok and drift_ok:
+        print("✓ CAYLEY UNITARY TRANSFORM VALIDATED")
+        print("✓ Zero-drift transformations confirmed")
+        print("✓ Ready for MYSTIC weather evolution integration!")
+    else:
+        print("○ CAYLEY UNITARY TRANSFORM FAILED")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
