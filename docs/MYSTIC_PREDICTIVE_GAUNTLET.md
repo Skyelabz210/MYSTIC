@@ -90,6 +90,12 @@ Example:
 python3 predictive_gauntlet.py --events predictive_gauntlet_events.json --output predictive_gauntlet_report.json
 ```
 
+Live Phase B:
+
+```
+python3 predictive_gauntlet_live.py --output predictive_gauntlet_live_report.json
+```
+
 ## Outputs
 
 - `predictive_gauntlet_report.json`: structured results, per-event details
@@ -104,3 +110,13 @@ python3 predictive_gauntlet.py --events predictive_gauntlet_events.json --output
 - Lead-time success: 100%
 
 Report: `predictive_gauntlet_report.json`
+
+## Phase B Results (Live APIs, 2026-01-08)
+
+- Events tested: 6
+- Risk accuracy: 100%
+- Score accuracy: 100%
+- Hazard accuracy: 100%
+- Lead-time success: 100%
+
+Report: `predictive_gauntlet_live_report.json`

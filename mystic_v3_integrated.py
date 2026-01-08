@@ -446,7 +446,16 @@ class MYSTICPredictorV3:
         confidence_sources.add("attractor")
 
         # 3. Lyapunov exponent contribution (0-35 points)
-        if lyapunov.stability == "HIGHLY_CHAOTIC":
+        low_variance_stable = (
+            trend == "STABLE"
+            and metrics.get("avg_abs_change", 0) <= 4
+            and metrics.get("change_variance", 0) <= 40
+            and attractor_class in ["CLEAR", "STEADY_RAIN"]
+        )
+        if low_variance_stable:
+            confidence += lyapunov.confidence // 2
+            confidence_sources.add("lyapunov")
+        elif lyapunov.stability == "HIGHLY_CHAOTIC":
             risk_score += 35
             confidence += lyapunov.confidence
             confidence_sources.add("lyapunov")
@@ -481,6 +490,17 @@ class MYSTICPredictorV3:
 
         if trend == "OSCILLATING":
             risk_score = max(0, risk_score - 20)
+
+        # Oscillation risk for stable-but-volatile series
+        if trend == "STABLE":
+            osc_ratio = metrics.get("oscillation_ratio", 0)
+            change_variance = metrics.get("change_variance", 0)
+            if osc_ratio >= 40 and change_variance >= 120:
+                risk_score += 30
+                confidence_sources.add("oscillation")
+            elif osc_ratio >= 30 and change_variance >= 60:
+                risk_score += 15
+                confidence_sources.add("oscillation")
 
         # 5. Evolution stability contribution (0-15 points)
         if not evolution_stable:

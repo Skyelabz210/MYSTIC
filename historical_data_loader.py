@@ -65,8 +65,11 @@ class HistoricalDataLoader:
                 "lat": 29.76,
                 "lon": -95.37,
                 "usgs_sites": ["08074000", "08075000"],  # Buffalo Bayou, Brays Bayou
+                "hazard_type": "HURRICANE",
                 "expected_risk": "CRITICAL",
                 "expected_min_score": 70,
+                "lead_window_ratio": 0.5,
+                "lead_min_score": 60,
             },
             "blanco_2015": {
                 "name": "Blanco River Flash Flood (2015)",
@@ -76,8 +79,11 @@ class HistoricalDataLoader:
                 "lat": 29.99,
                 "lon": -98.10,
                 "usgs_sites": ["08171000"],  # Blanco River at Wimberley
+                "hazard_type": "FLASH_FLOOD",
                 "expected_risk": "CRITICAL",
                 "expected_min_score": 70,
+                "lead_window_ratio": 0.6,
+                "lead_min_score": 50,
             },
             "camp_fire_2018": {
                 "name": "Camp Fire (2018)",
@@ -87,8 +93,11 @@ class HistoricalDataLoader:
                 "lat": 39.76,
                 "lon": -121.62,
                 "usgs_sites": [],
+                "hazard_type": "FIRE_WEATHER",
                 "expected_risk": "HIGH",
                 "expected_min_score": 50,
+                "lead_window_ratio": 0.6,
+                "lead_min_score": 35,
             },
             "joplin_2011": {
                 "name": "Joplin Tornado Region (2011)",
@@ -98,8 +107,11 @@ class HistoricalDataLoader:
                 "lat": 37.08,
                 "lon": -94.51,
                 "usgs_sites": [],
+                "hazard_type": "TORNADO",
                 "expected_risk": "CRITICAL",
                 "expected_min_score": 70,
+                "lead_window_ratio": 0.5,
+                "lead_min_score": 40,
             },
             "derecho_2012": {
                 "name": "June 2012 Derecho",
@@ -109,8 +121,11 @@ class HistoricalDataLoader:
                 "lat": 39.95,
                 "lon": -83.00,  # Columbus, OH area
                 "usgs_sites": [],
+                "hazard_type": "SEVERE_STORM",
                 "expected_risk": "HIGH",
                 "expected_min_score": 50,
+                "lead_window_ratio": 0.5,
+                "lead_min_score": 40,
             },
             "stable_reference": {
                 "name": "Stable Weather Reference",
@@ -120,8 +135,11 @@ class HistoricalDataLoader:
                 "lat": 30.05,
                 "lon": -99.17,
                 "usgs_sites": ["08171000"],
+                "hazard_type": "STABLE",
                 "expected_risk": "LOW",
                 "expected_min_score": 0,
+                "lead_window_ratio": 0.0,
+                "lead_min_score": 0,
             },
         }
 

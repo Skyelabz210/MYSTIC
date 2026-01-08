@@ -47,8 +47,8 @@ class VariableThresholds:
     # Pressure (hPa × 10)
     pressure_low_critical: int = 9800   # < 980 hPa
     pressure_low_warning: int = 10000   # < 1000 hPa
-    pressure_drop_critical: int = -50   # > 5 hPa drop
-    pressure_drop_warning: int = -30    # > 3 hPa drop
+    pressure_drop_critical: int = -25   # > 2.5 hPa drop (hourly data)
+    pressure_drop_warning: int = -15    # > 1.5 hPa drop
 
     # Humidity (%)
     humidity_fire_critical: int = 15    # < 15% = extreme fire danger
@@ -56,7 +56,7 @@ class VariableThresholds:
 
     # Wind speed (km/h × 10)
     wind_critical: int = 500            # > 50 km/h
-    wind_warning: int = 300             # > 30 km/h
+    wind_warning: int = 250             # > 25 km/h
 
     # Precipitation (mm × 100)
     precip_flood_critical: int = 5000   # > 50 mm/hr
@@ -147,6 +147,9 @@ class MultiVariableAnalyzer:
                 if max_drop < self.thresholds.pressure_drop_critical:
                     contributions["pressure"] += 20
                     signals.append("RAPID_PRESSURE_DROP")
+                elif max_drop < self.thresholds.pressure_drop_warning:
+                    contributions["pressure"] += 10
+                    signals.append("PRESSURE_DROP")
 
         if "humidity" in data and data["humidity"]:
             humidity = data["humidity"]
@@ -265,33 +268,63 @@ class MultiVariableAnalyzer:
         signals: List[str],
         contributions: Dict[str, int]
     ) -> HazardType:
-        """Classify hazard type based on signals."""
+        """
+        Classify hazard type based on signals.
+
+        Classification priority (fine-tuned 2026-01-08):
+        1. Hurricane: extreme low pressure + extreme wind + flood (tropical system)
+        2. Tornado: pressure oscillation WITHOUT extreme low pressure + extreme wind
+        3. Flash Flood: streamflow dominant OR precip without extreme wind
+        4. Fire Weather: low humidity dominant
+        5. Severe Storm: moderate multi-signal
+        6. Stable: low total
+
+        Key distinction:
+        - Hurricane: EXTREME_LOW_PRESSURE (<980 hPa) + flood → steady tropical drop
+        - Tornado: RAPID_PRESSURE_DROP but NOT EXTREME_LOW → oscillating mesocyclone
+        """
         has_flood = contributions["precip"] >= 20 or contributions["streamflow"] >= 20
         has_wind = contributions["wind"] >= 15
+        has_extreme_low_pressure = "EXTREME_LOW_PRESSURE" in signals
         has_low_pressure = "EXTREME_LOW_PRESSURE" in signals or "LOW_PRESSURE" in signals
+        has_pressure_drop = "RAPID_PRESSURE_DROP" in signals or "PRESSURE_DROP" in signals
         has_extreme_wind = contributions["wind"] >= 25
         has_heat = contributions["temp"] >= 10
         has_fire = contributions["humidity"] >= 20
         has_extreme_total = "EXTREME_PRECIP_TOTAL" in signals
+        has_streamflow_dominant = contributions["streamflow"] >= 25
 
-        # Hurricane: wind + flood + (extreme wind, low pressure, or tropical heat + extreme total)
-        if has_wind and has_flood and (
-            has_extreme_wind or has_low_pressure or (has_extreme_total and has_heat)
-        ):
+        # Hurricane: requires extreme low pressure + extreme wind + flood
+        # Key: extreme LOW pressure indicates organized tropical system, not just rapid drop
+        if has_extreme_low_pressure and has_extreme_wind and has_flood:
             return HazardType.HURRICANE
 
-        # Flash flood: precipitation + streamflow
-        if has_flood:
-            return HazardType.FLASH_FLOOD
-
-        # Tornado: pressure oscillation + wind
-        if "RAPID_PRESSURE_DROP" in signals and contributions["wind"] >= 15:
+        # Tornado: rapid pressure drop WITHOUT extreme low + extreme wind
+        # Key: tornado has oscillation but doesn't reach tropical-low pressure
+        if has_pressure_drop and has_extreme_wind and not has_extreme_low_pressure:
             return HazardType.TORNADO
 
-        # Fire weather: humidity-driven, but only if flood signals are absent
-        if has_fire:
-            if contributions["precip"] < 20 and contributions["streamflow"] < 20:
-                return HazardType.FIRE_WEATHER
+        # If we have extreme low pressure with flood but not extreme wind, still hurricane
+        if has_extreme_low_pressure and has_flood:
+            return HazardType.HURRICANE
+
+        # Flash flood: streamflow dominant OR heavy precip without extreme wind
+        if has_streamflow_dominant:
+            return HazardType.FLASH_FLOOD
+        if has_flood and not has_extreme_wind:
+            return HazardType.FLASH_FLOOD
+
+        # Fire weather: humidity-driven, requires NO flood signals
+        if has_fire and contributions["precip"] < 15 and contributions["streamflow"] < 15:
+            return HazardType.FIRE_WEATHER
+
+        # Severe storm: wind + flood without extreme low pressure
+        if has_wind and has_flood and not has_extreme_low_pressure:
+            return HazardType.SEVERE_STORM
+
+        # Severe storm: pressure drop without flood/fire
+        if has_pressure_drop and not has_flood and not has_fire:
+            return HazardType.SEVERE_STORM
 
         # Severe storm: multiple moderate signals
         if sum(contributions.values()) >= 30:

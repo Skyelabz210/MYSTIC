@@ -16,6 +16,7 @@ Comprehensive analysis of the MYSTIC V3 system reveals 7 gaps, all resolved. A p
 | Historical Data | VERIFIED | Live historical event loading validated |
 | Real Data Validation | VERIFIED | Multi-variable analyzer + gauntlet validated on 8 events |
 | Predictive Gauntlet | VERIFIED | 8 events, 100% risk/score/hazard/lead |
+| Live Gauntlet (Phase B) | VERIFIED | 6 events, 100% risk/score/hazard/lead |
 | Operator UX | RESOLVED | Front-end console available in frontend/ |
 
 ---
@@ -170,6 +171,14 @@ Fetchers are available for historical data. Results depend on network access and
 - Hazard accuracy: 100%
 - Lead-time success: 100%
 - Report: `predictive_gauntlet_report.json`
+
+### Predictive Gauntlet (Phase B - Live APIs)
+- Events tested: 6
+- Risk accuracy: 100%
+- Score accuracy: 100%
+- Hazard accuracy: 100%
+- Lead-time success: 100%
+- Report: `predictive_gauntlet_live_report.json`
 
 ---
 
