@@ -1,0 +1,50 @@
+[
+  {
+    "timestamp": "2007-06-25T14:00:00",
+    "station_id": "KEWX",
+    "rain_mm_hr": 0.1537645610180688,
+    "event_type": "low",
+    "source": "NEXRAD",
+    "site": "KEWX"
+  },
+  {
+    "timestamp": "2007-06-27T14:00:00",
+    "station_id": "KEWX",
+    "rain_mm_hr": 0.1537645610180688,
+    "event_type": "low",
+    "source": "NEXRAD",
+    "site": "KEWX"
+  },
+  {
+    "timestamp": "2007-06-28T08:00:00",
+    "station_id": "KEWX",
+    "rain_mm_hr": 0.1537645610180688,
+    "event_type": "low",
+    "source": "NEXRAD",
+    "site": "KEWX"
+  },
+  {
+    "timestamp": "2007-06-28T12:00:00",
+    "station_id": "KEWX",
+    "rain_mm_hr": 0.1537645610180688,
+    "event_type": "low",
+    "source": "NEXRAD",
+    "site": "KEWX"
+  },
+  {
+    "timestamp": "2007-06-28T13:00:00",
+    "station_id": "KEWX",
+    "rain_mm_hr": 0.1537645610180688,
+    "event_type": "low",
+    "source": "NEXRAD",
+    "site": "KEWX"
+  },
+  {
+    "timestamp": "2007-06-28T14:00:00",
+    "station_id": "KEWX",
+    "rain_mm_hr": 205.0483376247799,
+    "event_type": "extreme",
+    "source": "NEXRAD",
+    "site": "KEWX"
+  }
+]

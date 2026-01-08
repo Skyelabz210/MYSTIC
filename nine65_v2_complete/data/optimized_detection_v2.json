@@ -1,0 +1,35 @@
+{
+  "generated": "2025-12-22T21:28:49.524564",
+  "threshold_changes": {
+    "flash_flood": {
+      "rain_watch": "50\u219240 mm/hr",
+      "soil_saturation": "NEW"
+    },
+    "tornado": {
+      "stp_favorable": "1.0\u21920.5",
+      "cin_tracking": "NEW"
+    },
+    "ri": {
+      "sst_minimum": "26.5\u219226.0\u00b0C with OHC caveat",
+      "mld": "NEW"
+    },
+    "gic": {
+      "kp_minor": "5\u21924 with dB/dt caveat",
+      "density": "NEW"
+    }
+  },
+  "new_integrations": [
+    "NASA SMAP soil moisture",
+    "Antecedent Precipitation Index",
+    "CIN/LLJ for tornado timing",
+    "Mixed Layer Depth",
+    "Eyewall symmetry",
+    "Solar wind density and pressure"
+  ],
+  "test_results": {
+    "flash_flood_scenarios": 3,
+    "tornado_scenarios": 2,
+    "ri_scenarios": 2,
+    "gic_scenarios": 2
+  }
+}

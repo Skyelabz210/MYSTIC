@@ -1,0 +1,29 @@
+{
+  "generated": "2025-12-22T22:29:08.006397",
+  "v31_results": {
+    "tornado": {
+      "pod": 0.936046511627907,
+      "far": 0.0903954802259887,
+      "csi": 0.8563829787234043
+    },
+    "hurricane_ri": {
+      "pod": 1.0,
+      "far": 0.5276752767527675,
+      "csi": 0.47232472324723246
+    }
+  },
+  "targets_met": false,
+  "changes": {
+    "tornado": [
+      "Require mesocyclone + significant STP for WARNING",
+      "Raised STP threshold to 1.0 for WARNING",
+      "Stricter CIN cap at -75"
+    ],
+    "hurricane_ri": [
+      "Require 4+ factors for RI_IMMINENT",
+      "SST >= 26.5 hard requirement for IMMINENT",
+      "Stricter shear threshold (< 12 for favorable)",
+      "Higher MLD threshold (> 40m for favorable)"
+    ]
+  }
+}

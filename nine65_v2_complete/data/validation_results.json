@@ -1,0 +1,216 @@
+[
+  {
+    "event_name": "Camp Mystic Flash Flood",
+    "event_date": "2007-06-28T14:00:00",
+    "category": "flash_floods",
+    "severity": 8,
+    "actual_warning_time": "T-2h (flash flood warning issued)",
+    "mystic_detection_time": null,
+    "mystic_lead_hours": null,
+    "improvement_vs_actual": null,
+    "success": false,
+    "gaps_identified": [
+      "NEXRAD radar rainfall intensity integration",
+      "Basin-specific attractor training needed"
+    ],
+    "data_quality": "reconstructed (USGS available)"
+  },
+  {
+    "event_name": "Memorial Day Flood (Wimberley)",
+    "event_date": "2015-05-23T22:00:00",
+    "category": "flash_floods",
+    "severity": 9,
+    "actual_warning_time": "T-4h (flash flood watch)",
+    "mystic_detection_time": null,
+    "mystic_lead_hours": null,
+    "improvement_vs_actual": null,
+    "success": false,
+    "gaps_identified": [
+      "NEXRAD radar rainfall intensity integration",
+      "Basin-specific attractor training needed"
+    ],
+    "data_quality": "reconstructed (USGS available)"
+  },
+  {
+    "event_name": "Ellicott City Flash Flood",
+    "event_date": "2016-07-30T19:30:00",
+    "category": "flash_floods",
+    "severity": 7,
+    "actual_warning_time": "T-1h (severe thunderstorm warning)",
+    "mystic_detection_time": null,
+    "mystic_lead_hours": null,
+    "improvement_vs_actual": null,
+    "success": false,
+    "gaps_identified": [
+      "NEXRAD radar rainfall intensity integration",
+      "USGS stream gauge data missing",
+      "Basin-specific attractor training needed"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "Kinston Flash Flood (Hurricane Matthew)",
+    "event_date": "2016-10-10T06:00:00",
+    "category": "flash_floods",
+    "severity": 8,
+    "actual_warning_time": "T-12h (hurricane flood warnings)",
+    "mystic_detection_time": null,
+    "mystic_lead_hours": null,
+    "improvement_vs_actual": null,
+    "success": false,
+    "gaps_identified": [
+      "NEXRAD radar rainfall intensity integration",
+      "USGS stream gauge data missing",
+      "Basin-specific attractor training needed"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "Hurricane Harvey",
+    "event_date": "2017-08-25T03:00:00",
+    "category": "hurricanes",
+    "severity": 10,
+    "actual_warning_time": "T-120h (NHC tropical storm watch)",
+    "mystic_detection_time": "2017-08-21T03:00:00",
+    "mystic_lead_hours": 96.0,
+    "improvement_vs_actual": -24.0,
+    "success": true,
+    "gaps_identified": [
+      "NHC Best Track data integration",
+      "SST (sea surface temperature) fields",
+      "Rapid intensification predictors",
+      "Wind shear analysis algorithms"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "Hurricane Katrina",
+    "event_date": "2005-08-29T06:10:00",
+    "category": "hurricanes",
+    "severity": 10,
+    "actual_warning_time": "T-72h (hurricane watch)",
+    "mystic_detection_time": "2005-08-25T06:10:00",
+    "mystic_lead_hours": 96.0,
+    "improvement_vs_actual": 24.0,
+    "success": true,
+    "gaps_identified": [
+      "NHC Best Track data integration",
+      "SST (sea surface temperature) fields",
+      "Rapid intensification predictors",
+      "Wind shear analysis algorithms"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "Hurricane Maria",
+    "event_date": "2017-09-20T06:15:00",
+    "category": "hurricanes",
+    "severity": 10,
+    "actual_warning_time": "T-96h (tropical storm watch)",
+    "mystic_detection_time": "2017-09-16T06:15:00",
+    "mystic_lead_hours": 96.0,
+    "improvement_vs_actual": 0.0,
+    "success": true,
+    "gaps_identified": [
+      "NHC Best Track data integration",
+      "SST (sea surface temperature) fields",
+      "Rapid intensification predictors",
+      "Wind shear analysis algorithms"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "L'Aquila Earthquake",
+    "event_date": "2009-04-06T01:32:00",
+    "category": "earthquakes",
+    "severity": 7,
+    "actual_warning_time": "T-0s (controversial 'swarm' observations)",
+    "mystic_detection_time": null,
+    "mystic_lead_hours": null,
+    "improvement_vs_actual": null,
+    "success": false,
+    "gaps_identified": [],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "Halloween Geomagnetic Storm",
+    "event_date": "2003-10-29T06:00:00",
+    "category": "geomagnetic_storms",
+    "severity": 9,
+    "actual_warning_time": "T-48h (solar flare X17.2 observed)",
+    "mystic_detection_time": "2003-10-27T18:00:00",
+    "mystic_lead_hours": 36.0,
+    "improvement_vs_actual": -12.0,
+    "success": true,
+    "gaps_identified": [
+      "Real-time magnetometer network",
+      "Ionospheric D-region absorption models",
+      "GIC (geomagnetically induced currents) coupling"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "Quebec Blackout Storm",
+    "event_date": "1989-03-13T02:45:00",
+    "category": "geomagnetic_storms",
+    "severity": 8,
+    "actual_warning_time": "T-24h (solar flare observed)",
+    "mystic_detection_time": "1989-03-11T14:45:00",
+    "mystic_lead_hours": 36.0,
+    "improvement_vs_actual": 12.0,
+    "success": true,
+    "gaps_identified": [
+      "Real-time magnetometer network",
+      "Ionospheric D-region absorption models",
+      "GIC (geomagnetically induced currents) coupling"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "Hurricane Harvey + King Tide",
+    "event_date": "2017-08-25T03:00:00",
+    "category": "compound_events",
+    "severity": 10,
+    "actual_warning_time": "T-120h (hurricane), T-weeks (astronomical tide prediction)",
+    "mystic_detection_time": null,
+    "mystic_lead_hours": null,
+    "improvement_vs_actual": null,
+    "success": false,
+    "gaps_identified": [],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "2011 Super Outbreak",
+    "event_date": "2011-04-27T15:00:00",
+    "category": "tornado_outbreaks",
+    "severity": 10,
+    "actual_warning_time": "T-72h (severe weather outlook)",
+    "mystic_detection_time": "2011-04-25T15:00:00",
+    "mystic_lead_hours": 48.0,
+    "improvement_vs_actual": -24.0,
+    "success": true,
+    "gaps_identified": [
+      "Mesocyclone detection algorithms",
+      "Storm-relative helicity computation",
+      "Tornado vortex signature (TVS) detection"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  },
+  {
+    "event_name": "Joplin Tornado",
+    "event_date": "2011-05-22T17:34:00",
+    "category": "tornado_outbreaks",
+    "severity": 9,
+    "actual_warning_time": "T-20min (tornado warning)",
+    "mystic_detection_time": "2011-05-20T17:34:00",
+    "mystic_lead_hours": 48.0,
+    "improvement_vs_actual": 47.666666666666664,
+    "success": true,
+    "gaps_identified": [
+      "Mesocyclone detection algorithms",
+      "Storm-relative helicity computation",
+      "Tornado vortex signature (TVS) detection"
+    ],
+    "data_quality": "synthetic (no direct obs)"
+  }
+]

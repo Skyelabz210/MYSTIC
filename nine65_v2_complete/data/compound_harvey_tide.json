@@ -1,0 +1,701 @@
+{
+  "event": "Hurricane Harvey + King Tide",
+  "date": "2017-08-25",
+  "location": "Rockport, Texas",
+  "scales_analyzed": [
+    "atmospheric",
+    "oceanic",
+    "planetary",
+    "terrestrial"
+  ],
+  "first_alerts": {
+    "ELEVATED": {
+      "hour": -120,
+      "timestamp": "2017-08-20T03:00:00",
+      "risk": 0.386,
+      "contributors": [
+        "planetary"
+      ]
+    },
+    "COMPOUND_WATCH": {
+      "hour": -96,
+      "timestamp": "2017-08-21T03:00:00",
+      "risk": 0.591,
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    "COMPOUND_WARNING": {
+      "hour": -72,
+      "timestamp": "2017-08-22T03:00:00",
+      "risk": 0.715,
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    "COMPOUND_EMERGENCY": {
+      "hour": -48,
+      "timestamp": "2017-08-23T03:00:00",
+      "risk": 1.0,
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary"
+      ]
+    }
+  },
+  "timeline": [
+    {
+      "timestamp": "2017-08-20T03:00:00",
+      "hour_offset": -120,
+      "atmospheric": {
+        "hazard": 0.2,
+        "alert": "WATCH",
+        "wind_kts": 25
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.8454806779635734,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.386,
+      "compound_alert": "ELEVATED",
+      "contributors": [
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-20T09:00:00",
+      "hour_offset": -114,
+      "atmospheric": {
+        "hazard": 0.2,
+        "alert": "WATCH",
+        "wind_kts": 25
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.8454806779635734,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.386,
+      "compound_alert": "ELEVATED",
+      "contributors": [
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-20T15:00:00",
+      "hour_offset": -108,
+      "atmospheric": {
+        "hazard": 0.2,
+        "alert": "WATCH",
+        "wind_kts": 25
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.8454806779635734,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.386,
+      "compound_alert": "ELEVATED",
+      "contributors": [
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-20T21:00:00",
+      "hour_offset": -102,
+      "atmospheric": {
+        "hazard": 0.2,
+        "alert": "WATCH",
+        "wind_kts": 25
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.8454806779635734,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.386,
+      "compound_alert": "ELEVATED",
+      "contributors": [
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-21T03:00:00",
+      "hour_offset": -96,
+      "atmospheric": {
+        "hazard": 0.4,
+        "alert": "WARNING",
+        "wind_kts": 50
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.85,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.591,
+      "compound_alert": "COMPOUND_WATCH",
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-21T09:00:00",
+      "hour_offset": -90,
+      "atmospheric": {
+        "hazard": 0.4,
+        "alert": "WARNING",
+        "wind_kts": 50
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.85,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.591,
+      "compound_alert": "COMPOUND_WATCH",
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-21T15:00:00",
+      "hour_offset": -84,
+      "atmospheric": {
+        "hazard": 0.4,
+        "alert": "WARNING",
+        "wind_kts": 50
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.85,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.591,
+      "compound_alert": "COMPOUND_WATCH",
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-21T21:00:00",
+      "hour_offset": -78,
+      "atmospheric": {
+        "hazard": 0.4,
+        "alert": "WARNING",
+        "wind_kts": 50
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.85,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.591,
+      "compound_alert": "COMPOUND_WATCH",
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-22T03:00:00",
+      "hour_offset": -72,
+      "atmospheric": {
+        "hazard": 0.6,
+        "alert": "WARNING",
+        "wind_kts": 75
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.8454806779635734,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.715,
+      "compound_alert": "COMPOUND_WARNING",
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-22T09:00:00",
+      "hour_offset": -66,
+      "atmospheric": {
+        "hazard": 0.6,
+        "alert": "WARNING",
+        "wind_kts": 75
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.8454806779635734,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.715,
+      "compound_alert": "COMPOUND_WARNING",
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-22T15:00:00",
+      "hour_offset": -60,
+      "atmospheric": {
+        "hazard": 0.6,
+        "alert": "WARNING",
+        "wind_kts": 75
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.8454806779635734,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.715,
+      "compound_alert": "COMPOUND_WARNING",
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-22T21:00:00",
+      "hour_offset": -54,
+      "atmospheric": {
+        "hazard": 0.6,
+        "alert": "WARNING",
+        "wind_kts": 75
+      },
+      "oceanic": {
+        "hazard": 0.3,
+        "alert": "WATCH",
+        "surge_m": 0.5
+      },
+      "planetary": {
+        "hazard": 0.8454806779635734,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 0.715,
+      "compound_alert": "COMPOUND_WARNING",
+      "contributors": [
+        "atmospheric",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-23T03:00:00",
+      "hour_offset": -48,
+      "atmospheric": {
+        "hazard": 0.85,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.6,
+        "alert": "WARNING",
+        "surge_m": 2.0
+      },
+      "planetary": {
+        "hazard": 0.8321269545709827,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-23T09:00:00",
+      "hour_offset": -42,
+      "atmospheric": {
+        "hazard": 0.85,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.6,
+        "alert": "WARNING",
+        "surge_m": 2.0
+      },
+      "planetary": {
+        "hazard": 0.8321269545709827,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-23T15:00:00",
+      "hour_offset": -36,
+      "atmospheric": {
+        "hazard": 0.85,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.6,
+        "alert": "WARNING",
+        "surge_m": 2.0
+      },
+      "planetary": {
+        "hazard": 0.8321269545709827,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-23T21:00:00",
+      "hour_offset": -30,
+      "atmospheric": {
+        "hazard": 0.85,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.6,
+        "alert": "WARNING",
+        "surge_m": 2.0
+      },
+      "planetary": {
+        "hazard": 0.8321269545709827,
+        "alert": "WATCH",
+        "note": "PERIGEAN SPRING TIDE"
+      },
+      "terrestrial": {
+        "hazard": 0.2,
+        "alert": "CLEAR"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary"
+      ]
+    },
+    {
+      "timestamp": "2017-08-24T03:00:00",
+      "hour_offset": -24,
+      "atmospheric": {
+        "hazard": 0.95,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.9,
+        "alert": "EMERGENCY",
+        "surge_m": 3.8
+      },
+      "planetary": {
+        "hazard": 0.6605423275861928,
+        "alert": "CLEAR",
+        "note": "Normal tide"
+      },
+      "terrestrial": {
+        "hazard": 0.5,
+        "alert": "WATCH"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary",
+        "terrestrial"
+      ]
+    },
+    {
+      "timestamp": "2017-08-24T09:00:00",
+      "hour_offset": -18,
+      "atmospheric": {
+        "hazard": 0.95,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.9,
+        "alert": "EMERGENCY",
+        "surge_m": 3.8
+      },
+      "planetary": {
+        "hazard": 0.6605423275861928,
+        "alert": "CLEAR",
+        "note": "Normal tide"
+      },
+      "terrestrial": {
+        "hazard": 0.575,
+        "alert": "WATCH"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary",
+        "terrestrial"
+      ]
+    },
+    {
+      "timestamp": "2017-08-24T15:00:00",
+      "hour_offset": -12,
+      "atmospheric": {
+        "hazard": 0.95,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.9,
+        "alert": "EMERGENCY",
+        "surge_m": 3.8
+      },
+      "planetary": {
+        "hazard": 0.6605423275861928,
+        "alert": "CLEAR",
+        "note": "Normal tide"
+      },
+      "terrestrial": {
+        "hazard": 0.65,
+        "alert": "WATCH"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary",
+        "terrestrial"
+      ]
+    },
+    {
+      "timestamp": "2017-08-24T21:00:00",
+      "hour_offset": -6,
+      "atmospheric": {
+        "hazard": 0.95,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.9,
+        "alert": "EMERGENCY",
+        "surge_m": 3.8
+      },
+      "planetary": {
+        "hazard": 0.6605423275861928,
+        "alert": "CLEAR",
+        "note": "Normal tide"
+      },
+      "terrestrial": {
+        "hazard": 0.725,
+        "alert": "WATCH"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary",
+        "terrestrial"
+      ]
+    },
+    {
+      "timestamp": "2017-08-25T03:00:00",
+      "hour_offset": 0,
+      "atmospheric": {
+        "hazard": 0.95,
+        "alert": "EMERGENCY",
+        "wind_kts": 130
+      },
+      "oceanic": {
+        "hazard": 0.9,
+        "alert": "EMERGENCY",
+        "surge_m": 3.8
+      },
+      "planetary": {
+        "hazard": 0.6317022758130078,
+        "alert": "CLEAR",
+        "note": "Normal tide"
+      },
+      "terrestrial": {
+        "hazard": 0.9,
+        "alert": "EMERGENCY"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary",
+        "terrestrial"
+      ]
+    },
+    {
+      "timestamp": "2017-08-25T09:00:00",
+      "hour_offset": 6,
+      "atmospheric": {
+        "hazard": 0.7,
+        "alert": "WARNING",
+        "wind_kts": 80
+      },
+      "oceanic": {
+        "hazard": 0.5,
+        "alert": "WARNING",
+        "surge_m": 1.5
+      },
+      "planetary": {
+        "hazard": 0.6317022758130078,
+        "alert": "CLEAR",
+        "note": "Normal tide"
+      },
+      "terrestrial": {
+        "hazard": 0.9,
+        "alert": "EMERGENCY"
+      },
+      "compound_risk": 1.0,
+      "compound_alert": "COMPOUND_EMERGENCY",
+      "contributors": [
+        "atmospheric",
+        "oceanic",
+        "planetary",
+        "terrestrial"
+      ]
+    }
+  ]
+}

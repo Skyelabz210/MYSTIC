@@ -1,0 +1,210 @@
+{
+  "event": "Quebec Blackout Storm",
+  "date": "1989-03-13",
+  "location": "Quebec, Canada",
+  "impact": "6 million without power for 9 hours",
+  "kp_max": 9,
+  "db_dt_max": 530,
+  "first_watch": "1989-03-12T07:00:00",
+  "first_warning": "1989-03-13T12:00:00",
+  "timeline": [
+    {
+      "timestamp": "1989-03-10T18:00:00",
+      "phase": "flare",
+      "kp_index": 2,
+      "db_dt_nt_min": 5,
+      "bz_nt": 5,
+      "risk": 0.0,
+      "alert": "CLEAR",
+      "notes": "X4.5 flare observed",
+      "factors": [
+        "High ground resistivity (amplified GIC)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-11T00:00:00",
+      "phase": "transit",
+      "kp_index": 2,
+      "db_dt_nt_min": 5,
+      "bz_nt": 3,
+      "risk": 0.0,
+      "alert": "CLEAR",
+      "notes": "CME in transit",
+      "factors": [
+        "High ground resistivity (amplified GIC)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-11T12:00:00",
+      "phase": "transit",
+      "kp_index": 3,
+      "db_dt_nt_min": 10,
+      "bz_nt": 2,
+      "risk": 0.0,
+      "alert": "CLEAR",
+      "notes": "CME approaching",
+      "factors": [
+        "High ground resistivity (amplified GIC)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-12T00:00:00",
+      "phase": "transit",
+      "kp_index": 3,
+      "db_dt_nt_min": 15,
+      "bz_nt": 0,
+      "risk": 0.0,
+      "alert": "CLEAR",
+      "notes": "CME imminent",
+      "factors": [
+        "High ground resistivity (amplified GIC)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-12T07:00:00",
+      "phase": "sudden_commencement",
+      "kp_index": 5,
+      "db_dt_nt_min": 50,
+      "bz_nt": -10,
+      "risk": 0.329,
+      "alert": "GIC_WATCH",
+      "notes": "CME impact!",
+      "factors": [
+        "Kp=5 MINOR (G1 storm)",
+        "dB/dt=50 nT/min ELEVATED",
+        "Bz=-10 nT (southward)",
+        "High ground resistivity (amplified GIC)",
+        "Sudden commencement"
+      ]
+    },
+    {
+      "timestamp": "1989-03-12T12:00:00",
+      "phase": "main",
+      "kp_index": 7,
+      "db_dt_nt_min": 150,
+      "bz_nt": -15,
+      "risk": 0.78,
+      "alert": "GIC_EMERGENCY",
+      "notes": "Storm intensifying",
+      "factors": [
+        "Kp=7 STRONG (G3 storm)",
+        "dB/dt=150 nT/min SIGNIFICANT",
+        "Bz=-15 nT (southward)",
+        "High ground resistivity (amplified GIC)",
+        "Main phase (peak activity)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-12T18:00:00",
+      "phase": "main",
+      "kp_index": 8,
+      "db_dt_nt_min": 300,
+      "bz_nt": -20,
+      "risk": 1.0,
+      "alert": "GIC_EMERGENCY",
+      "notes": "Severe storm",
+      "factors": [
+        "Kp=8 SEVERE (G4 storm)",
+        "dB/dt=300 nT/min DANGEROUS",
+        "Bz=-20 nT (strongly southward)",
+        "High ground resistivity (amplified GIC)",
+        "Main phase (peak activity)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-13T00:00:00",
+      "phase": "main",
+      "kp_index": 9,
+      "db_dt_nt_min": 480,
+      "bz_nt": -25,
+      "risk": 1.0,
+      "alert": "GIC_EMERGENCY",
+      "notes": "Extreme storm",
+      "factors": [
+        "Kp=9 EXTREME (G5 storm)",
+        "dB/dt=480 nT/min DANGEROUS",
+        "Bz=-25 nT (strongly southward)",
+        "High ground resistivity (amplified GIC)",
+        "Main phase (peak activity)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-13T02:44:00",
+      "phase": "main",
+      "kp_index": 9,
+      "db_dt_nt_min": 530,
+      "bz_nt": -30,
+      "risk": 1.0,
+      "alert": "GIC_EMERGENCY",
+      "notes": "GRID COLLAPSE",
+      "factors": [
+        "Kp=9 EXTREME (G5 storm)",
+        "dB/dt=530 nT/min EXTREME",
+        "Bz=-30 nT (strongly southward)",
+        "High ground resistivity (amplified GIC)",
+        "Main phase (peak activity)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-13T06:00:00",
+      "phase": "main",
+      "kp_index": 8,
+      "db_dt_nt_min": 350,
+      "bz_nt": -20,
+      "risk": 1.0,
+      "alert": "GIC_EMERGENCY",
+      "notes": "Continued storm",
+      "factors": [
+        "Kp=8 SEVERE (G4 storm)",
+        "dB/dt=350 nT/min DANGEROUS",
+        "Bz=-20 nT (strongly southward)",
+        "High ground resistivity (amplified GIC)",
+        "Main phase (peak activity)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-13T12:00:00",
+      "phase": "recovery",
+      "kp_index": 7,
+      "db_dt_nt_min": 200,
+      "bz_nt": -12,
+      "risk": 0.65,
+      "alert": "GIC_WARNING",
+      "notes": "Recovery beginning",
+      "factors": [
+        "Kp=7 STRONG (G3 storm)",
+        "dB/dt=200 nT/min SIGNIFICANT",
+        "Bz=-12 nT (southward)",
+        "High ground resistivity (amplified GIC)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-14T00:00:00",
+      "phase": "recovery",
+      "kp_index": 5,
+      "db_dt_nt_min": 80,
+      "bz_nt": -5,
+      "risk": 0.169,
+      "alert": "GIC_ALERT",
+      "notes": "Recovery phase",
+      "factors": [
+        "Kp=5 MINOR (G1 storm)",
+        "dB/dt=80 nT/min ELEVATED",
+        "High ground resistivity (amplified GIC)"
+      ]
+    },
+    {
+      "timestamp": "1989-03-14T12:00:00",
+      "phase": "quiet",
+      "kp_index": 3,
+      "db_dt_nt_min": 20,
+      "bz_nt": 2,
+      "risk": 0.0,
+      "alert": "CLEAR",
+      "notes": "Storm subsiding",
+      "factors": [
+        "High ground resistivity (amplified GIC)"
+      ]
+    }
+  ]
+}

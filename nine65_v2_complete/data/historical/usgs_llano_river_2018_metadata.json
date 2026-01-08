@@ -1,0 +1,19 @@
+{
+  "event_name": "Llano River 2018",
+  "event_date": "2018-10-16",
+  "county": "Llano",
+  "deaths": 9,
+  "stations": [
+    "08150000",
+    "08150700",
+    "08151500",
+    "08152000"
+  ],
+  "data_range": {
+    "start": "2018-10-09",
+    "end": "2018-10-19"
+  },
+  "readings_count": 11867,
+  "downloaded": "2025-12-23T13:52:22.979447",
+  "source": "USGS NWIS API"
+}

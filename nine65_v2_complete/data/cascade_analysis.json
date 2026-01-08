@@ -1,0 +1,175 @@
+{
+  "generated": "2025-12-22T21:59:54.958690",
+  "cascade_simulations": {
+    "tohoku_2011": {
+      "EARTHQUAKE": {
+        "stage_probability": 1.0,
+        "cumulative_probability": 1.0,
+        "min_delay_hours": 0,
+        "max_delay_hours": 0,
+        "expected_delay_hours": 0.0,
+        "trigger_condition": "Tectonic stress release",
+        "active_modifiers": []
+      },
+      "TSUNAMI": {
+        "stage_probability": 0.9,
+        "cumulative_probability": 0.9,
+        "min_delay_hours": 0.1,
+        "max_delay_hours": 4.0,
+        "expected_delay_hours": 2.05,
+        "trigger_condition": "M7.0+ submarine earthquake",
+        "active_modifiers": [
+          "magnitude_8plus",
+          "shallow_depth",
+          "subduction_zone"
+        ]
+      },
+      "COASTAL_FLOODING": {
+        "stage_probability": 0.88,
+        "cumulative_probability": 0.792,
+        "min_delay_hours": 0.5,
+        "max_delay_hours": 6.0,
+        "expected_delay_hours": 3.25,
+        "trigger_condition": "Tsunami wave height > 2m",
+        "active_modifiers": [
+          "wave_height_5m",
+          "low_lying_coast",
+          "harbor_amplification"
+        ]
+      },
+      "INFRASTRUCTURE_FAILURE": {
+        "stage_probability": 0.75,
+        "cumulative_probability": 0.594,
+        "min_delay_hours": 1.0,
+        "max_delay_hours": 24.0,
+        "expected_delay_hours": 12.5,
+        "trigger_condition": "Inundation depth > 1m",
+        "active_modifiers": [
+          "critical_facilities"
+        ]
+      }
+    },
+    "maria_2017": {
+      "HURRICANE_LANDFALL": {
+        "stage_probability": 1.0,
+        "cumulative_probability": 1.0,
+        "min_delay_hours": 0,
+        "max_delay_hours": 0,
+        "expected_delay_hours": 0.0,
+        "trigger_condition": "Category 3+ landfall",
+        "active_modifiers": []
+      },
+      "STORM_SURGE_FLOOD": {
+        "stage_probability": 0.95,
+        "cumulative_probability": 0.95,
+        "min_delay_hours": 0,
+        "max_delay_hours": 6.0,
+        "expected_delay_hours": 3.0,
+        "trigger_condition": "Surge height > 6 ft at coast",
+        "active_modifiers": [
+          "category_5",
+          "category_4"
+        ]
+      },
+      "POWER_OUTAGE": {
+        "stage_probability": 0.95,
+        "cumulative_probability": 0.9025,
+        "min_delay_hours": 0,
+        "max_delay_hours": 12.0,
+        "expected_delay_hours": 6.0,
+        "trigger_condition": "Wind > 100 mph or substation flooding",
+        "active_modifiers": [
+          "overhead_lines",
+          "substation_flooded"
+        ]
+      },
+      "EXTENDED_OUTAGE": {
+        "stage_probability": 0.85,
+        "cumulative_probability": 0.7671,
+        "min_delay_hours": 24.0,
+        "max_delay_hours": 168.0,
+        "expected_delay_hours": 96.0,
+        "trigger_condition": "Major infrastructure damage",
+        "active_modifiers": [
+          "transmission_damage",
+          "island_grid"
+        ]
+      },
+      "HEAT_CASUALTIES": {
+        "stage_probability": 0.8,
+        "cumulative_probability": 0.6137,
+        "min_delay_hours": 48.0,
+        "max_delay_hours": 336.0,
+        "expected_delay_hours": 192.0,
+        "trigger_condition": "Extended outage during heat wave",
+        "active_modifiers": [
+          "heat_index_100",
+          "elderly_population",
+          "hospital_backup_failed"
+        ]
+      }
+    },
+    "quebec_1989": {
+      "CME_IMPACT": {
+        "stage_probability": 1.0,
+        "cumulative_probability": 1.0,
+        "min_delay_hours": 0,
+        "max_delay_hours": 0,
+        "expected_delay_hours": 0.0,
+        "trigger_condition": "Earth-directed CME arrival",
+        "active_modifiers": []
+      },
+      "GIC_SURGE": {
+        "stage_probability": 0.88,
+        "cumulative_probability": 0.88,
+        "min_delay_hours": 0,
+        "max_delay_hours": 2.0,
+        "expected_delay_hours": 1.0,
+        "trigger_condition": "dB/dt > 300 nT/min",
+        "active_modifiers": [
+          "kp_9",
+          "high_latitude",
+          "high_resistivity_geology"
+        ]
+      },
+      "TRANSFORMER_SATURATION": {
+        "stage_probability": 0.85,
+        "cumulative_probability": 0.748,
+        "min_delay_hours": 0,
+        "max_delay_hours": 1.0,
+        "expected_delay_hours": 0.5,
+        "trigger_condition": "GIC > 100 A",
+        "active_modifiers": [
+          "high_voltage_345kv"
+        ]
+      },
+      "TRANSFORMER_DAMAGE": {
+        "stage_probability": 0.6,
+        "cumulative_probability": 0.4488,
+        "min_delay_hours": 0.5,
+        "max_delay_hours": 4.0,
+        "expected_delay_hours": 2.25,
+        "trigger_condition": "Sustained saturation > 30 min",
+        "active_modifiers": [
+          "no_protection"
+        ]
+      },
+      "REGIONAL_BLACKOUT": {
+        "stage_probability": 0.5,
+        "cumulative_probability": 0.2244,
+        "min_delay_hours": 0,
+        "max_delay_hours": 2.0,
+        "expected_delay_hours": 1.0,
+        "trigger_condition": "Multiple transformer failures",
+        "active_modifiers": [
+          "interconnected_grid"
+        ]
+      }
+    }
+  },
+  "defined_chains": [
+    "Earthquake-Tsunami-Infrastructure",
+    "Hurricane-Flood-Power-Casualties",
+    "Solar-Storm-Grid-Cascade"
+  ]
+}

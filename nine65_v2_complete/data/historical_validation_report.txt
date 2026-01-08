@@ -1,0 +1,88 @@
+================================================================================
+MYSTIC HISTORICAL VALIDATION REPORT
+Real USGS Data Testing - Texas Flash Floods
+Generated: 2025-12-23T13:47:16.973933
+================================================================================
+
+OVERALL VERIFICATION METRICS
+----------------------------------------
+Probability of Detection (POD): 45.0%
+False Alarm Rate (FAR):         0.0%
+Critical Success Index (CSI):   45.0%
+
+Hits:              9
+Misses:            11
+False Alarms:      0
+Correct Negatives: 12
+
+--------------------------------------------------------------------------------
+EVENT: Camp Mystic Flash Flood
+--------------------------------------------------------------------------------
+Detection: FAILED TO DETECT
+
+Timeline:
+  T-24h | CLEAR        | P=0% | Stage=  2.5ft | missed
+  T-18h | CLEAR        | P=0% | Stage=  2.5ft | missed
+  T-12h | CLEAR        | P=0% | Stage=  2.5ft | missed
+  T -6h | CLEAR        | P=15% | Stage=  2.5ft | missed
+  T -3h | CLEAR        | P=15% | Stage=  8.1ft | missed
+  T -2h | CLEAR        | P=15% | Stage=  8.1ft | missed
+  T -1h | CLEAR        | P=15% | Stage=  8.1ft | missed
+  T +0h | CLEAR        | P=15% | Stage=  8.1ft | missed
+
+--------------------------------------------------------------------------------
+EVENT: Memorial Day Flood
+--------------------------------------------------------------------------------
+Earliest Detection: T-3h (FF_EMERGENCY)
+Maximum Lead Time:  3 hours
+
+Timeline:
+  T-24h | CLEAR        | P=0% | Stage=  5.0ft | missed
+  T-18h | CLEAR        | P=0% | Stage=  4.9ft | missed
+  T-12h | CLEAR        | P=0% | Stage=  4.9ft | missed
+  T -6h | CLEAR        | P=15% | Stage=  5.0ft | missed
+  T -3h | FF_EMERGENCY | P=70% | Stage= 17.1ft | DETECTED
+  T -2h | FF_EMERGENCY | P=95% | Stage= 32.4ft | DETECTED
+  T -1h | FF_EMERGENCY | P=95% | Stage= 40.2ft | DETECTED
+  T +0h | FF_EMERGENCY | P=95% | Stage= 40.2ft | DETECTED
+
+--------------------------------------------------------------------------------
+EVENT: Hurricane Harvey Flooding
+--------------------------------------------------------------------------------
+Detection: FAILED TO DETECT
+
+Timeline:
+  T-24h | CLEAR        | P=0% | Stage=  5.2ft | missed
+  T-18h | FF_WATCH     | P=45% | Stage= 41.0ft | missed
+  T-12h | FF_WATCH     | P=45% | Stage= 50.8ft | missed
+  T -6h | FF_WATCH     | P=30% | Stage= 12.3ft | missed
+  T -3h | FF_WATCH     | P=30% | Stage= 11.7ft | missed
+  T -2h | FF_WATCH     | P=30% | Stage= 12.8ft | missed
+  T -1h | FF_WATCH     | P=30% | Stage= 13.7ft | missed
+  T +0h | FF_WATCH     | P=30% | Stage= 14.6ft | missed
+
+--------------------------------------------------------------------------------
+EVENT: Llano River Flash Flood
+--------------------------------------------------------------------------------
+Earliest Detection: T-6h (FF_EMERGENCY)
+Maximum Lead Time:  6 hours
+
+Timeline:
+  T-24h | CLEAR        | P=15% | Stage=  6.7ft | missed
+  T-18h | CLEAR        | P=15% | Stage= 10.7ft | missed
+  T-12h | CLEAR        | P=0% | Stage=  8.8ft | missed
+  T -6h | FF_EMERGENCY | P=85% | Stage= 25.9ft | DETECTED
+  T -3h | FF_WARNING   | P=60% | Stage= 28.2ft | DETECTED
+  T -2h | FF_WARNING   | P=60% | Stage= 27.2ft | DETECTED
+  T -1h | FF_WARNING   | P=60% | Stage= 25.9ft | DETECTED
+  T +0h | FF_ADVISORY  | P=45% | Stage= 24.5ft | DETECTED
+
+================================================================================
+TARGETS ASSESSMENT
+----------------------------------------
+POD >= 85%:  FAIL (45.0%)
+FAR <= 30%:  PASS (0.0%)
+CSI >= 50%:  FAIL (45.0%)
+
+OVERALL: TARGETS NOT MET - REQUIRES TUNING
+================================================================================

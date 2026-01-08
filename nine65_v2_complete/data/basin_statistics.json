@@ -1,0 +1,23 @@
+{
+  "guadalupe_upper": {
+    "name": "Upper Guadalupe River (Camp Mystic)",
+    "events": 2,
+    "samples": 158,
+    "flood_stage_cm": 213,
+    "response_time_hours": 1.5
+  },
+  "blanco_river": {
+    "name": "Blanco River (Wimberley)",
+    "events": 2,
+    "samples": 158,
+    "flood_stage_cm": 274,
+    "response_time_hours": 2.0
+  },
+  "medina_river": {
+    "name": "Medina River",
+    "events": 1,
+    "samples": 79,
+    "flood_stage_cm": 305,
+    "response_time_hours": 3.0
+  }
+}

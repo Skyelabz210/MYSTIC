@@ -1,0 +1,232 @@
+{
+  "generated": "2026-01-07T08:05:27.903102",
+  "flash_flood_gaps": {
+    "soil_moisture": {
+      "impact": "HIGH",
+      "effort": "MEDIUM",
+      "data_sources": [
+        "NASA SMAP",
+        "NOAA SNODAS",
+        "USDA SCAN"
+      ],
+      "tuning": "Add saturation factor to reduce rain threshold"
+    },
+    "urban_drainage": {
+      "impact": "MEDIUM",
+      "effort": "LOW",
+      "data_sources": [
+        "NLCD impervious",
+        "FEMA flood maps"
+      ],
+      "tuning": "Basin-specific imperviousness modifier"
+    },
+    "antecedent_precip": {
+      "impact": "MEDIUM",
+      "effort": "LOW",
+      "data_sources": [
+        "PRISM",
+        "NWS QPE"
+      ],
+      "tuning": "7-day API calculation"
+    }
+  },
+  "tornado_gaps": {
+    "low_level_jet": {
+      "impact": "HIGH",
+      "effort": "MEDIUM",
+      "data_sources": [
+        "RAP/HRRR 925mb",
+        "Profilers"
+      ],
+      "tuning": "LLJ position tracking for timing"
+    },
+    "cin_tracking": {
+      "impact": "MEDIUM",
+      "effort": "LOW",
+      "data_sources": [
+        "SPC mesoanalysis",
+        "RAP soundings"
+      ],
+      "tuning": "CIN erosion rate for initiation timing"
+    },
+    "dual_pol": {
+      "impact": "HIGH",
+      "effort": "HIGH",
+      "data_sources": [
+        "NEXRAD dual-pol Level-II"
+      ],
+      "tuning": "ZDR arc, KDP foot, CC debris detection"
+    },
+    "storm_mode": {
+      "impact": "MEDIUM",
+      "effort": "MEDIUM",
+      "data_sources": [
+        "MRMS rotation tracks"
+      ],
+      "tuning": "QLCS vs supercell classification"
+    }
+  },
+  "ri_gaps": {
+    "inner_core": {
+      "impact": "HIGH",
+      "effort": "HIGH",
+      "data_sources": [
+        "AMSU microwave",
+        "CIMSS ADT"
+      ],
+      "tuning": "Eyewall symmetry and warm core tracking"
+    },
+    "mixed_layer_depth": {
+      "impact": "HIGH",
+      "effort": "MEDIUM",
+      "data_sources": [
+        "Argo floats",
+        "HYCOM"
+      ],
+      "tuning": "MLD threshold for cooling feedback"
+    },
+    "outflow_patterns": {
+      "impact": "MEDIUM",
+      "effort": "MEDIUM",
+      "data_sources": [
+        "GOES water vapor",
+        "200mb analysis"
+      ],
+      "tuning": "Outflow channel identification"
+    },
+    "vortex_tilt": {
+      "impact": "HIGH",
+      "effort": "HIGH",
+      "data_sources": [
+        "Recon fixes",
+        "Microwave"
+      ],
+      "tuning": "Vertical alignment tracking"
+    }
+  },
+  "gic_gaps": {
+    "magnetometer_network": {
+      "impact": "HIGH",
+      "effort": "MEDIUM",
+      "data_sources": [
+        "INTERMAGNET",
+        "SuperMAG"
+      ],
+      "tuning": "1-minute regional dB/dt"
+    },
+    "solar_wind_plasma": {
+      "impact": "MEDIUM",
+      "effort": "LOW",
+      "data_sources": [
+        "ACE/DSCOVR",
+        "ENLIL"
+      ],
+      "tuning": "Density and dynamic pressure"
+    },
+    "electrojet_position": {
+      "impact": "MEDIUM",
+      "effort": "MEDIUM",
+      "data_sources": [
+        "OVATION model",
+        "AE index"
+      ],
+      "tuning": "Dynamic latitude boundary"
+    },
+    "grid_topology": {
+      "impact": "HIGH",
+      "effort": "HIGH",
+      "data_sources": [
+        "eGRID",
+        "transmission maps"
+      ],
+      "tuning": "Per-transformer vulnerability"
+    }
+  },
+  "cross_cutting_gaps": {
+    "ensemble_uncertainty": {
+      "impact": "HIGH",
+      "effort": "MEDIUM",
+      "applies_to": [
+        "all"
+      ]
+    },
+    "false_alarm_tracking": {
+      "impact": "HIGH",
+      "effort": "LOW",
+      "applies_to": [
+        "all"
+      ]
+    },
+    "lead_time_confidence": {
+      "impact": "MEDIUM",
+      "effort": "MEDIUM",
+      "applies_to": [
+        "all"
+      ]
+    },
+    "cascading_events": {
+      "impact": "HIGH",
+      "effort": "HIGH",
+      "applies_to": [
+        "compound_events"
+      ]
+    }
+  },
+  "tuning_recommendations": [
+    {
+      "module": "flash_flood",
+      "parameter": "rain_threshold_watch",
+      "current": 50,
+      "recommended": 40,
+      "rationale": "Lower threshold catches slower floods"
+    },
+    {
+      "module": "tornado",
+      "parameter": "stp_threshold",
+      "current": 1.0,
+      "recommended": 0.5,
+      "rationale": "Catches marginal-STP tornadoes"
+    },
+    {
+      "module": "ri",
+      "parameter": "sst_minimum",
+      "current": 26.5,
+      "recommended": "26.0 with OHC caveat",
+      "rationale": "OHC compensates for marginal SST"
+    },
+    {
+      "module": "gic",
+      "parameter": "kp_threshold",
+      "current": 5,
+      "recommended": "4 with dB/dt caveat",
+      "rationale": "Regional spikes can be dangerous"
+    }
+  ],
+  "priority_integrations": [
+    {
+      "name": "NASA SMAP soil moisture",
+      "module": "flash_flood",
+      "score": 6
+    },
+    {
+      "name": "SPC mesoanalysis CIN",
+      "module": "tornado",
+      "score": 6
+    },
+    {
+      "name": "ACE solar wind density",
+      "module": "gic",
+      "score": 6
+    },
+    {
+      "name": "False alarm tracking",
+      "module": "all",
+      "score": 9
+    },
+    {
+      "name": "Threshold tuning",
+      "module": "all",
+      "score": 6
+    }
+  ]
+}

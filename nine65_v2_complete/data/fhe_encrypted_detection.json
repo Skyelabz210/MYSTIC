@@ -1,0 +1,31 @@
+{
+  "generated": "2026-01-07T15:05:50.019771",
+  "demonstrations": {
+    "flash_flood": {
+      "ops": 3,
+      "noise_used_millibits": 210,
+      "result": 1.2070833333333333
+    },
+    "multi_party_gic": {
+      "participants": 5,
+      "ops": 8,
+      "regional_risk": 0.5873333333333334
+    },
+    "deep_circuit": {
+      "updates": 100,
+      "remaining_budget": 39500,
+      "bootstrap_avoided": true
+    }
+  },
+  "performance": {
+    "nine65_flash_flood_ms": 6.763,
+    "traditional_flash_flood_ms": 345.15,
+    "speedup": 51.0350436196954
+  },
+  "key_innovations": [
+    "Bootstrap-free deep circuits via exact rescaling",
+    "Multi-party encrypted aggregation",
+    "Real-time encrypted inference (<10ms per detection)",
+    "100+ operations on single noise budget"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "generated": "2025-12-22T21:30:31.742593",
+  "flash_flood_comparison": [
+    {
+      "test": "saturated_soil",
+      "v1": "CLEAR",
+      "v2": "WARNING",
+      "improvement": "CRITICAL"
+    },
+    {
+      "test": "rapid_rise",
+      "v1": "ADVISORY",
+      "v2": "WARNING",
+      "improvement": "CRITICAL"
+    },
+    {
+      "test": "high_api",
+      "v1": "CLEAR",
+      "v2": "WARNING"
+    }
+  ],
+  "tornado_comparison": [
+    {
+      "test": "marginal_stp",
+      "v1": "SEVERE_WATCH",
+      "v2": "SEVERE_WATCH",
+      "improvement": "MARGINAL"
+    },
+    {
+      "test": "low_cin",
+      "v1": "TORNADO_WATCH",
+      "v2": "TORNADO_WATCH"
+    }
+  ],
+  "ri_comparison": [
+    {
+      "test": "marginal_sst",
+      "v1_prob": 0.24999999999999997,
+      "v2_prob": 0.45
+    },
+    {
+      "test": "shallow_mld",
+      "v2_prob": 0.7
+    }
+  ],
+  "gic_comparison": [
+    {
+      "test": "kp4_dbdt_spike",
+      "v1": "CLEAR",
+      "v2": "GIC_ALERT",
+      "improvement": "CRITICAL"
+    },
+    {
+      "test": "high_density",
+      "v2": "GIC_EMERGENCY",
+      "v2_risk": 0.8580000000000001
+    }
+  ],
+  "summary": {
+    "flash_flood_critical": 2,
+    "tornado_critical": 0,
+    "gic_critical": 1
+  }
+}

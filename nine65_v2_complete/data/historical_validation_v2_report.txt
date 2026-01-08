@@ -1,0 +1,183 @@
+==========================================================================================
+MYSTIC HISTORICAL VALIDATION REPORT v2
+Real USGS Data Testing - Dynamic Threshold Detection
+Generated: 2025-12-23T13:55:17.605445
+==========================================================================================
+
+EVENT SUMMARY
+------------------------------------------------------------------------------------------
+Event                               Date         Deaths Peak     Lead Time    Status
+------------------------------------------------------------------------------------------
+Camp Mystic Flash Flood             2007-06-28   3      25.0     N/A          MISSED
+Memorial Day Flood                  2015-05-24   13     43.0     3h before    DETECTED
+Hurricane Harvey Flooding           2017-08-27   68     38.0     24h before   DETECTED
+Llano River Flash Flood             2018-10-16   9      40.1     3h before    DETECTED
+Halloween Flood 2013                2013-10-31   4      20.0     6h before    DETECTED
+Tax Day Flood 2016                  2016-04-18   8      35.0     0h before    DETECTED
+Tropical Storm Imelda               2019-09-19   5      25.0     N/A          MISSED
+
+VERIFICATION METRICS
+--------------------------------------------------
+Probability of Detection (POD): 53.5%
+False Alarm Rate (FAR):         0.0%
+Critical Success Index (CSI):   53.5%
+
+Hits:              23
+Misses:            20
+False Alarms:      0
+Correct Negatives: 32
+
+------------------------------------------------------------------------------------------
+EVENT: Camp Mystic Flash Flood
+------------------------------------------------------------------------------------------
+Base Level: 3.3 ft
+DETECTION FAILED
+
+Timeline (stage relative to base):
+  T-36h | CLEAR        | Stage:   3.0ft (+-0.4) | missed
+  T-18h | CLEAR        | Stage:   2.5ft (+-0.8) | missed
+  T-12h | CLEAR        | Stage:   2.5ft (+-0.8) | missed
+  T +2h | CLEAR        | Stage:   8.1ft (+ 4.8) | missed
+
+------------------------------------------------------------------------------------------
+EVENT: Memorial Day Flood
+------------------------------------------------------------------------------------------
+Base Level: 6.7 ft
+First Detection: T-3h at FF_WARNING
+Lead Time: 3 hours before peak
+
+Timeline (stage relative to base):
+  T-48h | CLEAR        | Stage:   5.1ft (+-1.6) | missed
+  T-36h | CLEAR        | Stage:   5.0ft (+-1.7) | missed
+  T-24h | CLEAR        | Stage:   5.0ft (+-1.8) | missed
+  T-18h | CLEAR        | Stage:   4.9ft (+-1.8) | missed
+  T-12h | CLEAR        | Stage:   4.9ft (+-1.8) | missed
+  T -6h | CLEAR        | Stage:   5.0ft (+-1.7) | missed
+  T -3h | FF_WARNING   | Stage:  17.1ft (+10.4) | DETECTED
+  T -2h | FF_WARNING   | Stage:  32.4ft (+25.7) | DETECTED
+  T -1h | FF_WARNING   | Stage:  40.2ft (+33.5) | DETECTED
+  T +0h | FF_WARNING   | Stage:  40.2ft (+33.5) | DETECTED
+  T +1h | FF_WARNING   | Stage:  40.2ft (+33.5) | DETECTED
+  T +2h | FF_WATCH     | Stage:  40.2ft (+33.5) | missed
+
+------------------------------------------------------------------------------------------
+EVENT: Hurricane Harvey Flooding
+------------------------------------------------------------------------------------------
+Base Level: 17.5 ft
+First Detection: T-24h at FF_WATCH
+Lead Time: 24 hours before peak
+
+Timeline (stage relative to base):
+  T-48h | CLEAR        | Stage:   3.3ft (+-14.2) | missed
+  T-36h | CLEAR        | Stage:   5.2ft (+-12.4) | missed
+  T-24h | FF_WATCH     | Stage:  50.8ft (+33.2) | DETECTED
+  T-18h | CLEAR        | Stage:  12.3ft (+-5.2) | missed
+  T-12h | CLEAR        | Stage:  14.6ft (+-2.9) | missed
+  T -6h | FF_WARNING   | Stage:  22.1ft (+ 4.6) | DETECTED
+  T -3h | FF_EMERGENCY | Stage:  26.2ft (+ 8.7) | DETECTED
+  T -2h | FF_WARNING   | Stage:  26.8ft (+ 9.2) | DETECTED
+  T -1h | FF_WARNING   | Stage:  27.1ft (+ 9.6) | DETECTED
+  T +0h | FF_WARNING   | Stage:  27.7ft (+10.2) | DETECTED
+  T +1h | FF_WATCH     | Stage:  28.0ft (+10.5) | DETECTED
+  T +2h | FF_WATCH     | Stage:  27.9ft (+10.4) | DETECTED
+
+------------------------------------------------------------------------------------------
+EVENT: Llano River Flash Flood
+------------------------------------------------------------------------------------------
+Base Level: 6.3 ft
+First Detection: T-3h at FF_WARNING
+Lead Time: 3 hours before peak
+
+Timeline (stage relative to base):
+  T-48h | CLEAR        | Stage:   3.4ft (+-2.8) | missed
+  T-36h | CLEAR        | Stage:   3.4ft (+-2.9) | missed
+  T-24h | CLEAR        | Stage:   3.7ft (+-2.6) | missed
+  T-18h | CLEAR        | Stage:   6.5ft (+ 0.2) | missed
+  T-12h | CLEAR        | Stage:   9.9ft (+ 3.6) | missed
+  T -6h | CLEAR        | Stage:   9.0ft (+ 2.8) | missed
+  T -3h | FF_WARNING   | Stage:  19.3ft (+13.0) | DETECTED
+  T -2h | FF_WARNING   | Stage:  24.1ft (+17.8) | DETECTED
+  T -1h | FF_EMERGENCY | Stage:  26.6ft (+20.3) | DETECTED
+  T +0h | FF_EMERGENCY | Stage:  27.9ft (+21.6) | DETECTED
+  T +1h | FF_EMERGENCY | Stage:  28.4ft (+22.1) | DETECTED
+  T +2h | FF_WARNING   | Stage:  28.0ft (+21.8) | DETECTED
+
+------------------------------------------------------------------------------------------
+EVENT: Halloween Flood 2013
+------------------------------------------------------------------------------------------
+Base Level: 4.9 ft
+First Detection: T-6h at FF_WARNING
+Lead Time: 6 hours before peak
+
+Timeline (stage relative to base):
+  T-48h | CLEAR        | Stage:   2.2ft (+-2.7) | missed
+  T-36h | CLEAR        | Stage:   2.2ft (+-2.7) | missed
+  T-24h | CLEAR        | Stage:   2.2ft (+-2.7) | missed
+  T-18h | CLEAR        | Stage:   2.2ft (+-2.7) | missed
+  T-12h | CLEAR        | Stage:   2.2ft (+-2.8) | missed
+  T -6h | FF_WARNING   | Stage:  18.3ft (+13.3) | DETECTED
+  T -3h | FF_ADVISORY  | Stage:  20.9ft (+16.0) | DETECTED
+  T -2h | FF_WATCH     | Stage:  19.2ft (+14.2) | missed
+  T -1h | FF_WATCH     | Stage:  15.5ft (+10.5) | missed
+  T +0h | FF_WATCH     | Stage:  11.8ft (+ 6.8) | missed
+  T +1h | CLEAR        | Stage:   8.4ft (+ 3.5) | missed
+  T +2h | CLEAR        | Stage:   7.5ft (+ 2.5) | missed
+
+------------------------------------------------------------------------------------------
+EVENT: Tax Day Flood 2016
+------------------------------------------------------------------------------------------
+Base Level: 19.5 ft
+First Detection: T+0h at FF_WATCH
+Lead Time: 0 hours before peak
+
+Timeline (stage relative to base):
+  T-48h | CLEAR        | Stage:   3.1ft (+-16.4) | missed
+  T-36h | CLEAR        | Stage:   3.8ft (+-15.7) | missed
+  T-24h | CLEAR        | Stage:   4.2ft (+-15.3) | missed
+  T-18h | CLEAR        | Stage:   3.8ft (+-15.7) | missed
+  T-12h | CLEAR        | Stage:   4.2ft (+-15.3) | missed
+  T -6h | CLEAR        | Stage:   5.1ft (+-14.4) | missed
+  T -3h | CLEAR        | Stage:   6.7ft (+-12.8) | missed
+  T -2h | CLEAR        | Stage:   8.0ft (+-11.5) | missed
+  T -1h | CLEAR        | Stage:   9.2ft (+-10.3) | missed
+  T +0h | FF_WATCH     | Stage:  15.9ft (+-3.6) | DETECTED
+  T +1h | FF_ADVISORY  | Stage:  21.1ft (+ 1.6) | DETECTED
+  T +2h | FF_EMERGENCY | Stage:  25.2ft (+ 5.7) | DETECTED
+
+------------------------------------------------------------------------------------------
+EVENT: Tropical Storm Imelda
+------------------------------------------------------------------------------------------
+Base Level: 5.8 ft
+DETECTION FAILED
+
+Timeline (stage relative to base):
+  T-48h | CLEAR        | Stage:   3.3ft (+-2.5) | missed
+  T-36h | CLEAR        | Stage:   3.5ft (+-2.3) | missed
+  T-24h | CLEAR        | Stage:   3.3ft (+-2.4) | missed
+  T-18h | CLEAR        | Stage:   2.4ft (+-3.3) | missed
+  T-12h | CLEAR        | Stage:   3.4ft (+-2.4) | missed
+  T -6h | CLEAR        | Stage:   4.6ft (+-1.1) | missed
+  T -3h | CLEAR        | Stage:   5.1ft (+-0.7) | missed
+  T -2h | CLEAR        | Stage:   5.2ft (+-0.6) | missed
+  T -1h | CLEAR        | Stage:   5.2ft (+-0.5) | missed
+  T +0h | CLEAR        | Stage:   5.4ft (+-0.4) | missed
+  T +1h | CLEAR        | Stage:   5.4ft (+-0.3) | missed
+  T +2h | CLEAR        | Stage:   5.5ft (+-0.3) | missed
+
+==========================================================================================
+TARGETS ASSESSMENT
+--------------------------------------------------
+POD >= 85%:  FAIL (53.5%)
+FAR <= 30%:  PASS (0.0%)
+CSI >= 50%:  PASS (53.5%)
+
+OVERALL: TARGETS NOT MET (POD failed)
+==========================================================================================
+
+KEY INSIGHTS:
+--------------------------------------------------
+1. Dynamic thresholds based on rise-from-base are critical
+2. Flash floods need rise rate detection (ft/hr)
+3. Major floods (Harvey, Imelda) need sustained high water detection
+4. Historical USGS data quality varies by station and era
+5. Instantaneous values (iv) much better than daily (dv) for flash floods

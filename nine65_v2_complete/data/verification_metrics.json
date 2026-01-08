@@ -1,0 +1,70 @@
+{
+  "generated": "2025-12-22T21:56:38.146376",
+  "verification_results": [
+    {
+      "event_type": "flash_flood",
+      "n_events": 500,
+      "hits": 220,
+      "false_alarms": 104,
+      "misses": 40,
+      "correct_nulls": 136,
+      "pod": 0.8462,
+      "far": 0.321,
+      "csi": 0.6044,
+      "bias": 1.2462,
+      "hss": 0.4171,
+      "mean_lead_time": 4.59,
+      "brier_score": 0.0159
+    },
+    {
+      "event_type": "tornado",
+      "n_events": 500,
+      "hits": 272,
+      "false_alarms": 89,
+      "misses": 24,
+      "correct_nulls": 115,
+      "pod": 0.9189,
+      "far": 0.2465,
+      "csi": 0.7065,
+      "bias": 1.2196,
+      "hss": 0.5078,
+      "mean_lead_time": 2.26,
+      "brier_score": 0.0879
+    },
+    {
+      "event_type": "hurricane_ri",
+      "n_events": 500,
+      "hits": 81,
+      "false_alarms": 109,
+      "misses": 1,
+      "correct_nulls": 309,
+      "pod": 0.9878,
+      "far": 0.5737,
+      "csi": 0.4241,
+      "bias": 2.3171,
+      "hss": 0.4754,
+      "mean_lead_time": 15.77,
+      "brier_score": 0.0098
+    },
+    {
+      "event_type": "gic",
+      "n_events": 500,
+      "hits": 227,
+      "false_alarms": 245,
+      "misses": 0,
+      "correct_nulls": 28,
+      "pod": 1.0,
+      "far": 0.5191,
+      "csi": 0.4809,
+      "bias": 2.0793,
+      "hss": 0.094,
+      "mean_lead_time": 24.93,
+      "brier_score": 0.0106
+    }
+  ],
+  "targets": {
+    "pod": 0.85,
+    "far": 0.3,
+    "csi": 0.5
+  }
+}

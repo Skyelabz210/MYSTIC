@@ -1,0 +1,34 @@
+{
+  "generated": "2025-12-22T20:39:30.244906",
+  "iterations": {
+    "1_flash_flood": {
+      "status": "SUCCESS",
+      "before": "0/4 (0%)",
+      "after": "4/4 (100%)",
+      "avg_improvement_hours": 4.7
+    },
+    "2_compound_events": {
+      "status": "SUCCESS",
+      "capability": "NEW",
+      "test_event": "Harvey + King Tide"
+    },
+    "3_rapid_intensification": {
+      "status": "SUCCESS",
+      "lead_time_hours": 12,
+      "test_event": "Hurricane Harvey"
+    },
+    "4a_tornado": {
+      "status": "SUCCESS",
+      "before_minutes": 20,
+      "after_minutes": 180,
+      "improvement_minutes": 160,
+      "test_event": "Joplin EF5"
+    },
+    "4b_gic": {
+      "status": "SUCCESS",
+      "capability": "NEW",
+      "test_event": "Quebec Blackout"
+    }
+  },
+  "overall": "All targets achieved"
+}

@@ -1,0 +1,19 @@
+{
+  "event_name": "Camp Mystic 2007",
+  "event_date": "2007-06-28",
+  "county": "Kerr",
+  "deaths": 3,
+  "stations": [
+    "08166200",
+    "08165500",
+    "08167000",
+    "08167500"
+  ],
+  "data_range": {
+    "start": "2007-06-21",
+    "end": "2007-07-01"
+  },
+  "readings_count": 3812,
+  "downloaded": "2025-12-23T13:51:43.032290",
+  "source": "USGS NWIS API"
+}

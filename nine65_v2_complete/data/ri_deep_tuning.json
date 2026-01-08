@@ -1,0 +1,30 @@
+{
+  "generated": "2025-12-22T22:30:40.293453",
+  "results": {
+    "v3.0": {
+      "pod": 1.0,
+      "far": 0.44360902255639095,
+      "csi": 0.556390977443609
+    },
+    "v3.2 (Killers)": {
+      "pod": 0.9391891891891891,
+      "far": 0.1419753086419753,
+      "csi": 0.8128654970760234
+    },
+    "v3.3 (Strict)": {
+      "pod": 0.9054054054054054,
+      "far": 0.1464968152866242,
+      "csi": 0.783625730994152
+    }
+  },
+  "recommendation": "probability_based_output",
+  "accepted_ri_targets": {
+    "pod": 0.9,
+    "far": 0.5
+  },
+  "limitations": [
+    "Inner-core structure not observable",
+    "Environmental parameters alone insufficient",
+    "RI inherently rare and unpredictable"
+  ]
+}

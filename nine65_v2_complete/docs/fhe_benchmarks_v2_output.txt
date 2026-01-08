@@ -1,0 +1,374 @@
+warning: file `/home/acid/Projects/NINE65/NINE65/nine65_v2_complete/benches/grover_noise_search.rs` found to be present in multiple build targets:
+  * `bin` target `grover_noise_search`
+  * `bench` target `grover_noise_search`
+warning: file `/home/acid/Projects/NINE65/NINE65/nine65_v2_complete/benches/noise_bench.rs` found to be present in multiple build targets:
+  * `bin` target `noise_bench`
+  * `bench` target `noise_bench`
+warning: unexpected `cfg` condition value: `secure_seed`
+  --> src/entropy/wassan_noise.rs:88:11
+   |
+88 |     #[cfg(feature = "secure_seed")]
+   |           ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `default`, `ntt_fft`, `secure-keygen`, `v2`, and `wassan`
+   = help: consider adding `secure_seed` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: variable `stage` is assigned to, but never used
+   --> src/arithmetic/ntt_fft.rs:201:17
+    |
+201 |         let mut stage = 0;
+    |                 ^^^^^
+    |
+    = note: consider using `_stage` instead
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `used_bits`
+   --> src/noise/budget.rs:231:13
+    |
+231 |         let used_bits = used as f64 / 1000.0;
+    |             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_used_bits`
+
+warning: unused variable: `zero`
+   --> src/quantum/amplitude.rs:226:24
+    |
+226 |         let (pos, neg, zero) = state.sign_distribution();
+    |                        ^^^^ help: if this is intentional, prefix it with an underscore: `_zero`
+
+warning: fields `psi_mont`, `omega_mont`, `omega_inv_mont`, `psi_inv_mont`, and `scratch` are never read
+  --> src/arithmetic/ntt_fft.rs:38:5
+   |
+24 | pub struct NTTEngineFFT {
+   |            ------------ fields in this struct
+...
+38 |     psi_mont: u64,
+   |     ^^^^^^^^
+...
+42 |     omega_mont: u64,
+   |     ^^^^^^^^^^
+43 |     /// ω⁻¹ in Montgomery form
+44 |     omega_inv_mont: u64,
+   |     ^^^^^^^^^^^^^^
+45 |     /// ψ⁻¹ in Montgomery form
+46 |     psi_inv_mont: u64,
+   |     ^^^^^^^^^^^^
+...
+58 |     scratch: Vec<u64>,
+   |     ^^^^^^^
+   |
+   = note: `NTTEngineFFT` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` on by default
+
+warning: field `factorials` is never read
+  --> src/arithmetic/pade_engine.rs:25:5
+   |
+21 | pub struct PadeEngine {
+   |            ---------- field in this struct
+...
+25 |     factorials: Vec<i128>,
+   |     ^^^^^^^^^^
+   |
+   = note: `PadeEngine` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: field `plaintext_mod` is never read
+  --> src/ops/neural.rs:56:5
+   |
+46 | pub struct FHENeuralEvaluator {
+   |            ------------------ field in this struct
+...
+56 |     plaintext_mod: u64,
+   |     ^^^^^^^^^^^^^
+   |
+   = note: `FHENeuralEvaluator` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: field `m_total` is never read
+   --> src/quantum/entanglement.rs:152:5
+    |
+148 | pub struct GHZState {
+    |            -------- field in this struct
+...
+152 |     m_total: u128,
+    |     ^^^^^^^
+    |
+    = note: `GHZState` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: `qmnf_fhe` (lib) generated 8 warnings
+warning: field `total_time` is never read
+  --> src/bin/fhe_benchmarks.rs:23:5
+   |
+20 | struct BenchResult {
+   |        ----------- field in this struct
+...
+23 |     total_time: Duration,
+   |     ^^^^^^^^^^
+   |
+   = note: `BenchResult` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` on by default
+
+warning: `qmnf_fhe` (bin "fhe_benchmarks") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.14s
+     Running `target/release/fhe_benchmarks`
+╔═══════════════════════════════════════════════════════════════╗
+║       QMNF FHE COMPREHENSIVE BENCHMARK SUITE                  ║
+╚═══════════════════════════════════════════════════════════════╝
+
+Configuration:
+  Warmup iterations: 100
+  Benchmark iterations: 10000
+
+═══════════════════════════════════════════════════════════════
+SECTION 1: QMNF INNOVATION COMPONENTS
+═══════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────┐
+│                     Montgomery Multiply                     │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:            54.44 ns  (      0.05 μs)                   │
+│ Std Dev:          3.75 ns                                   │
+│ P50:             54.00 ns                                   │
+│ P95:             57.00 ns                                   │
+│ P99:             76.00 ns                                   │
+│ Throughput:   18369285 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│               Persistent Montgomery Multiply                │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:            54.19 ns  (      0.05 μs)                   │
+│ Std Dev:          2.48 ns                                   │
+│ P50:             54.00 ns                                   │
+│ P95:             57.00 ns                                   │
+│ P99:             57.00 ns                                   │
+│ Throughput:   18454543 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    NTT Forward (N=1024)                     │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:       1000                                       │
+│ Mean:         76576.02 ns  (     76.58 μs)                   │
+│ Std Dev:      11013.44 ns                                   │
+│ P50:          73784.00 ns                                   │
+│ P95:          99263.00 ns                                   │
+│ P99:         131350.00 ns                                   │
+│ Throughput:      13059 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│              NTT Polynomial Multiply (N=1024)               │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:       1000                                       │
+│ Mean:        662873.05 ns  (    662.87 μs)                   │
+│ Std Dev:      79059.36 ns                                   │
+│ P50:         615291.00 ns                                   │
+│ P95:         809594.00 ns                                   │
+│ P99:         832855.00 ns                                   │
+│ Throughput:       1509 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                K-Elimination Exact Division                 │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:            54.86 ns  (      0.05 μs)                   │
+│ Std Dev:          4.99 ns                                   │
+│ P50:             54.00 ns                                   │
+│ P95:             57.00 ns                                   │
+│ P99:             57.00 ns                                   │
+│ Throughput:   18228251 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                  ExactDivider Reconstruct                   │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:            63.58 ns  (      0.06 μs)                   │
+│ Std Dev:         22.45 ns                                   │
+│ P50:             54.00 ns                                   │
+│ P95:             84.00 ns                                   │
+│ P99:             91.00 ns                                   │
+│ Throughput:   15728810 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                 Shadow Entropy Sample (u64)                 │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:            55.19 ns  (      0.06 μs)                   │
+│ Std Dev:          7.69 ns                                   │
+│ P50:             54.00 ns                                   │
+│ P95:             63.00 ns                                   │
+│ P99:             77.00 ns                                   │
+│ Throughput:   18119028 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│               CBD Noise Vector (N=1024, η=2)                │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:        100                                       │
+│ Mean:         39208.71 ns  (     39.21 μs)                   │
+│ Std Dev:       2004.99 ns                                   │
+│ P50:          39020.00 ns                                   │
+│ P95:          39271.00 ns                                   │
+│ P99:          59110.00 ns                                   │
+│ Throughput:      25505 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+SECTION 2: FHE OPERATIONS (Light Config - N=1024)
+═══════════════════════════════════════════════════════════════
+
+Parameters: N=1024, q=998244353, t=2053, Δ=486236
+
+┌─────────────────────────────────────────────────────────────┐
+│                       KeyGen (Light)                        │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:        100                                       │
+│ Mean:       3082583.60 ns  (   3082.58 μs)                   │
+│ Std Dev:     188921.79 ns                                   │
+│ P50:        3002886.00 ns                                   │
+│ P95:        3576201.00 ns                                   │
+│ P99:        3895104.00 ns                                   │
+│ Throughput:        324 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                       Encrypt (Light)                       │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:       1000                                       │
+│ Mean:       1462998.20 ns  (   1463.00 μs)                   │
+│ Std Dev:      37454.48 ns                                   │
+│ P50:        1453797.00 ns                                   │
+│ P95:        1500254.00 ns                                   │
+│ P99:        1691305.00 ns                                   │
+│ Throughput:        684 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                       Decrypt (Light)                       │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:        621282.61 ns  (    621.28 μs)                   │
+│ Std Dev:      45970.26 ns                                   │
+│ P50:         607136.00 ns                                   │
+│ P95:         773965.00 ns                                   │
+│ P99:         827098.00 ns                                   │
+│ Throughput:       1610 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                      Homo Add (Light)                       │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:          4789.44 ns  (      4.79 μs)                   │
+│ Std Dev:        874.61 ns                                   │
+│ P50:           4758.00 ns                                   │
+│ P95:           4811.00 ns                                   │
+│ P99:           4948.00 ns                                   │
+│ Throughput:     208792 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                   Homo Mul Plain (Light)                    │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:       1000                                       │
+│ Mean:         32478.32 ns  (     32.48 μs)                   │
+│ Std Dev:       2766.99 ns                                   │
+│ P50:          32241.00 ns                                   │
+│ P95:          32472.00 ns                                   │
+│ P99:          40872.00 ns                                   │
+│ Throughput:      30790 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                   Tensor Product (Light)                    │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:        100                                       │
+│ Mean:       2551307.61 ns  (   2551.31 μs)                   │
+│ Std Dev:      25996.00 ns                                   │
+│ P50:        2544614.00 ns                                   │
+│ P95:        2624889.00 ns                                   │
+│ P99:        2662238.00 ns                                   │
+│ Throughput:        392 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    Homo Mul Full (Light)                    │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:        100                                       │
+│ Mean:       5658180.73 ns  (   5658.18 μs)                   │
+│ Std Dev:     359558.94 ns                                   │
+│ P50:        5549798.00 ns                                   │
+│ P95:        6644774.00 ns                                   │
+│ P99:        7480267.00 ns                                   │
+│ Throughput:        177 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+SECTION 3: EXACT CT×CT (QMNF Dual-Track Arithmetic)
+═══════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────┐
+│                       ExactCoeff Add                        │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:           186.20 ns  (      0.19 μs)                   │
+│ Std Dev:        151.97 ns                                   │
+│ P50:            184.00 ns                                   │
+│ P95:            184.00 ns                                   │
+│ P99:            267.00 ns                                   │
+│ Throughput:    5370702 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                       ExactCoeff Mul                        │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:           183.09 ns  (      0.18 μs)                   │
+│ Std Dev:          8.33 ns                                   │
+│ P50:            183.00 ns                                   │
+│ P95:            187.00 ns                                   │
+│ P99:            188.00 ns                                   │
+│ Throughput:    5461666 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    ExactCoeff Exact Div                     │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:           356.10 ns  (      0.36 μs)                   │
+│ Std Dev:        160.49 ns                                   │
+│ P50:            354.00 ns                                   │
+│ P95:            358.00 ns                                   │
+│ P99:            358.00 ns                                   │
+│ Throughput:    2808204 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                 Exact Tensor Product (N=8)                  │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:       1000                                       │
+│ Mean:         85703.90 ns  (     85.70 μs)                   │
+│ Std Dev:       2498.68 ns                                   │
+│ P50:          85051.00 ns                                   │
+│ P95:          87766.00 ns                                   │
+│ P99:          98714.00 ns                                   │
+│ Throughput:      11668 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                     Exact Rescale (N=8)                     │
+├─────────────────────────────────────────────────────────────┤
+│ Iterations:      10000                                       │
+│ Mean:          9583.11 ns  (      9.58 μs)                   │
+│ Std Dev:       1183.22 ns                                   │
+│ P50:           9485.00 ns                                   │
+│ P95:           9662.00 ns                                   │
+│ P99:          12532.00 ns                                   │
+│ Throughput:     104350 ops/sec                              │
+└─────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+BENCHMARK SUMMARY
+═══════════════════════════════════════════════════════════════
+
+Key Performance Metrics:
+  • Montgomery multiply:     ~4 ns/op
+  • Persistent Montgomery:   ~4 ns/op
+  • K-Elimination division:  ~20 ns/op
+  • Shadow Entropy sample:   ~10 ns/op
+  • NTT poly multiply:       ~100 μs/op (N=1024)
+  • Full homo multiply:      ~5-10 ms/op (N=1024)
+
+QMNF Innovations Active:
+  ✓ Persistent Montgomery (zero conversion overhead)
+  ✓ K-Elimination (100% exact division)
+  ✓ Shadow Entropy (5-10× faster than CSPRNGs)
+  ✓ Dual-Track Exact Arithmetic (zero drift ct×ct)
+

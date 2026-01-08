@@ -1,0 +1,89 @@
+{
+  "generated": "2025-12-22T22:21:15.799901",
+  "regions_defined": 8,
+  "regions": {
+    "texas_hill_country": {
+      "name": "Texas Hill Country",
+      "description": "Flash flood capital - rapid runoff from limestone terrain",
+      "primary_hazards": [
+        "flash_flood",
+        "tornado"
+      ],
+      "flash_flood_threshold_mult": 0.85,
+      "tornado_threshold_mult": 1.0,
+      "flood_factors_required": 2
+    },
+    "appalachian_mountains": {
+      "name": "Appalachian Mountains",
+      "description": "Terrain-amplified flooding, slower response",
+      "primary_hazards": [
+        "flash_flood"
+      ],
+      "flash_flood_threshold_mult": 1.1,
+      "tornado_threshold_mult": 1.0,
+      "flood_factors_required": 2
+    },
+    "tornado_alley": {
+      "name": "Tornado Alley (Central Plains)",
+      "description": "Peak tornado climatology - supercells dominant",
+      "primary_hazards": [
+        "tornado"
+      ],
+      "flash_flood_threshold_mult": 1.0,
+      "tornado_threshold_mult": 0.9,
+      "flood_factors_required": 2
+    },
+    "dixie_alley": {
+      "name": "Dixie Alley (Southeast)",
+      "description": "Nocturnal tornadoes, QLCS-dominated",
+      "primary_hazards": [
+        "tornado",
+        "flash_flood"
+      ],
+      "flash_flood_threshold_mult": 1.0,
+      "tornado_threshold_mult": 0.95,
+      "flood_factors_required": 2
+    },
+    "gulf_coast": {
+      "name": "Gulf Coast",
+      "description": "Hurricane surge, slow river flooding",
+      "primary_hazards": [
+        "flash_flood",
+        "hurricane_ri"
+      ],
+      "flash_flood_threshold_mult": 1.05,
+      "tornado_threshold_mult": 1.0,
+      "flood_factors_required": 2
+    },
+    "pacific_northwest": {
+      "name": "Pacific Northwest",
+      "description": "Atmospheric rivers, rain-on-snow",
+      "primary_hazards": [
+        "flash_flood"
+      ],
+      "flash_flood_threshold_mult": 0.9,
+      "tornado_threshold_mult": 1.0,
+      "flood_factors_required": 3
+    },
+    "canadian_shield": {
+      "name": "Canadian Shield (Quebec/Ontario)",
+      "description": "High ground resistivity - GIC amplification",
+      "primary_hazards": [
+        "gic"
+      ],
+      "flash_flood_threshold_mult": 1.0,
+      "tornado_threshold_mult": 1.0,
+      "flood_factors_required": 2
+    },
+    "mid_atlantic_urban": {
+      "name": "Mid-Atlantic Urban Corridor",
+      "description": "Urban flash floods - impervious surfaces",
+      "primary_hazards": [
+        "flash_flood"
+      ],
+      "flash_flood_threshold_mult": 0.75,
+      "tornado_threshold_mult": 1.0,
+      "flood_factors_required": 1
+    }
+  }
+}

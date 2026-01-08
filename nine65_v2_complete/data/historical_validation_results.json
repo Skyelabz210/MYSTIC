@@ -1,0 +1,467 @@
+{
+  "generated": "2025-12-23T13:47:16.975223",
+  "events_tested": 4,
+  "total_readings": 32,
+  "metrics": {
+    "hits": 9,
+    "misses": 11,
+    "false_alarms": 0,
+    "correct_negatives": 12,
+    "POD": 0.45,
+    "FAR": 0.0,
+    "CSI": 0.45
+  },
+  "results": [
+    {
+      "event_name": "Camp Mystic Flash Flood",
+      "event_date": "2007-06-28T16:00:00",
+      "hours_before_peak": -24,
+      "alert_level": "CLEAR",
+      "probability": 0.0,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [],
+      "station_id": "08166200",
+      "stream_height_ft": 2.54
+    },
+    {
+      "event_name": "Camp Mystic Flash Flood",
+      "event_date": "2007-06-28T16:00:00",
+      "hours_before_peak": -18,
+      "alert_level": "CLEAR",
+      "probability": 0.0,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [],
+      "station_id": "08166200",
+      "stream_height_ft": 2.54
+    },
+    {
+      "event_name": "Camp Mystic Flash Flood",
+      "event_date": "2007-06-28T16:00:00",
+      "hours_before_peak": -12,
+      "alert_level": "CLEAR",
+      "probability": 0.0,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [],
+      "station_id": "08166200",
+      "stream_height_ft": 2.54
+    },
+    {
+      "event_name": "Camp Mystic Flash Flood",
+      "event_date": "2007-06-28T16:00:00",
+      "hours_before_peak": -6,
+      "alert_level": "CLEAR",
+      "probability": 0.15,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "rain_intense"
+      ],
+      "station_id": "08166200",
+      "stream_height_ft": 2.54
+    },
+    {
+      "event_name": "Camp Mystic Flash Flood",
+      "event_date": "2007-06-28T16:00:00",
+      "hours_before_peak": -3,
+      "alert_level": "CLEAR",
+      "probability": 0.15,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "rain_intense"
+      ],
+      "station_id": "08165500",
+      "stream_height_ft": 8.09
+    },
+    {
+      "event_name": "Camp Mystic Flash Flood",
+      "event_date": "2007-06-28T16:00:00",
+      "hours_before_peak": -2,
+      "alert_level": "CLEAR",
+      "probability": 0.15,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "rain_intense"
+      ],
+      "station_id": "08165500",
+      "stream_height_ft": 8.09
+    },
+    {
+      "event_name": "Camp Mystic Flash Flood",
+      "event_date": "2007-06-28T16:00:00",
+      "hours_before_peak": -1,
+      "alert_level": "CLEAR",
+      "probability": 0.15,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "rain_intense"
+      ],
+      "station_id": "08165500",
+      "stream_height_ft": 8.09
+    },
+    {
+      "event_name": "Camp Mystic Flash Flood",
+      "event_date": "2007-06-28T16:00:00",
+      "hours_before_peak": 0,
+      "alert_level": "CLEAR",
+      "probability": 0.15,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "rain_intense"
+      ],
+      "station_id": "08165500",
+      "stream_height_ft": 8.09
+    },
+    {
+      "event_name": "Memorial Day Flood",
+      "event_date": "2015-05-24T02:00:00",
+      "hours_before_peak": -24,
+      "alert_level": "CLEAR",
+      "probability": 0.0,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [],
+      "station_id": "08171000",
+      "stream_height_ft": 4.95
+    },
+    {
+      "event_name": "Memorial Day Flood",
+      "event_date": "2015-05-24T02:00:00",
+      "hours_before_peak": -18,
+      "alert_level": "CLEAR",
+      "probability": 0.0,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [],
+      "station_id": "08171000",
+      "stream_height_ft": 4.94
+    },
+    {
+      "event_name": "Memorial Day Flood",
+      "event_date": "2015-05-24T02:00:00",
+      "hours_before_peak": -12,
+      "alert_level": "CLEAR",
+      "probability": 0.0,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [],
+      "station_id": "08171000",
+      "stream_height_ft": 4.91
+    },
+    {
+      "event_name": "Memorial Day Flood",
+      "event_date": "2015-05-24T02:00:00",
+      "hours_before_peak": -6,
+      "alert_level": "CLEAR",
+      "probability": 0.15,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "rain_intense"
+      ],
+      "station_id": "08171000",
+      "stream_height_ft": 5.04
+    },
+    {
+      "event_name": "Memorial Day Flood",
+      "event_date": "2015-05-24T02:00:00",
+      "hours_before_peak": -3,
+      "alert_level": "FF_EMERGENCY",
+      "probability": 0.7000000000000001,
+      "detected": true,
+      "lead_time_hours": 3,
+      "factors": [
+        "stage_flood",
+        "rise_rapid",
+        "rain_intense"
+      ],
+      "station_id": "08171000",
+      "stream_height_ft": 17.12
+    },
+    {
+      "event_name": "Memorial Day Flood",
+      "event_date": "2015-05-24T02:00:00",
+      "hours_before_peak": -2,
+      "alert_level": "FF_EMERGENCY",
+      "probability": 0.9500000000000001,
+      "detected": true,
+      "lead_time_hours": 2,
+      "factors": [
+        "stage_major_flood",
+        "rise_extreme",
+        "rain_intense"
+      ],
+      "station_id": "08171000",
+      "stream_height_ft": 32.43
+    },
+    {
+      "event_name": "Memorial Day Flood",
+      "event_date": "2015-05-24T02:00:00",
+      "hours_before_peak": -1,
+      "alert_level": "FF_EMERGENCY",
+      "probability": 0.9500000000000001,
+      "detected": true,
+      "lead_time_hours": 1,
+      "factors": [
+        "stage_major_flood",
+        "rise_extreme",
+        "rain_intense"
+      ],
+      "station_id": "08171000",
+      "stream_height_ft": 40.21
+    },
+    {
+      "event_name": "Memorial Day Flood",
+      "event_date": "2015-05-24T02:00:00",
+      "hours_before_peak": 0,
+      "alert_level": "FF_EMERGENCY",
+      "probability": 0.9500000000000001,
+      "detected": true,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_major_flood",
+        "rise_extreme",
+        "rain_intense"
+      ],
+      "station_id": "08171000",
+      "stream_height_ft": 40.21
+    },
+    {
+      "event_name": "Hurricane Harvey Flooding",
+      "event_date": "2017-08-27T00:00:00",
+      "hours_before_peak": -24,
+      "alert_level": "CLEAR",
+      "probability": 0.0,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [],
+      "station_id": "08074000",
+      "stream_height_ft": 5.15
+    },
+    {
+      "event_name": "Hurricane Harvey Flooding",
+      "event_date": "2017-08-27T00:00:00",
+      "hours_before_peak": -18,
+      "alert_level": "FF_WATCH",
+      "probability": 0.45,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_major_flood"
+      ],
+      "station_id": "08073600",
+      "stream_height_ft": 40.99
+    },
+    {
+      "event_name": "Hurricane Harvey Flooding",
+      "event_date": "2017-08-27T00:00:00",
+      "hours_before_peak": -12,
+      "alert_level": "FF_WATCH",
+      "probability": 0.45,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_major_flood"
+      ],
+      "station_id": "08073600",
+      "stream_height_ft": 50.75
+    },
+    {
+      "event_name": "Hurricane Harvey Flooding",
+      "event_date": "2017-08-27T00:00:00",
+      "hours_before_peak": -6,
+      "alert_level": "FF_WATCH",
+      "probability": 0.3,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_action",
+        "rain_intense"
+      ],
+      "station_id": "08074000",
+      "stream_height_ft": 12.29
+    },
+    {
+      "event_name": "Hurricane Harvey Flooding",
+      "event_date": "2017-08-27T00:00:00",
+      "hours_before_peak": -3,
+      "alert_level": "FF_WATCH",
+      "probability": 0.3,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_action",
+        "rain_intense"
+      ],
+      "station_id": "08074000",
+      "stream_height_ft": 11.67
+    },
+    {
+      "event_name": "Hurricane Harvey Flooding",
+      "event_date": "2017-08-27T00:00:00",
+      "hours_before_peak": -2,
+      "alert_level": "FF_WATCH",
+      "probability": 0.3,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_action",
+        "rain_intense"
+      ],
+      "station_id": "08074000",
+      "stream_height_ft": 12.78
+    },
+    {
+      "event_name": "Hurricane Harvey Flooding",
+      "event_date": "2017-08-27T00:00:00",
+      "hours_before_peak": -1,
+      "alert_level": "FF_WATCH",
+      "probability": 0.3,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_action",
+        "rain_intense"
+      ],
+      "station_id": "08074000",
+      "stream_height_ft": 13.65
+    },
+    {
+      "event_name": "Hurricane Harvey Flooding",
+      "event_date": "2017-08-27T00:00:00",
+      "hours_before_peak": 0,
+      "alert_level": "FF_WATCH",
+      "probability": 0.3,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_action",
+        "rain_intense"
+      ],
+      "station_id": "08074000",
+      "stream_height_ft": 14.61
+    },
+    {
+      "event_name": "Llano River Flash Flood",
+      "event_date": "2018-10-16T12:00:00",
+      "hours_before_peak": -24,
+      "alert_level": "CLEAR",
+      "probability": 0.15,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "rise_moderate"
+      ],
+      "station_id": "08150000",
+      "stream_height_ft": 6.69
+    },
+    {
+      "event_name": "Llano River Flash Flood",
+      "event_date": "2018-10-16T12:00:00",
+      "hours_before_peak": -18,
+      "alert_level": "CLEAR",
+      "probability": 0.15,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_action"
+      ],
+      "station_id": "08150000",
+      "stream_height_ft": 10.67
+    },
+    {
+      "event_name": "Llano River Flash Flood",
+      "event_date": "2018-10-16T12:00:00",
+      "hours_before_peak": -12,
+      "alert_level": "CLEAR",
+      "probability": 0.0,
+      "detected": false,
+      "lead_time_hours": 0,
+      "factors": [],
+      "station_id": "08150000",
+      "stream_height_ft": 8.79
+    },
+    {
+      "event_name": "Llano River Flash Flood",
+      "event_date": "2018-10-16T12:00:00",
+      "hours_before_peak": -6,
+      "alert_level": "FF_EMERGENCY",
+      "probability": 0.85,
+      "detected": true,
+      "lead_time_hours": 6,
+      "factors": [
+        "stage_major_flood",
+        "rise_rapid",
+        "rain_intense"
+      ],
+      "station_id": "08150000",
+      "stream_height_ft": 25.88
+    },
+    {
+      "event_name": "Llano River Flash Flood",
+      "event_date": "2018-10-16T12:00:00",
+      "hours_before_peak": -3,
+      "alert_level": "FF_WARNING",
+      "probability": 0.6,
+      "detected": true,
+      "lead_time_hours": 3,
+      "factors": [
+        "stage_major_flood",
+        "rain_intense"
+      ],
+      "station_id": "08150000",
+      "stream_height_ft": 28.21
+    },
+    {
+      "event_name": "Llano River Flash Flood",
+      "event_date": "2018-10-16T12:00:00",
+      "hours_before_peak": -2,
+      "alert_level": "FF_WARNING",
+      "probability": 0.6,
+      "detected": true,
+      "lead_time_hours": 2,
+      "factors": [
+        "stage_major_flood",
+        "rain_intense"
+      ],
+      "station_id": "08150000",
+      "stream_height_ft": 27.23
+    },
+    {
+      "event_name": "Llano River Flash Flood",
+      "event_date": "2018-10-16T12:00:00",
+      "hours_before_peak": -1,
+      "alert_level": "FF_WARNING",
+      "probability": 0.6,
+      "detected": true,
+      "lead_time_hours": 1,
+      "factors": [
+        "stage_major_flood",
+        "rain_intense"
+      ],
+      "station_id": "08150000",
+      "stream_height_ft": 25.94
+    },
+    {
+      "event_name": "Llano River Flash Flood",
+      "event_date": "2018-10-16T12:00:00",
+      "hours_before_peak": 0,
+      "alert_level": "FF_ADVISORY",
+      "probability": 0.44999999999999996,
+      "detected": true,
+      "lead_time_hours": 0,
+      "factors": [
+        "stage_flood",
+        "rain_intense"
+      ],
+      "station_id": "08150000",
+      "stream_height_ft": 24.49
+    }
+  ]
+}

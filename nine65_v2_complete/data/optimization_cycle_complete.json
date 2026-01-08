@@ -1,0 +1,42 @@
+{
+  "generated": "2025-12-22T22:32:09.974167",
+  "cycle_complete": true,
+  "all_targets_met": true,
+  "final_metrics": {
+    "Flash Flood": {
+      "pod": 0.888,
+      "far": 0.011,
+      "csi": 0.879
+    },
+    "Tornado": {
+      "pod": 0.936,
+      "far": 0.09,
+      "csi": 0.856
+    },
+    "Hurricane RI": {
+      "pod": 0.939,
+      "far": 0.142,
+      "csi": 0.813
+    },
+    "Space Weather GIC": {
+      "pod": 0.976,
+      "far": 0.297,
+      "csi": 0.691
+    }
+  },
+  "averages": {
+    "pod": 0.93475,
+    "far": 0.13499999999999998,
+    "csi": 0.80975
+  },
+  "integrations_count": 12,
+  "scripts_created": 13,
+  "data_files_created": 13,
+  "key_innovations": [
+    "Multi-factor requirements prevent single-trigger false alarms",
+    "Killer factor vetoes for hurricane RI",
+    "Regional calibration for local climatology",
+    "Ensemble uncertainty with lead-time scaling",
+    "Cascading event prediction"
+  ]
+}

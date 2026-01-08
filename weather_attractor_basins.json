@@ -1,0 +1,69 @@
+{
+  "CLEAR": {
+    "attractor_type": "fixed_point",
+    "cycle_length": 1,
+    "lyapunov_scaled": -50000,
+    "rain_rate_min_mm_hr": 0,
+    "rain_rate_max_mm_hr": 10,
+    "pressure_tendency_hpa_hr": 1.0,
+    "humidity_min_pct": 0,
+    "description": "Stable weather conditions with high pressure system",
+    "historical_examples": [
+      "Normal conditions, clear skies"
+    ]
+  },
+  "STEADY_RAIN": {
+    "attractor_type": "limit_cycle",
+    "cycle_length": 24,
+    "lyapunov_scaled": 0,
+    "rain_rate_min_mm_hr": 10,
+    "rain_rate_max_mm_hr": 30,
+    "pressure_tendency_hpa_hr": 0.0,
+    "humidity_min_pct": 70,
+    "description": "Periodic daily rain cycle with stable pressure",
+    "historical_examples": [
+      "Frontal passages with regular daily patterns"
+    ]
+  },
+  "FLASH_FLOOD": {
+    "attractor_type": "strange_attractor",
+    "cycle_length": 0,
+    "lyapunov_scaled": 200000,
+    "rain_rate_min_mm_hr": 40,
+    "rain_rate_max_mm_hr": 100,
+    "pressure_tendency_hpa_hr": -3.0,
+    "humidity_min_pct": 90,
+    "description": "Chaotic, bounded weather system with extreme rainfall",
+    "historical_examples": [
+      "July 2025 - Guadalupe River (960/1000 risk)",
+      "September 2019 - Tropical Storm Imelda (875/1000 risk)",
+      "July 2020 - Hurricane Hanna (827/1000 risk)"
+    ]
+  },
+  "TORNADO": {
+    "attractor_type": "fourth_attractor",
+    "cycle_length": 0,
+    "lyapunov_scaled": 500000,
+    "rain_rate_min_mm_hr": 30,
+    "rain_rate_max_mm_hr": 60,
+    "pressure_tendency_hpa_hr": -5.0,
+    "humidity_min_pct": 85,
+    "description": "Memory-bounded chaotic system with extreme sensitivity",
+    "historical_examples": [
+      "Tornado outbreak conditions with organized rotation"
+    ]
+  },
+  "WATCH": {
+    "attractor_type": "strange_attractor",
+    "cycle_length": 5,
+    "lyapunov_scaled": 50000,
+    "rain_rate_min_mm_hr": 20,
+    "rain_rate_max_mm_hr": 40,
+    "pressure_tendency_hpa_hr": -2.0,
+    "humidity_min_pct": 80,
+    "description": "Transitional state approaching bifurcation point",
+    "historical_examples": [
+      "May 2021 - South Central Texas (700/1000 risk, borderline)"
+    ]
+  }
+}

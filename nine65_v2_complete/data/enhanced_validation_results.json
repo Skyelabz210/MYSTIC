@@ -1,0 +1,34 @@
+[
+  {
+    "event": "Camp Mystic Flash Flood",
+    "actual_hours": 2,
+    "mystic_hours": 8,
+    "detection_success": true,
+    "improvement": 6,
+    "first_watch_hour": -28
+  },
+  {
+    "event": "Memorial Day Flood (Wimberley)",
+    "actual_hours": 4,
+    "mystic_hours": 8,
+    "detection_success": true,
+    "improvement": 4,
+    "first_watch_hour": -28
+  },
+  {
+    "event": "Ellicott City Flash Flood",
+    "actual_hours": 1,
+    "mystic_hours": 5,
+    "detection_success": true,
+    "improvement": 4,
+    "first_watch_hour": -28
+  },
+  {
+    "event": "Kinston Flash Flood (Hurricane Matthew)",
+    "actual_hours": 12,
+    "mystic_hours": 3,
+    "detection_success": true,
+    "improvement": -9,
+    "first_watch_hour": -28
+  }
+]

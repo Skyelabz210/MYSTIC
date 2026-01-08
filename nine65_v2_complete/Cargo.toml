@@ -1,0 +1,73 @@
+[package]
+name = "qmnf_fhe"
+version = "0.1.0"
+edition = "2021"
+description = "QMNF-Accelerated BFV FHE with AHOP Quantum Simulation"
+authors = ["Acidlabz210 <acid@hackfate.us>"]
+
+[features]
+default = ["ntt_fft"]  # FFT enabled by default (500-2000× faster)
+secure-keygen = []  # Enable OS CSPRNG key generation
+ntt_fft = []        # V2: Use FFT-based NTT (500-2000× faster)
+wassan = []         # V2: Use WASSAN holographic noise field  
+v2 = ["ntt_fft", "wassan"]  # V2: All optimizations
+
+[dependencies]
+# Cryptographic security dependencies (December 2024 audit)
+zeroize = { version = "1.7", features = ["derive"] }  # Secure memory clearing
+getrandom = "0.2"                                      # OS CSPRNG
+subtle = "2.5"                                         # Constant-time operations
+sha2 = "0.10"                                          # For KAT hashing
+serde = { version = "1.0", features = ["derive"] }     # JSON model loading
+serde_json = "1.0"                                     # JSON parsing
+
+[dev-dependencies]
+proptest = "1.4"                                       # Property-based testing
+criterion = "0.5"                                      # Benchmarking
+
+[[bin]]
+name = "neural_bench"
+path = "src/bin/neural_bench.rs"
+
+[[bin]]
+name = "mystic_demo"
+path = "src/bin/mystic_demo.rs"
+
+[[bin]]
+name = "noise_bench"
+path = "benches/noise_bench.rs"
+
+[[bin]]
+name = "grover_noise_search"
+path = "benches/grover_noise_search.rs"
+
+[[bin]]
+name = "historical_failures_demo"
+path = "src/bin/historical_failures_demo.rs"
+
+[[bin]]
+name = "test_camp_mystic_2007"
+path = "src/bin/test_camp_mystic_2007.rs"
+
+[[bin]]
+name = "train_mystic"
+path = "src/bin/train_mystic.rs"
+
+[[bench]]
+name = "fhe_benchmarks"
+harness = false
+
+[[bench]]
+name = "criterion_fhe"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = true
+
+[profile.dev]
+opt-level = 1
+
+[profile.bench]
+opt-level = 3
+lto = true

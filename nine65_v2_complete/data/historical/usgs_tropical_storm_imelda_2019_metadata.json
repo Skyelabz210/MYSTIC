@@ -1,0 +1,19 @@
+{
+  "event_name": "Tropical Storm Imelda 2019",
+  "event_date": "2019-09-19",
+  "county": "Jefferson",
+  "deaths": 5,
+  "stations": [
+    "08041780",
+    "08041700",
+    "08041500",
+    "08042000"
+  ],
+  "data_range": {
+    "start": "2019-09-12",
+    "end": "2019-09-22"
+  },
+  "readings_count": 3168,
+  "downloaded": "2025-12-23T13:52:46.291814",
+  "source": "USGS NWIS API"
+}

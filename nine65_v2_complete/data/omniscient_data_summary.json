@@ -1,0 +1,282 @@
+{
+  "timestamp": "2025-12-23T17:10:09.744858+00:00",
+  "location": {
+    "lat": 30.02,
+    "lon": -99.14,
+    "radius_km": 150.0,
+    "nexrad_sites": [
+      "KEWX",
+      "KDFX",
+      "KCRP"
+    ]
+  },
+  "scale_1_terrestrial": {
+    "weather_stations": {
+      "status": "missing_token",
+      "count": 0,
+      "stations": []
+    },
+    "nws_alerts": {
+      "status": "ok",
+      "count": 0,
+      "alerts": []
+    },
+    "nws_forecast": {
+      "status": "ok",
+      "period": {
+        "start_time": "2025-12-23T11:00:00-06:00",
+        "temp_c": 20.0,
+        "dewpoint_c": 17.22222222222222,
+        "wind_mps": 4.4704,
+        "wind_dir": "S",
+        "precip_prob": 0,
+        "short_forecast": "Cloudy"
+      },
+      "source": "https://api.weather.gov/gridpoints/EWX/102,81/forecast/hourly"
+    },
+    "nexrad_latest": {
+      "KEWX": {
+        "status": "error: HTTP Error 403: Forbidden",
+        "latest_key": null
+      },
+      "KDFX": {
+        "status": "error: HTTP Error 403: Forbidden",
+        "latest_key": null
+      },
+      "KCRP": {
+        "status": "error: HTTP Error 403: Forbidden",
+        "latest_key": null
+      }
+    },
+    "earthquakes": {
+      "status": "ok",
+      "count": 316,
+      "events": [
+        {
+          "mag": 2.8,
+          "place": "63 km ESE of Atka, Alaska",
+          "time": "2025-12-22T17:54:49.617000",
+          "lon": -173.294,
+          "lat": 52.08,
+          "depth_km": 5,
+          "distance_km": 6373.519841331897
+        },
+        {
+          "mag": 2.6,
+          "place": "42 km ESE of Fox River, Alaska",
+          "time": "2025-12-22T17:42:35.751000",
+          "lon": -150.316,
+          "lat": 59.65,
+          "depth_km": 24,
+          "distance_km": 5013.565551266592
+        },
+        {
+          "mag": 3.28,
+          "place": "16 km S of Tres Pinos, CA",
+          "time": "2025-12-22T17:32:28.820000",
+          "lon": -121.296833333333,
+          "lat": 36.6498333333333,
+          "depth_km": 5.36,
+          "distance_km": 2180.230436536654
+        },
+        {
+          "mag": 2.9,
+          "place": "67 km NW of Eureka Roadhouse, Alaska",
+          "time": "2025-12-22T17:19:16.870000",
+          "lon": -148.002,
+          "lat": 62.407,
+          "depth_km": 40.7,
+          "distance_km": 5002.574110772735
+        },
+        {
+          "mag": 3.2,
+          "place": "8 km SE of Point Possession, Alaska",
+          "time": "2025-12-22T16:45:13.510000",
+          "lon": -150.555,
+          "lat": 60.877,
+          "depth_km": 51.2,
+          "distance_km": 5068.666766019195
+        },
+        {
+          "mag": 2.7,
+          "place": "29 km SE of Knik River, Alaska",
+          "time": "2025-12-22T16:14:19.103000",
+          "lon": -148.475,
+          "lat": 61.296,
+          "depth_km": 23.6,
+          "distance_km": 4979.394921744313
+        },
+        {
+          "mag": 4.8,
+          "place": "18 km N of Ollag\u00fce, Chile",
+          "time": "2025-12-22T16:04:49.530000",
+          "lon": -68.2488,
+          "lat": -21.0623,
+          "depth_km": 137.766,
+          "distance_km": 6571.309340952334
+        },
+        {
+          "mag": 4.1,
+          "place": "10 km SE of K\u00e9falos, Greece",
+          "time": "2025-12-22T15:09:20.568000",
+          "lon": 27.0258,
+          "lat": 36.6698,
+          "depth_km": 143.022,
+          "distance_km": 10716.529810066591
+        },
+        {
+          "mag": 2.61,
+          "place": "3 km SE of Wilkerson, CA",
+          "time": "2025-12-22T14:38:18.490000",
+          "lon": -118.361831665039,
+          "lat": 37.2574996948242,
+          "depth_km": 14.3199996948242,
+          "distance_km": 1948.112200377416
+        },
+        {
+          "mag": 3.55,
+          "place": "22 km N of Brenas, Puerto Rico",
+          "time": "2025-12-22T13:56:50.440000",
+          "lon": -66.3375,
+          "lat": 18.6661,
+          "depth_km": 70,
+          "distance_km": 3539.2194658983117
+        }
+      ],
+      "nearest": {
+        "mag": 2.5,
+        "place": "18 km SW of Charlotte, Texas",
+        "time": "2025-12-22T07:50:33.202000",
+        "lon": -98.845,
+        "lat": 28.746,
+        "depth_km": 6.94,
+        "distance_km": 144.5168718615473
+      }
+    }
+  },
+  "scale_2_atmospheric": {
+    "gfs": {
+      "status": "catalog",
+      "source": "https://nomads.ncep.noaa.gov/"
+    },
+    "goes": {
+      "status": "catalog",
+      "source": "https://www.goes.noaa.gov/"
+    }
+  },
+  "scale_3_oceanic": {
+    "buoy": {
+      "status": "ok",
+      "data": {
+        "timestamp": "2025-12-23T16:40Z",
+        "wind_direction_deg": 110.0,
+        "wind_speed_ms": 2.0,
+        "gust_ms": 3.0,
+        "wave_height_m": null,
+        "water_temp_c": 23.2,
+        "air_temp_c": 23.7,
+        "pressure_hpa": 1025.4
+      }
+    },
+    "tides": {
+      "status": "ok",
+      "station_id": "8771450",
+      "water_level_m": -0.05,
+      "water_level_cm": -5.0,
+      "water_time": "2025-12-23 17:00",
+      "prediction_m": 0.177,
+      "prediction_time": "2025-12-23 23:00"
+    },
+    "currents": {
+      "status": "ok",
+      "station_id": "g09010",
+      "speed_mps": 0.522,
+      "direction_deg": 115.0,
+      "bin": "30",
+      "time": "2025-12-23 16:57"
+    }
+  },
+  "scale_4_space_weather": {
+    "alerts": {
+      "status": "ok",
+      "count": 164,
+      "alerts": [
+        {
+          "product_id": "K05W",
+          "issue_datetime": "2025-12-23 14:09:56.757",
+          "message": "Space Weather Message Code: WARK05\r\nSerial Number: 2162\r\nIssue Time: 2025 Dec 23 1409 UTC\r\n\r\nEXTENDED WARNING: Geomagnetic K-index of 5 expected\r\nExtension to Serial Number: 2161\r\nValid From: 2025 Dec 22 1407 UTC\r\nNow Valid Until: 2025 Dec 23 2359 UTC\r\nWarning Condition: Persistence\r\n\r\nNOAA Space Weather Scale descriptions can be found at\r\nwww.swpc.noaa.gov/noaa-scales-explanation\r\n\r\nPotential Impacts: Area of impact primarily poleward of 60 degrees Geomagnetic Latitude.\r\nInduced Currents - Weak power grid fluctuations can occur.\r\nSpacecraft - Minor impact on satellite operations possible.\r\nAurora - Aurora may be visible at high latitudes, i.e., northern tier of the U.S. such as northern Michigan and Maine."
+        },
+        {
+          "product_id": "EF3A",
+          "issue_datetime": "2025-12-23 09:02:17.563",
+          "message": "Space Weather Message Code: ALTEF3\r\nSerial Number: 3582\r\nIssue Time: 2025 Dec 23 0902 UTC\r\n\r\nCONTINUED ALERT: Electron 2MeV Integral Flux exceeded 1000pfu\r\nContinuation of Serial Number: 3581\r\nBegin Time: 2025 Dec 21 1425 UTC\r\nYesterday Maximum 2MeV Flux: 1882 pfu\r\n\r\n\r\n\r\nPotential Impacts: Satellite systems may experience significant charging resulting in increased risk to satellite systems."
+        },
+        {
+          "product_id": "K05W",
+          "issue_datetime": "2025-12-23 05:55:12.000",
+          "message": "Space Weather Message Code: WARK05\r\nSerial Number: 2161\r\nIssue Time: 2025 Dec 23 0555 UTC\r\n\r\nEXTENDED WARNING: Geomagnetic K-index of 5 expected\r\nExtension to Serial Number: 2160\r\nValid From: 2025 Dec 22 1407 UTC\r\nNow Valid Until: 2025 Dec 23 1500 UTC\r\nWarning Condition: Persistence\r\n\r\nNOAA Space Weather Scale descriptions can be found at\r\nwww.swpc.noaa.gov/noaa-scales-explanation\r\n\r\nPotential Impacts: Area of impact primarily poleward of 60 degrees Geomagnetic Latitude.\r\nInduced Currents - Weak power grid fluctuations can occur.\r\nSpacecraft - Minor impact on satellite operations possible.\r\nAurora - Aurora may be visible at high latitudes, i.e., northern tier of the U.S. such as northern Michigan and Maine."
+        },
+        {
+          "product_id": "K05W",
+          "issue_datetime": "2025-12-22 23:54:48.630",
+          "message": "Space Weather Message Code: WARK05\r\nSerial Number: 2160\r\nIssue Time: 2025 Dec 22 2354 UTC\r\n\r\nEXTENDED WARNING: Geomagnetic K-index of 5 expected\r\nExtension to Serial Number: 2159\r\nValid From: 2025 Dec 22 1407 UTC\r\nNow Valid Until: 2025 Dec 23 0600 UTC\r\nWarning Condition: Persistence\r\n\r\nNOAA Space Weather Scale descriptions can be found at\r\nwww.swpc.noaa.gov/noaa-scales-explanation\r\n\r\nPotential Impacts: Area of impact primarily poleward of 60 degrees Geomagnetic Latitude.\r\nInduced Currents - Weak power grid fluctuations can occur.\r\nSpacecraft - Minor impact on satellite operations possible.\r\nAurora - Aurora may be visible at high latitudes, i.e., northern tier of the U.S. such as northern Michigan and Maine."
+        },
+        {
+          "product_id": "K04W",
+          "issue_datetime": "2025-12-22 17:55:16.987",
+          "message": "Space Weather Message Code: WARK04\r\nSerial Number: 5194\r\nIssue Time: 2025 Dec 22 1755 UTC\r\n\r\nEXTENDED WARNING: Geomagnetic K-index of 4 expected\r\nExtension to Serial Number: 5193\r\nValid From: 2025 Dec 21 0240 UTC\r\nNow Valid Until: 2025 Dec 23 2359 UTC\r\nWarning Condition: Persistence\r\n\r\nNOAA Space Weather Scale descriptions can be found at\r\nwww.swpc.noaa.gov/noaa-scales-explanation\r\n\r\nPotential Impacts: Area of impact primarily poleward of 65 degrees Geomagnetic Latitude.\r\nInduced Currents - Weak power grid fluctuations can occur.\r\nAurora - Aurora may be visible at high latitudes such as Canada and Alaska."
+        }
+      ]
+    },
+    "solar": {
+      "status": "ok",
+      "xray_flux": 9.723893299451447e-07,
+      "xray_time": "2025-12-23T17:07:00Z",
+      "solar_wind": {
+        "time": "2025-12-23 17:08:00.000",
+        "density_cm3": 1.35,
+        "speed_km_s": 662.1,
+        "temperature_k": 125852.0
+      },
+      "magnetic_field": {
+        "time": "2025-12-23 17:07:00.000",
+        "bx_gsm": -3.61,
+        "by_gsm": 1.16,
+        "bz_gsm": -4.1,
+        "bt": 5.58
+      }
+    },
+    "geomagnetic_kp": {
+      "status": "ok",
+      "time": "2025-12-23 12:00:00.000",
+      "kp": 3.67,
+      "a_running": "22",
+      "station_count": "8",
+      "status_text": "Quiet to unsettled"
+    }
+  },
+  "scale_5_planetary": {
+    "planetary": {
+      "status": "ok",
+      "moon_distance_km": 396041.26382974884
+    },
+    "moon_phase": {
+      "phase": 0.11795744775132444,
+      "phase_name": "Waxing/Waning",
+      "tidal_effect": "Moderate tidal forces",
+      "tidal_force_index": 0.6751355997767968
+    }
+  },
+  "scale_6_cosmic": {
+    "proton_flux": {
+      "status": "ok",
+      "flux": 0.14890004694461823,
+      "energy": ">=60 MeV",
+      "time": "2025-12-23T17:00:00Z"
+    },
+    "gamma_bursts": {
+      "status": "catalog",
+      "source": "https://fermi.gsfc.nasa.gov/ssc/observations/types/grbs/"
+    }
+  }
+}

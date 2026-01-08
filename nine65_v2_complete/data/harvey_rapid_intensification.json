@@ -1,0 +1,208 @@
+{
+  "event": "Hurricane Harvey Rapid Intensification",
+  "date": "2017-08-23 to 2017-08-25",
+  "ri_definition": "\u226530 kt increase in 24 hours",
+  "actual_ri": "65 kt \u2192 115 kt in 30 hours (50 kt = RI)",
+  "first_ri_alert": {
+    "hours": 12.0,
+    "timestamp": "2017-08-23T12:00:00",
+    "alert": "RI_WATCH",
+    "probability": 0.35
+  },
+  "timeline": [
+    {
+      "timestamp": "2017-08-23T00:00:00",
+      "hours": 0.0,
+      "lat": 24.5,
+      "lon": -93.5,
+      "wind_kt": 35,
+      "pressure_mb": 1005,
+      "category": "TS",
+      "sst_c": 28.0,
+      "shear_kt": 25,
+      "ohc_kj_cm2": 45,
+      "rh_mid": 55,
+      "ri_probability": 0.15,
+      "ri_alert": "RI_POSSIBLE",
+      "factors": [
+        "SST warm (28.0\u00b0C)",
+        "Shear unfavorable (25 kt)",
+        "Strong outflow",
+        "Room for intensification"
+      ]
+    },
+    {
+      "timestamp": "2017-08-23T12:00:00",
+      "hours": 12.0,
+      "lat": 24.8,
+      "lon": -94.5,
+      "wind_kt": 45,
+      "pressure_mb": 1000,
+      "category": "TS",
+      "sst_c": 28.5,
+      "shear_kt": 20,
+      "ohc_kj_cm2": 55,
+      "rh_mid": 60,
+      "ri_probability": 0.35,
+      "ri_alert": "RI_WATCH",
+      "factors": [
+        "SST very warm (28.5\u00b0C)",
+        "OHC adequate (55 kJ/cm\u00b2)",
+        "Shear unfavorable (20 kt)",
+        "Strong outflow",
+        "Room for intensification"
+      ]
+    },
+    {
+      "timestamp": "2017-08-24T00:00:00",
+      "hours": 24.0,
+      "lat": 25.2,
+      "lon": -95.5,
+      "wind_kt": 65,
+      "pressure_mb": 987,
+      "category": "1",
+      "sst_c": 29.0,
+      "shear_kt": 12,
+      "ohc_kj_cm2": 70,
+      "rh_mid": 65,
+      "ri_probability": 0.55,
+      "ri_alert": "RI_WARNING",
+      "factors": [
+        "SST very warm (29.0\u00b0C)",
+        "OHC adequate (70 kJ/cm\u00b2)",
+        "Shear low (12 kt)",
+        "Strong outflow"
+      ]
+    },
+    {
+      "timestamp": "2017-08-24T06:00:00",
+      "hours": 30.0,
+      "lat": 25.5,
+      "lon": -96.0,
+      "wind_kt": 75,
+      "pressure_mb": 978,
+      "category": "1",
+      "sst_c": 29.2,
+      "shear_kt": 10,
+      "ohc_kj_cm2": 80,
+      "rh_mid": 70,
+      "ri_probability": 0.7,
+      "ri_alert": "RI_IMMINENT",
+      "factors": [
+        "SST very warm (29.2\u00b0C)",
+        "OHC very high (80 kJ/cm\u00b2)",
+        "Shear low (10 kt)",
+        "Humidity high (70%)",
+        "Strong outflow"
+      ]
+    },
+    {
+      "timestamp": "2017-08-24T12:00:00",
+      "hours": 36.0,
+      "lat": 25.8,
+      "lon": -96.3,
+      "wind_kt": 85,
+      "pressure_mb": 968,
+      "category": "2",
+      "sst_c": 29.3,
+      "shear_kt": 8,
+      "ohc_kj_cm2": 85,
+      "rh_mid": 72,
+      "ri_probability": 0.8,
+      "ri_alert": "RI_IMMINENT",
+      "factors": [
+        "SST very warm (29.3\u00b0C)",
+        "OHC very high (85 kJ/cm\u00b2)",
+        "Shear very low (8 kt)",
+        "Humidity high (72%)",
+        "Strong outflow"
+      ]
+    },
+    {
+      "timestamp": "2017-08-24T18:00:00",
+      "hours": 42.0,
+      "lat": 26.2,
+      "lon": -96.6,
+      "wind_kt": 100,
+      "pressure_mb": 952,
+      "category": "3",
+      "sst_c": 29.5,
+      "shear_kt": 7,
+      "ohc_kj_cm2": 90,
+      "rh_mid": 75,
+      "ri_probability": 0.8,
+      "ri_alert": "RI_IMMINENT",
+      "factors": [
+        "SST very warm (29.5\u00b0C)",
+        "OHC very high (90 kJ/cm\u00b2)",
+        "Shear very low (7 kt)",
+        "Humidity high (75%)",
+        "Strong outflow"
+      ]
+    },
+    {
+      "timestamp": "2017-08-25T00:00:00",
+      "hours": 48.0,
+      "lat": 26.8,
+      "lon": -96.9,
+      "wind_kt": 110,
+      "pressure_mb": 940,
+      "category": "3",
+      "sst_c": 29.8,
+      "shear_kt": 6,
+      "ohc_kj_cm2": 95,
+      "rh_mid": 78,
+      "ri_probability": 0.8,
+      "ri_alert": "RI_IMMINENT",
+      "factors": [
+        "SST very warm (29.8\u00b0C)",
+        "OHC very high (95 kJ/cm\u00b2)",
+        "Shear very low (6 kt)",
+        "Humidity high (78%)",
+        "Strong outflow"
+      ]
+    },
+    {
+      "timestamp": "2017-08-25T06:00:00",
+      "hours": 54.0,
+      "lat": 27.5,
+      "lon": -97.0,
+      "wind_kt": 115,
+      "pressure_mb": 937,
+      "category": "4",
+      "sst_c": 28.5,
+      "shear_kt": 8,
+      "ohc_kj_cm2": 80,
+      "rh_mid": 70,
+      "ri_probability": 0.8,
+      "ri_alert": "RI_IMMINENT",
+      "factors": [
+        "SST very warm (28.5\u00b0C)",
+        "OHC very high (80 kJ/cm\u00b2)",
+        "Shear very low (8 kt)",
+        "Humidity high (70%)",
+        "Strong outflow"
+      ]
+    },
+    {
+      "timestamp": "2017-08-25T12:00:00",
+      "hours": 60.0,
+      "lat": 28.2,
+      "lon": -97.2,
+      "wind_kt": 80,
+      "pressure_mb": 965,
+      "category": "1",
+      "sst_c": 26.0,
+      "shear_kt": 15,
+      "ohc_kj_cm2": 40,
+      "rh_mid": 55,
+      "ri_probability": 0.0,
+      "ri_alert": "RI_UNLIKELY",
+      "factors": [
+        "SST too cool (26.0\u00b0C)",
+        "Shear moderate (15 kt)",
+        "Strong outflow"
+      ]
+    }
+  ]
+}

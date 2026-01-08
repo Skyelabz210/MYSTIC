@@ -1,0 +1,13 @@
+{
+  "generated": "2025-12-22T22:01:34.483376",
+  "integrations_implemented": 12,
+  "threshold_changes": {
+    "flash_flood": "50\u219240 mm/hr + saturation factor",
+    "tornado": "STP 1.0\u21920.5 + CAPE/SRH fallback",
+    "hurricane_ri": "SST/OHC interaction + MLD",
+    "gic": "Kp 5\u21924 with dB/dt + density"
+  },
+  "edge_cases_fixed": 3,
+  "cascade_chains_defined": 3,
+  "verification_modules": 4
+}

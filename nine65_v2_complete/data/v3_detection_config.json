@@ -1,0 +1,24 @@
+{
+  "generated": "2026-01-07T15:00:44.368515",
+  "version": "v3",
+  "optimizations": [
+    "multi_parameter_detection",
+    "optimized_thresholds",
+    "multi_factor_requirements",
+    "regional_calibration",
+    "ensemble_uncertainty"
+  ],
+  "thresholds": {
+    "flash_flood_warning": 0.5,
+    "tornado_warning": 0.45,
+    "ri_warning": 0.4,
+    "gic_warning": 0.4
+  },
+  "regions_supported": [
+    "texas_hill_country",
+    "tornado_alley",
+    "gulf_coast",
+    "canadian_shield",
+    "default"
+  ]
+}

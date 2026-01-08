@@ -1,0 +1,45 @@
+{
+  "generated": "2026-01-07T15:05:50.057165",
+  "demonstrations": {
+    "grover_threshold_search": {
+      "optimal_rain_thresh": 60,
+      "optimal_soil_thresh": 90,
+      "score": 0.639
+    },
+    "entangled_sensor_fusion": {
+      "sensors": 5,
+      "moduli": [
+        17,
+        23,
+        29,
+        31,
+        37
+      ],
+      "true_risk": 73,
+      "reconstructed": 73,
+      "perfect_reconstruction": true
+    },
+    "k_elimination_teleport": {
+      "channel_modulus": 1000,
+      "fidelity": "100%",
+      "values_tested": 4
+    },
+    "amplitude_amplification": {
+      "initial_signal": 0.1142857142857143,
+      "amplified_signal": 0.2551304039920387,
+      "amplification_factor": 2.2323910349303384
+    },
+    "zero_decoherence": {
+      "max_iterations_tested": 1000,
+      "weight_preservation": "exact",
+      "decoherence_detected": false
+    }
+  },
+  "key_advantages": [
+    "O(\u221aN) threshold optimization vs O(N) classical",
+    "Perfect CRT sensor fusion",
+    "100% fidelity teleportation",
+    "Arbitrary circuit depth without error correction",
+    "Room temperature operation"
+  ]
+}

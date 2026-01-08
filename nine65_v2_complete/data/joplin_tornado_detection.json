@@ -1,0 +1,498 @@
+{
+  "event": "Joplin EF5 Tornado",
+  "date": "2011-05-22",
+  "location": "Joplin, Missouri",
+  "deaths": 161,
+  "ef_rating": "EF5",
+  "max_winds_mph": 200,
+  "first_watch": {
+    "hours": -5.75,
+    "timestamp": "2011-05-22T16:49:00"
+  },
+  "first_warning": {
+    "hours": -3.0,
+    "timestamp": "2011-05-22T19:34:00"
+  },
+  "timeline": [
+    {
+      "timestamp": "2011-05-22T16:34:00",
+      "minutes_to_touchdown": 360,
+      "cape": 1600,
+      "srh": 106.0,
+      "stp": 1.81,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.1,
+      "alert": "CLEAR",
+      "factors": [
+        "STP favorable (1.8)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T16:49:00",
+      "minutes_to_touchdown": 345,
+      "cape": 1675,
+      "srh": 118.0,
+      "stp": 2.11,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.2,
+      "alert": "SEVERE_WATCH",
+      "factors": [
+        "STP significant (2.1)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T17:04:00",
+      "minutes_to_touchdown": 330,
+      "cape": 1750,
+      "srh": 130.0,
+      "stp": 2.43,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.2,
+      "alert": "SEVERE_WATCH",
+      "factors": [
+        "STP significant (2.4)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T17:19:00",
+      "minutes_to_touchdown": 315,
+      "cape": 1825,
+      "srh": 142.0,
+      "stp": 2.76,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.2,
+      "alert": "SEVERE_WATCH",
+      "factors": [
+        "STP significant (2.8)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T17:34:00",
+      "minutes_to_touchdown": 300,
+      "cape": 1900,
+      "srh": 154.0,
+      "stp": 3.12,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.2,
+      "alert": "SEVERE_WATCH",
+      "factors": [
+        "STP significant (3.1)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T17:49:00",
+      "minutes_to_touchdown": 285,
+      "cape": 1975,
+      "srh": 166.0,
+      "stp": 3.5,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.2,
+      "alert": "SEVERE_WATCH",
+      "factors": [
+        "STP significant (3.5)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T18:04:00",
+      "minutes_to_touchdown": 270,
+      "cape": 2050,
+      "srh": 178.0,
+      "stp": 3.89,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.2,
+      "alert": "SEVERE_WATCH",
+      "factors": [
+        "STP significant (3.9)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T18:19:00",
+      "minutes_to_touchdown": 255,
+      "cape": 2125,
+      "srh": 190.0,
+      "stp": 4.31,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.3,
+      "alert": "TORNADO_WATCH",
+      "factors": [
+        "STP very high (4.3)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T18:34:00",
+      "minutes_to_touchdown": 240,
+      "cape": 2200,
+      "srh": 202.0,
+      "stp": 4.74,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.3,
+      "alert": "TORNADO_WATCH",
+      "factors": [
+        "STP very high (4.7)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T18:49:00",
+      "minutes_to_touchdown": 225,
+      "cape": 2275,
+      "srh": 214.0,
+      "stp": 5.19,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.3,
+      "alert": "TORNADO_WATCH",
+      "factors": [
+        "STP very high (5.2)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T19:04:00",
+      "minutes_to_touchdown": 210,
+      "cape": 2350,
+      "srh": 226.0,
+      "stp": 5.67,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.3,
+      "alert": "TORNADO_WATCH",
+      "factors": [
+        "STP very high (5.7)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T19:19:00",
+      "minutes_to_touchdown": 195,
+      "cape": 2425,
+      "srh": 238.0,
+      "stp": 6.16,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.3,
+      "alert": "TORNADO_WATCH",
+      "factors": [
+        "STP very high (6.2)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T19:34:00",
+      "minutes_to_touchdown": 180,
+      "cape": 3500,
+      "srh": 400,
+      "stp": 14.93,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.5,
+      "alert": "TORNADO_WARNING",
+      "factors": [
+        "STP very high (14.9)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T19:49:00",
+      "minutes_to_touchdown": 165,
+      "cape": 3500,
+      "srh": 400,
+      "stp": 14.93,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.5,
+      "alert": "TORNADO_WARNING",
+      "factors": [
+        "STP very high (14.9)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T20:04:00",
+      "minutes_to_touchdown": 150,
+      "cape": 3500,
+      "srh": 400,
+      "stp": 14.93,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.5,
+      "alert": "TORNADO_WARNING",
+      "factors": [
+        "STP very high (14.9)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T20:19:00",
+      "minutes_to_touchdown": 135,
+      "cape": 3500,
+      "srh": 400,
+      "stp": 14.93,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.5,
+      "alert": "TORNADO_WARNING",
+      "factors": [
+        "STP very high (14.9)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T20:34:00",
+      "minutes_to_touchdown": 120,
+      "cape": 3500,
+      "srh": 400,
+      "stp": 14.93,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.5,
+      "alert": "TORNADO_WARNING",
+      "factors": [
+        "STP very high (14.9)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T20:49:00",
+      "minutes_to_touchdown": 105,
+      "cape": 3500,
+      "srh": 400,
+      "stp": 14.93,
+      "mesocyclone": false,
+      "tvs": false,
+      "vrot_ms": 0,
+      "probability": 0.5,
+      "alert": "TORNADO_WARNING",
+      "factors": [
+        "STP very high (14.9)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T21:04:00",
+      "minutes_to_touchdown": 90,
+      "cape": 3500,
+      "srh": 400,
+      "stp": 14.93,
+      "mesocyclone": true,
+      "tvs": false,
+      "vrot_ms": 20,
+      "probability": 0.6,
+      "alert": "TORNADO_WARNING",
+      "factors": [
+        "STP very high (14.9)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)",
+        "Weak rotation detected"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T21:19:00",
+      "minutes_to_touchdown": 75,
+      "cape": 3500,
+      "srh": 400,
+      "stp": 14.93,
+      "mesocyclone": true,
+      "tvs": false,
+      "vrot_ms": 20,
+      "probability": 0.6,
+      "alert": "TORNADO_WARNING",
+      "factors": [
+        "STP very high (14.9)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)",
+        "Weak rotation detected"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T21:34:00",
+      "minutes_to_touchdown": 60,
+      "cape": 3500,
+      "srh": 420,
+      "stp": 15.68,
+      "mesocyclone": true,
+      "tvs": false,
+      "vrot_ms": 30.0,
+      "probability": 0.7,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (15.7)",
+        "High SRH (420 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)",
+        "Mesocyclone (Vrot=30 m/s)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T21:49:00",
+      "minutes_to_touchdown": 45,
+      "cape": 3500,
+      "srh": 420,
+      "stp": 15.68,
+      "mesocyclone": true,
+      "tvs": false,
+      "vrot_ms": 37.5,
+      "probability": 0.7,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (15.7)",
+        "High SRH (420 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)",
+        "Mesocyclone (Vrot=38 m/s)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T22:04:00",
+      "minutes_to_touchdown": 30,
+      "cape": 3500,
+      "srh": 450,
+      "stp": 16.8,
+      "mesocyclone": true,
+      "tvs": false,
+      "vrot_ms": 45.0,
+      "probability": 0.9,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (16.8)",
+        "Extreme SRH (450 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)",
+        "Strong mesocyclone (Vrot=45 m/s)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T22:19:00",
+      "minutes_to_touchdown": 15,
+      "cape": 3500,
+      "srh": 450,
+      "stp": 16.8,
+      "mesocyclone": true,
+      "tvs": false,
+      "vrot_ms": 52.5,
+      "probability": 0.9,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (16.8)",
+        "Extreme SRH (450 m\u00b2/s\u00b2)",
+        "High CAPE (3500 J/kg)",
+        "Strong mesocyclone (Vrot=52 m/s)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T22:34:00",
+      "minutes_to_touchdown": 0,
+      "cape": 3000,
+      "srh": 400,
+      "stp": 12.8,
+      "mesocyclone": true,
+      "tvs": true,
+      "vrot_ms": 50,
+      "probability": 0.95,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (12.8)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3000 J/kg)",
+        "TVS DETECTED - TORNADO LIKELY"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T22:49:00",
+      "minutes_to_touchdown": -15,
+      "cape": 3000,
+      "srh": 400,
+      "stp": 12.8,
+      "mesocyclone": true,
+      "tvs": true,
+      "vrot_ms": 50,
+      "probability": 0.95,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (12.8)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3000 J/kg)",
+        "TVS DETECTED - TORNADO LIKELY"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T23:04:00",
+      "minutes_to_touchdown": -30,
+      "cape": 3000,
+      "srh": 400,
+      "stp": 12.8,
+      "mesocyclone": true,
+      "tvs": true,
+      "vrot_ms": 50,
+      "probability": 0.95,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (12.8)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3000 J/kg)",
+        "TVS DETECTED - TORNADO LIKELY"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T23:19:00",
+      "minutes_to_touchdown": -45,
+      "cape": 3000,
+      "srh": 400,
+      "stp": 12.8,
+      "mesocyclone": true,
+      "tvs": false,
+      "vrot_ms": 30,
+      "probability": 0.7,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (12.8)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3000 J/kg)",
+        "Mesocyclone (Vrot=30 m/s)"
+      ]
+    },
+    {
+      "timestamp": "2011-05-22T23:34:00",
+      "minutes_to_touchdown": -60,
+      "cape": 3000,
+      "srh": 400,
+      "stp": 12.8,
+      "mesocyclone": true,
+      "tvs": false,
+      "vrot_ms": 30,
+      "probability": 0.7,
+      "alert": "TORNADO_EMERGENCY",
+      "factors": [
+        "STP very high (12.8)",
+        "High SRH (400 m\u00b2/s\u00b2)",
+        "High CAPE (3000 J/kg)",
+        "Mesocyclone (Vrot=30 m/s)"
+      ]
+    }
+  ]
+}
