@@ -31,6 +31,7 @@ pub mod pade_engine;    // INTEGER TRANSCENDENTALS (exp/sin/cos/sigmoid)
 pub mod mq_relu;        // O(1) SIGN DETECTION
 pub mod integer_softmax; // EXACT SUM SOFTMAX
 pub mod cyclotomic_phase; // NATIVE RING TRIGONOMETRY
+pub mod polypoly;       // POLYNOMIAL MULTIPLY STRATEGIES
 
 pub use montgomery::MontgomeryContext;
 pub use persistent_montgomery::{PersistentMontgomery, PersistentPolynomial};
@@ -47,3 +48,4 @@ pub use pade_engine::{PadeEngine, PADE_SCALE};
 pub use mq_relu::{MQReLU, MQReLUPolynomial, Sign};
 pub use integer_softmax::{IntegerSoftmax, SOFTMAX_SCALE};
 pub use cyclotomic_phase::{CyclotomicRing, CyclotomicPolynomial, modular_distance, toric_coupling};
+pub use polypoly::{Polynomial, PolyPolyMultiplier, MultiplicationStrategy, PolyPolyConvolution};

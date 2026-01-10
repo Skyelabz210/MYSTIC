@@ -1,5 +1,5 @@
 {
-  "events_tested": 6,
+  "events_tested": 13,
   "risk_accuracy": 100.0,
   "score_accuracy": 100.0,
   "hazard_accuracy": 100.0,
@@ -42,6 +42,24 @@
       "source": "USGS IV+Open-Meteo (complete)"
     },
     {
+      "id": "camp_mystic_2007",
+      "name": "Camp Mystic Flood (2007)",
+      "primary_series": "streamflow",
+      "expected_risk": "CRITICAL",
+      "predicted_risk": "CRITICAL",
+      "risk_score": 90,
+      "risk_ok": true,
+      "score_ok": true,
+      "hazard_expected": "FLASH_FLOOD",
+      "hazard_predicted": "FLASH_FLOOD",
+      "hazard_ok": true,
+      "lead_ok": true,
+      "lead_score": 90,
+      "lead_level": "CRITICAL",
+      "data_quality": "VERIFIED",
+      "source": "USGS IV+Open-Meteo (complete)"
+    },
+    {
       "id": "camp_fire_2018",
       "name": "Camp Fire (2018)",
       "primary_series": "humidity",
@@ -60,6 +78,24 @@
       "source": "USGS NONE+Open-Meteo (complete)"
     },
     {
+      "id": "halloween_2013",
+      "name": "Halloween Floods (2013)",
+      "primary_series": "streamflow",
+      "expected_risk": "HIGH",
+      "predicted_risk": "HIGH",
+      "risk_score": 60,
+      "risk_ok": true,
+      "score_ok": true,
+      "hazard_expected": "FLASH_FLOOD",
+      "hazard_predicted": "FLASH_FLOOD",
+      "hazard_ok": true,
+      "lead_ok": true,
+      "lead_score": 60,
+      "lead_level": "HIGH",
+      "data_quality": "VERIFIED",
+      "source": "USGS IV+Open-Meteo (complete)"
+    },
+    {
       "id": "joplin_2011",
       "name": "Joplin Tornado Region (2011)",
       "primary_series": "pressure",
@@ -76,6 +112,96 @@
       "lead_level": "HIGH",
       "data_quality": "VERIFIED",
       "source": "USGS NONE+Open-Meteo (complete)"
+    },
+    {
+      "id": "llano_2018",
+      "name": "Llano River Flood (2018)",
+      "primary_series": "streamflow",
+      "expected_risk": "HIGH",
+      "predicted_risk": "CRITICAL",
+      "risk_score": 75,
+      "risk_ok": true,
+      "score_ok": true,
+      "hazard_expected": "FLASH_FLOOD",
+      "hazard_predicted": "FLASH_FLOOD",
+      "hazard_ok": true,
+      "lead_ok": true,
+      "lead_score": 75,
+      "lead_level": "CRITICAL",
+      "data_quality": "VERIFIED",
+      "source": "USGS IV+Open-Meteo (complete)"
+    },
+    {
+      "id": "memorial_day_2015",
+      "name": "Memorial Day Floods (2015)",
+      "primary_series": "streamflow",
+      "expected_risk": "CRITICAL",
+      "predicted_risk": "CRITICAL",
+      "risk_score": 80,
+      "risk_ok": true,
+      "score_ok": true,
+      "hazard_expected": "FLASH_FLOOD",
+      "hazard_predicted": "FLASH_FLOOD",
+      "hazard_ok": true,
+      "lead_ok": true,
+      "lead_score": 60,
+      "lead_level": "HIGH",
+      "data_quality": "VERIFIED",
+      "source": "USGS IV+Open-Meteo (complete)"
+    },
+    {
+      "id": "memorial_day_2016",
+      "name": "Memorial Day Floods (2016)",
+      "primary_series": "streamflow",
+      "expected_risk": "HIGH",
+      "predicted_risk": "CRITICAL",
+      "risk_score": 75,
+      "risk_ok": true,
+      "score_ok": true,
+      "hazard_expected": "FLASH_FLOOD",
+      "hazard_predicted": "FLASH_FLOOD",
+      "hazard_ok": true,
+      "lead_ok": true,
+      "lead_score": 75,
+      "lead_level": "CRITICAL",
+      "data_quality": "VERIFIED",
+      "source": "USGS IV+Open-Meteo (complete)"
+    },
+    {
+      "id": "tax_day_2016",
+      "name": "Tax Day Flood (2016)",
+      "primary_series": "streamflow",
+      "expected_risk": "HIGH",
+      "predicted_risk": "HIGH",
+      "risk_score": 65,
+      "risk_ok": true,
+      "score_ok": true,
+      "hazard_expected": "FLASH_FLOOD",
+      "hazard_predicted": "FLASH_FLOOD",
+      "hazard_ok": true,
+      "lead_ok": true,
+      "lead_score": 60,
+      "lead_level": "HIGH",
+      "data_quality": "VERIFIED",
+      "source": "USGS IV+Open-Meteo (complete)"
+    },
+    {
+      "id": "imelda_2019",
+      "name": "Tropical Storm Imelda (2019)",
+      "primary_series": "streamflow",
+      "expected_risk": "CRITICAL",
+      "predicted_risk": "CRITICAL",
+      "risk_score": 90,
+      "risk_ok": true,
+      "score_ok": true,
+      "hazard_expected": "HURRICANE",
+      "hazard_predicted": "HURRICANE",
+      "hazard_ok": true,
+      "lead_ok": true,
+      "lead_score": 90,
+      "lead_level": "CRITICAL",
+      "data_quality": "VERIFIED",
+      "source": "USGS IV+Open-Meteo (complete)"
     },
     {
       "id": "derecho_2012",
@@ -113,5 +239,30 @@
       "data_quality": "VERIFIED",
       "source": "USGS IV+Open-Meteo (complete)"
     }
-  ]
+  ],
+  "quality_gates": {
+    "passed": true,
+    "gates": {
+      "risk_accuracy": {
+        "value": 100.0,
+        "threshold": 85.0,
+        "pass": true
+      },
+      "score_accuracy": {
+        "value": 100.0,
+        "threshold": 85.0,
+        "pass": true
+      },
+      "hazard_accuracy": {
+        "value": 100.0,
+        "threshold": 70.0,
+        "pass": true
+      },
+      "lead_success": {
+        "value": 100.0,
+        "threshold": 70.0,
+        "pass": true
+      }
+    }
+  }
 }

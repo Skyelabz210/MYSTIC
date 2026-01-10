@@ -432,6 +432,103 @@ body {
   grid-column: span 4;
 }
 
+.gate-card {
+  grid-column: span 7;
+}
+
+.gate-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.gate-metric {
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(15, 42, 48, 0.5);
+  border: 1px solid rgba(214, 242, 242, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gate-metric .label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--slate);
+}
+
+.gate-metric .value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gate-grid {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.gate-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(7, 14, 18, 0.5);
+  border: 1px solid rgba(214, 242, 242, 0.08);
+  font-size: 12px;
+}
+
+.gate-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.gate-note {
+  font-size: 11px;
+  color: var(--slate);
+}
+
+.gate-table {
+  display: grid;
+  gap: 8px;
+}
+
+.gate-row {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, auto);
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(12, 47, 54, 0.35);
+  border: 1px solid rgba(214, 242, 242, 0.06);
+  font-size: 12px;
+}
+
+.gate-name {
+  font-size: 12px;
+}
+
+.tag.gate-pass {
+  background: rgba(199, 255, 122, 0.2);
+  border-color: rgba(199, 255, 122, 0.5);
+  color: #d7ffd1;
+}
+
+.tag.gate-fail {
+  background: rgba(255, 122, 67, 0.25);
+  border-color: rgba(255, 122, 67, 0.5);
+  color: #ffd1b8;
+}
+
 .sparkline {
   height: 100px;
   display: grid;
@@ -604,6 +701,7 @@ body {
   .feed-card,
   .signal-card-large,
   .stream-card,
+  .gate-card,
   .control-card,
   .timeline-card {
     grid-column: span 12;
@@ -618,6 +716,10 @@ body {
   }
 
   .timeline li {
+    grid-template-columns: 1fr;
+  }
+
+  .gate-row {
     grid-template-columns: 1fr;
   }
 

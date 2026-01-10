@@ -10,9 +10,28 @@ const trendEl = document.getElementById("trendValue");
 const signalTagsEl = document.getElementById("signalTags");
 const streamMetaEl = document.getElementById("streamMeta");
 const timestampEl = document.getElementById("timestamp");
+const gateStatusEl = document.getElementById("gateStatus");
+const gateEventsEl = document.getElementById("gateEvents");
+const gateRiskEl = document.getElementById("gateRisk");
+const gateHazardEl = document.getElementById("gateHazard");
+const gateLeadEl = document.getElementById("gateLead");
+const gateGridEl = document.getElementById("gateGrid");
+const gateTableEl = document.getElementById("gateTable");
+const gateNoteEl = document.getElementById("gateNote");
 
 const sparklineBars = Array.from(document.querySelectorAll("#sparkline span"));
 const hazardSelect = document.getElementById("hazardSelect");
+
+const gauntletSources = [
+  {
+    label: "predictive_gauntlet_live_report.json",
+    path: "../predictive_gauntlet_live_report.json"
+  },
+  {
+    label: "predictive_gauntlet_report.json",
+    path: "../predictive_gauntlet_report.json"
+  }
+];
 
 const hazardPool = [
   "FLASH_FLOOD",
@@ -46,6 +65,13 @@ const signalSets = [
 function updateTimestamp() {
   const stamp = new Date().toISOString().replace("T", " ").replace("Z", " UTC");
   timestampEl.textContent = stamp;
+}
+
+function formatPercent(value) {
+  if (typeof value !== "number" || Number.isNaN(value)) {
+    return "--";
+  }
+  return `${value.toFixed(1)}%`;
 }
 
 function riskLevelFromScore(score) {
@@ -116,9 +142,129 @@ function loadSample() {
   updateSparkline();
 }
 
+function updateGateStatus(passed) {
+  if (!gateStatusEl) return;
+  if (passed === null) {
+    gateStatusEl.textContent = "NO DATA";
+    gateStatusEl.className = "tag neutral";
+    return;
+  }
+  gateStatusEl.textContent = passed ? "PASS" : "FAIL";
+  gateStatusEl.className = `tag ${passed ? "gate-pass" : "gate-fail"}`;
+}
+
+function buildGateState(ok, label) {
+  const pill = document.createElement("span");
+  pill.className = "state";
+  if (ok === null) {
+    pill.classList.add("warn");
+    pill.textContent = label || "N/A";
+    return pill;
+  }
+  pill.classList.add(ok ? "ok" : "hot");
+  pill.textContent = label || (ok ? "PASS" : "FAIL");
+  return pill;
+}
+
+function renderGateGrid(gates) {
+  if (!gateGridEl) return;
+  gateGridEl.innerHTML = "";
+  Object.entries(gates).forEach(([metric, gate]) => {
+    const item = document.createElement("div");
+    item.className = "gate-item";
+
+    const label = document.createElement("span");
+    label.textContent = metric.replace(/_/g, " ");
+
+    const value = buildGateState(
+      gate.pass,
+      `${gate.value.toFixed(1)}% / ${gate.threshold}%`
+    );
+
+    item.append(label, value);
+    gateGridEl.appendChild(item);
+  });
+}
+
+function renderGateTable(results) {
+  if (!gateTableEl) return;
+  gateTableEl.innerHTML = "";
+  results.forEach((result) => {
+    const row = document.createElement("div");
+    row.className = "gate-row";
+
+    const name = document.createElement("span");
+    name.className = "gate-name";
+    name.textContent = result.name || result.id || "UNKNOWN";
+
+    const riskLabel = result.risk_ok ? result.predicted_risk : "RISK MISS";
+    const hazardLabel = result.hazard_expected
+      ? result.hazard_predicted || "NO HAZARD"
+      : "HAZARD N/A";
+    const leadLabel = result.lead_score !== null
+      ? `LEAD ${result.lead_score}`
+      : "LEAD N/A";
+
+    row.append(
+      name,
+      buildGateState(result.risk_ok, riskLabel),
+      buildGateState(result.hazard_expected ? result.hazard_ok : null, hazardLabel),
+      buildGateState(result.lead_score !== null ? result.lead_ok : null, leadLabel)
+    );
+
+    gateTableEl.appendChild(row);
+  });
+}
+
+async function loadGauntletReport() {
+  if (gateNoteEl) {
+    gateNoteEl.textContent = "Loading gauntlet report...";
+  }
+  let report = null;
+  let sourceLabel = "";
+
+  for (const source of gauntletSources) {
+    try {
+      const response = await fetch(source.path, { cache: "no-store" });
+      if (!response.ok) {
+        continue;
+      }
+      report = await response.json();
+      sourceLabel = source.label;
+      break;
+    } catch (err) {
+      continue;
+    }
+  }
+
+  if (!report) {
+    updateGateStatus(null);
+    if (gateNoteEl) {
+      gateNoteEl.textContent = "Gauntlet report not available.";
+    }
+    return;
+  }
+
+  if (gateNoteEl) {
+    gateNoteEl.textContent = `Source: ${sourceLabel}`;
+  }
+
+  gateEventsEl.textContent = report.events_tested ?? "--";
+  gateRiskEl.textContent = formatPercent(report.risk_accuracy);
+  gateHazardEl.textContent = formatPercent(report.hazard_accuracy);
+  gateLeadEl.textContent = formatPercent(report.lead_success);
+
+  const gates = report.quality_gates?.gates || {};
+  updateGateStatus(report.quality_gates?.passed ?? null);
+  renderGateGrid(gates);
+  renderGateTable(report.results || []);
+}
+
 updateTimestamp();
 updateSparkline();
 setInterval(updateTimestamp, 1000);
+loadGauntletReport();
 
 document.getElementById("runAnalysis")?.addEventListener("click", runRandomAnalysis);
 document.getElementById("loadSample")?.addEventListener("click", loadSample);
+document.getElementById("loadGauntlet")?.addEventListener("click", loadGauntletReport);

@@ -28,7 +28,7 @@ from cayley_transform_nxn import (
 from lyapunov_calculator import (
     compute_lyapunov_exponent, classify_weather_pattern, LyapunovResult
 )
-from k_elimination import KElimination, KEliminationContext
+from k_elimination import KElimination, KEliminationContext, MultiChannelRNS
 from phi_resonance_detector import detect_phi_resonance
 from fibonacci_phi_validator import phi_from_fibonacci
 from shadow_entropy import ShadowEntropyPRNG
@@ -88,9 +88,53 @@ class MYSTICPredictorV3Production:
         self.prime = prime
         self.prng = ShadowEntropyPRNG()
         self.kelim = KElimination(KEliminationContext.for_weather())
+        self.rns = MultiChannelRNS()
         self.attractor_signatures = ATTRACTOR_BASINS
         self.phi_scaled = phi_from_fibonacci(47, 10**15)
         self._evolution_matrices: Dict[int, MatrixFp2] = {}
+
+    def _rns_sum_unsigned(self, values: List[int]) -> int:
+        """Sum unsigned values using multi-channel RNS when safe."""
+        if not values:
+            return 0
+        max_val = max(values)
+        if max_val < 0:
+            return sum(values)
+        if max_val * len(values) >= self.rns.M:
+            return sum(values)
+        acc = self.rns.encode(0)
+        for value in values:
+            acc = self.rns.add(acc, self.rns.encode(value))
+        return self.rns.decode(acc)
+
+    def _rns_sum_signed(self, values: List[int]) -> int:
+        """Sum signed values by splitting into positive and negative lanes."""
+        if not values:
+            return 0
+        positives = [v for v in values if v >= 0]
+        negatives = [-v for v in values if v < 0]
+        return self._rns_sum_unsigned(positives) - self._rns_sum_unsigned(negatives)
+
+    def _divide_floor(self, dividend: int, divisor: int) -> int:
+        """Floor division with K-Elimination for exact divides."""
+        if divisor == 0:
+            return 0
+        if dividend % divisor == 0:
+            try:
+                if dividend >= 0:
+                    return self.kelim.exact_divide(dividend, divisor)
+                return -self.kelim.exact_divide(abs(dividend), divisor)
+            except ValueError:
+                return dividend // divisor
+        return dividend // divisor
+
+    def _scale_by_percent(self, score: int, percent: int) -> int:
+        """Scale a signed score by a percentage using exact division when possible."""
+        if percent <= 0:
+            return 0
+        if score >= 0:
+            return self._divide_floor(score * percent, 100)
+        return -self._divide_floor(abs(score) * percent, 100)
 
     def _get_evolution_matrix(self, dim: int) -> MatrixFp2:
         if dim not in self._evolution_matrices:
@@ -106,9 +150,12 @@ class MYSTICPredictorV3Production:
 
         smoothed = []
         for i in range(len(series)):
-            start = max(0, i - window // 2)
-            end = min(len(series), i + window // 2 + 1)
-            avg = sum(series[start:end]) // (end - start)
+            start = max(0, i - self._divide_floor(window, 2))
+            end = min(len(series), i + self._divide_floor(window, 2) + 1)
+            avg = self._divide_floor(
+                self._rns_sum_signed(series[start:end]),
+                end - start
+            )
             smoothed.append(avg)
         return smoothed
 
@@ -126,10 +173,16 @@ class MYSTICPredictorV3Production:
 
         # Overall trend: compare first quarter to last quarter
         n = len(time_series)
-        quarter = max(1, n // 4)
+        quarter = max(1, self._divide_floor(n, 4))
 
-        first_quarter_avg = sum(time_series[:quarter]) // quarter
-        last_quarter_avg = sum(time_series[-quarter:]) // quarter
+        first_quarter_avg = self._divide_floor(
+            self._rns_sum_signed(time_series[:quarter]),
+            quarter
+        )
+        last_quarter_avg = self._divide_floor(
+            self._rns_sum_signed(time_series[-quarter:]),
+            quarter
+        )
         overall_change = last_quarter_avg - first_quarter_avg
 
         # NEW: Detect mid-series extremes (for V-shaped or spike patterns)
@@ -140,15 +193,18 @@ class MYSTICPredictorV3Production:
         max_rise_from_start = max_value - start_value
 
         # Calculate rate of change (per unit time, scaled by 100)
-        rate_of_change = (overall_change * 100) // max(1, n)
+        rate_of_change = self._divide_floor(overall_change * 100, max(1, n))
 
         # Calculate data range for normalization
         data_range = max(time_series) - min(time_series)
-        data_mean = sum(time_series) // len(time_series)
+        data_mean = self._divide_floor(
+            self._rns_sum_signed(time_series),
+            len(time_series)
+        )
 
         # Normalized overall change (as percentage of data range or mean)
-        normalizer = max(data_range, data_mean // 10, 1)
-        normalized_change = (overall_change * 100) // normalizer
+        normalizer = max(data_range, self._divide_floor(data_mean, 10), 1)
+        normalized_change = self._divide_floor(overall_change * 100, normalizer)
 
         # Detect oscillation on smoothed series (more robust)
         smoothed_changes = [smoothed[i + 1] - smoothed[i] for i in range(len(smoothed) - 1)]
@@ -156,11 +212,14 @@ class MYSTICPredictorV3Production:
                          if (smoothed_changes[i] > 0) != (smoothed_changes[i + 1] > 0)
                          and abs(smoothed_changes[i]) > 1 and abs(smoothed_changes[i + 1]) > 1)
 
-        oscillation_ratio = (sign_changes * 100) // max(1, len(smoothed_changes) - 1)
+        oscillation_ratio = self._divide_floor(
+            sign_changes * 100,
+            max(1, len(smoothed_changes) - 1)
+        )
 
         # Local vs global trend analysis
         # Split into thirds and analyze each
-        third = max(1, n // 3)
+        third = max(1, self._divide_floor(n, 3))
         trends_by_third = []
         for i in range(3):
             start = i * third
@@ -221,7 +280,11 @@ class MYSTICPredictorV3Production:
 
         # Sample at regular intervals
         n = len(series)
-        samples = [series[i * n // 5] for i in range(5) if i * n // 5 < n]
+        samples = [
+            series[self._divide_floor(i * n, 5)]
+            for i in range(5)
+            if self._divide_floor(i * n, 5) < n
+        ]
 
         if len(samples) < 4:
             return False
@@ -230,15 +293,18 @@ class MYSTICPredictorV3Production:
         ratios = []
         for i in range(1, len(samples)):
             if samples[i - 1] != 0 and samples[i - 1] > 10:
-                ratio = (samples[i] * 100) // samples[i - 1]
+                ratio = self._divide_floor(samples[i] * 100, samples[i - 1])
                 ratios.append(ratio)
 
         if len(ratios) < 2:
             return False
 
         # Check for consistent growth ratio > 110% (10% growth per interval)
-        avg_ratio = sum(ratios) // len(ratios)
-        ratio_variance = sum((r - avg_ratio) ** 2 for r in ratios) // len(ratios)
+        avg_ratio = self._divide_floor(self._rns_sum_unsigned(ratios), len(ratios))
+        ratio_variance = self._divide_floor(
+            self._rns_sum_unsigned([(r - avg_ratio) ** 2 for r in ratios]),
+            len(ratios)
+        )
 
         return avg_ratio > 110 and ratio_variance < 500
 
@@ -255,12 +321,15 @@ class MYSTICPredictorV3Production:
         if len(time_series) < 3:
             return "INSUFFICIENT_DATA", float('inf')
 
-        avg = sum(time_series) // len(time_series)
-        variance = sum((x - avg) ** 2 for x in time_series) // len(time_series)
+        avg = self._divide_floor(self._rns_sum_signed(time_series), len(time_series))
+        variance = self._divide_floor(
+            self._rns_sum_unsigned([(x - avg) ** 2 for x in time_series]),
+            len(time_series)
+        )
         data_range = max(time_series) - min(time_series)
 
         # Coefficient of variation (normalized variance)
-        cv = (variance * 1000) // max(1, avg * avg) if avg != 0 else 0
+        cv = self._divide_floor(variance * 1000, max(1, avg * avg)) if avg != 0 else 0
 
         overall_change = metrics.get("overall_change", 0)
         rate = metrics.get("rate_of_change", 0)
@@ -322,9 +391,9 @@ class MYSTICPredictorV3Production:
 
             # Trend-based adjustments
             if basin_name == "CLEAR" and trend == "STABLE" and cv < 20:
-                score = scale_by_percent(score, 20)
+                score = self._scale_by_percent(score, 20)
             elif basin_name == "STEADY_RAIN" and trend == "STABLE" and 20 < cv < 100:
-                score = scale_by_percent(score, 30)
+                score = self._scale_by_percent(score, 30)
 
             if score < best_score:
                 best_score = score
@@ -376,8 +445,8 @@ class MYSTICPredictorV3Production:
         # 1. φ-Resonance (0-15 points)
         if phi_result.get("has_resonance", False):
             phi_conf = int(phi_result.get("confidence", 0))
-            risk_score += (15 * phi_conf) // 100
-            confidence += phi_conf // 2
+            risk_score += self._divide_floor(15 * phi_conf, 100)
+            confidence += self._divide_floor(phi_conf, 2)
             confidence_sources.add("phi")
 
         # 2. Attractor classification (0-50 points) - MAJOR WEIGHT
@@ -434,7 +503,7 @@ class MYSTICPredictorV3Production:
         # 4. Data range analysis (0-15 points)
         data_range = metrics.get("data_range", 0)
         data_mean = metrics.get("data_mean", 1)
-        range_ratio = (data_range * 100) // max(data_mean, 1)
+        range_ratio = self._divide_floor(data_range * 100, max(data_mean, 1))
 
         if range_ratio > 50:  # Range > 50% of mean
             risk_score += 15
@@ -460,7 +529,7 @@ class MYSTICPredictorV3Production:
         if risk_score > 30:  # Already concerning
             if lyapunov.stability in ["HIGHLY_CHAOTIC", "CHAOTIC"]:
                 risk_score += 20
-                confidence += lyapunov.confidence // 2
+                confidence += self._divide_floor(lyapunov.confidence, 2)
                 confidence_sources.add("lyapunov")
             elif lyapunov.stability == "MARGINALLY_STABLE":
                 risk_score += 10
@@ -474,7 +543,7 @@ class MYSTICPredictorV3Production:
         # Oscillations are diagnostic signals, not noise
         if oscillation.has_precursor:
             risk_score += oscillation.risk_modifier
-            confidence += oscillation.confidence // 2
+            confidence += self._divide_floor(oscillation.confidence, 2)
             confidence_sources.add("oscillation")
         else:
             # Non-precursor oscillations can reduce risk
@@ -482,7 +551,7 @@ class MYSTICPredictorV3Production:
 
         # Normalize confidence
         confidence_divisor = max(1, len(confidence_sources))
-        avg_confidence = min(100, confidence // confidence_divisor)
+        avg_confidence = min(100, self._divide_floor(confidence, confidence_divisor))
 
         # Determine risk level with PRODUCTION thresholds
         if risk_score < 20:

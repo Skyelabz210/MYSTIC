@@ -163,7 +163,39 @@ def risk_match(expected: str, predicted: str) -> bool:
     return False
 
 
-def run_gauntlet(events_path: str, output_path: Optional[str] = None) -> int:
+QUALITY_GATES = {
+    "risk_accuracy": 85.0,
+    "score_accuracy": 85.0,
+    "hazard_accuracy": 70.0,
+    "lead_success": 70.0,
+}
+
+
+def evaluate_quality_gates(summary: Dict[str, Any]) -> bool:
+    gates: Dict[str, Dict[str, Any]] = {}
+    passed = True
+    for metric, threshold in QUALITY_GATES.items():
+        value = float(summary.get(metric, 0))
+        gate_ok = value >= threshold
+        gates[metric] = {
+            "value": value,
+            "threshold": threshold,
+            "pass": gate_ok
+        }
+        if not gate_ok:
+            passed = False
+    summary["quality_gates"] = {
+        "passed": passed,
+        "gates": gates
+    }
+    return passed
+
+
+def run_gauntlet(
+    events_path: str,
+    output_path: Optional[str] = None,
+    enforce_gates: bool = False
+) -> int:
     with open(events_path, "r") as handle:
         events = json.load(handle)
 
@@ -278,11 +310,20 @@ def run_gauntlet(events_path: str, output_path: Optional[str] = None) -> int:
     if lead_total:
         print(f"  Lead success: {summary['lead_success']}%")
 
+    gates_passed = evaluate_quality_gates(summary)
+    print("\nQUALITY GATES")
+    for metric, gate in summary["quality_gates"]["gates"].items():
+        status = "PASS" if gate["pass"] else "FAIL"
+        print(f"  {metric}: {gate['value']}% (min {gate['threshold']}%) {status}")
+    print(f"  Overall: {'PASS' if gates_passed else 'FAIL'}")
+
     if output_path:
         with open(output_path, "w") as handle:
             json.dump(summary, handle, indent=2)
         print(f"\nReport written to {output_path}")
 
+    if enforce_gates and not gates_passed:
+        return 1
     return 0
 
 
@@ -290,9 +331,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run MYSTIC predictive gauntlet")
     parser.add_argument("--events", default="predictive_gauntlet_events.json")
     parser.add_argument("--output", default=None)
+    parser.add_argument("--enforce", action="store_true", help="Exit nonzero on gate failure")
     args = parser.parse_args()
 
-    return run_gauntlet(args.events, args.output)
+    return run_gauntlet(args.events, args.output, args.enforce)
 
 
 if __name__ == "__main__":

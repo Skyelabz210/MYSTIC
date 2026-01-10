@@ -132,6 +132,8 @@ pub mod prelude {
         IntegerSoftmax, SOFTMAX_SCALE,                         // EXACT SUM SOFTMAX
         CyclotomicRing, CyclotomicPolynomial,                  // NATIVE RING TRIG
         modular_distance, toric_coupling,                       // TORIC GEOMETRY
+        Polynomial, PolyPolyMultiplier, MultiplicationStrategy, // POLYPOLY STRATEGIES
+        PolyPolyConvolution,
     };
     
     // NTT: Conditional export - use FFT version when v2 feature enabled

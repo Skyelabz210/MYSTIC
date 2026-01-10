@@ -9,7 +9,7 @@ In memory of Camp Mystic. No more tragedies.
 - Python MYSTIC V3 predictors (`mystic_v3_integrated.py`, `mystic_v3_tuned.py`, `mystic_v3_production.py`)
 - DataHub fetchers for USGS/Open-Meteo/NOAA (`data_sources_extended.py`)
 - Rust NINE65/MYSTIC v2 demo in `nine65_v2_complete`
-- No bundled historical datasets in this repo
+- Archived historical datasets in `nine65_v2_complete/data/historical` and `nine65_v2_complete/data/meteorological`
 
 ---
 
@@ -22,9 +22,9 @@ cargo run --release --bin mystic_demo --features v2
 
 ---
 
-## Run the Python Validation (Synthetic Patterns)
+## Run the Python Validation (Historical CSVs)
 
-`historical_validation.py` uses reconstructed patterns for validation.
+`historical_validation.py` uses archived historical CSVs from `predictive_gauntlet_events.json`.
 
 ```bash
 python3 historical_validation.py
@@ -63,4 +63,3 @@ cargo run --release --bin train_mystic --features v2
 1. Gather real historical event windows for flood events.
 2. Label event windows if you are training the Rust detector.
 3. Run live or historical validation for specific locations.
-

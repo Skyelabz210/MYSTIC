@@ -141,5 +141,30 @@
       "lead_level": "CRITICAL",
       "record_reference": "NOAA NHC reports, USGS NWIS"
     }
-  ]
+  ],
+  "quality_gates": {
+    "passed": true,
+    "gates": {
+      "risk_accuracy": {
+        "value": 100.0,
+        "threshold": 85.0,
+        "pass": true
+      },
+      "score_accuracy": {
+        "value": 100.0,
+        "threshold": 85.0,
+        "pass": true
+      },
+      "hazard_accuracy": {
+        "value": 100.0,
+        "threshold": 70.0,
+        "pass": true
+      },
+      "lead_success": {
+        "value": 100.0,
+        "threshold": 70.0,
+        "pass": true
+      }
+    }
+  }
 }

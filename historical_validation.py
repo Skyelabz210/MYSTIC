@@ -2,34 +2,25 @@
 """
 HISTORICAL WEATHER EVENT VALIDATION SUITE
 
-Tests MYSTIC against realistic data patterns based on documented
-meteorological events. These patterns are derived from:
-- NOAA storm reports
-- NWS historical data
-- Peer-reviewed meteorological literature
-
-Note: These are RECONSTRUCTED patterns based on reported characteristics,
-not raw sensor data (which would require proper data licensing).
-
-Events modeled:
-1. Hurricane Harvey (2017) - Texas flooding
-2. Camp Fire precursors (2018) - California fire weather
-3. Joplin Tornado (2011) - EF5 tornado conditions
-4. Texas Hill Country Flash Flood pattern
-5. Stable high-pressure system
-6. Cold front passage
-7. Derecho conditions (2012 North American)
+Tests MYSTIC against archived, real-world historical CSV data
+defined in predictive_gauntlet_events.json (offline, deterministic).
 
 Author: Claude (K-Elimination Expert)
 Date: 2026-01-07
+Updated: 2026-01-08 - Switched validation to archived historical CSVs
 """
 
-from typing import List, Dict, Any
-import random
-from dataclasses import dataclass
+from __future__ import annotations
 
-# Import the production predictor (calibrated for real-world events)
-from mystic_v3_production import MYSTICPredictorV3Production, PredictionResult
+import argparse
+import csv
+import json
+import math
+from pathlib import Path
+from dataclasses import dataclass
+from typing import List, Dict, Any, Optional, Tuple
+
+from mystic_v3_production import MYSTICPredictorV3Production
 
 
 @dataclass
@@ -41,289 +32,212 @@ class HistoricalEvent:
     expected_risk: str
     expected_min_score: int
     source: str
+    primary_series: str = "UNKNOWN"
 
 
-def add_realistic_noise(base: List[int], noise_scale: int = 5, seed: int = 42) -> List[int]:
-    """Add realistic measurement noise to synthetic data."""
-    random.seed(seed)
-    return [v + random.randint(-noise_scale, noise_scale) for v in base]
+DEFAULT_EVENTS_PATH = str(Path(__file__).with_name("predictive_gauntlet_events.json"))
 
 
-def generate_hurricane_harvey_pattern() -> List[int]:
-    """
-    Hurricane Harvey (August 2017) - Houston, TX
+def parse_float(value: str) -> Optional[float]:
+    if value is None:
+        return None
+    value = value.strip()
+    if value == "":
+        return None
+    try:
+        return float(value)
+    except ValueError:
+        return None
 
-    Characteristics:
-    - Pressure dropped from ~1010 mb to ~940 mb over 48 hours
-    - Extremely rapid intensification
-    - Sustained flooding for days
 
-    Pattern: Pressure readings (mb) over 48 1-hour intervals
-    """
-    # Start at normal pressure, drop rapidly as hurricane approaches
-    base = []
-    for i in range(48):
-        if i < 10:
-            # Normal conditions
-            pressure = 1012 - i * 2
-        elif i < 25:
-            # Rapid intensification phase
-            pressure = 992 - (i - 10) * 3
+def relative_humidity(temp_c: float, dewpoint_c: float) -> float:
+    """Approximate relative humidity from temp/dewpoint."""
+    es = math.exp((17.625 * temp_c) / (243.04 + temp_c))
+    esd = math.exp((17.625 * dewpoint_c) / (243.04 + dewpoint_c))
+    return max(0.0, min(100.0, 100.0 * esd / es))
+
+
+def read_usgs_csv(path: str) -> Dict[str, List[int]]:
+    """Parse USGS CSV and return streamflow series (scaled)."""
+    discharge_by_ts: Dict[str, float] = {}
+    gage_by_ts: Dict[str, float] = {}
+
+    with open(path, newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            row = {k.strip(): v for k, v in row.items() if k}
+            timestamp = row.get("timestamp")
+            if not timestamp:
+                continue
+            discharge = parse_float(row.get("discharge_cfs"))
+            gage_height = parse_float(row.get("gage_height_ft"))
+            if discharge is not None:
+                prev = discharge_by_ts.get(timestamp)
+                discharge_by_ts[timestamp] = discharge if prev is None else max(prev, discharge)
+            if gage_height is not None:
+                prev = gage_by_ts.get(timestamp)
+                gage_by_ts[timestamp] = gage_height if prev is None else max(prev, gage_height)
+
+    series: Dict[str, List[int]] = {}
+    if discharge_by_ts:
+        timestamps = sorted(discharge_by_ts.keys())
+        series["streamflow"] = [int(round(discharge_by_ts[t] * 100)) for t in timestamps]
+    elif gage_by_ts:
+        timestamps = sorted(gage_by_ts.keys())
+        series["streamflow"] = [int(round(gage_by_ts[t] * 100)) for t in timestamps]
+
+    return series
+
+
+def read_weather_csv(path: str) -> Dict[str, List[int]]:
+    """Parse meteorological CSV and return scaled series."""
+    pressure: List[int] = []
+    precip: List[int] = []
+    wind: List[int] = []
+    temperature: List[int] = []
+    humidity: List[int] = []
+
+    with open(path, newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            row = {k.strip(): v for k, v in row.items() if k}
+
+            pressure_hpa = parse_float(row.get("pressure_hpa"))
+            precip_1hr = parse_float(row.get("precip_1hr_mm"))
+            precip_total = parse_float(row.get("precip_mm"))
+            wind_mps = parse_float(row.get("wind_speed_mps"))
+            temp_c = parse_float(row.get("temp_c"))
+            dewpoint_c = parse_float(row.get("dewpoint_c"))
+
+            if pressure_hpa is not None:
+                pressure.append(int(round(pressure_hpa * 10)))
+            if precip_1hr is not None:
+                precip.append(int(round(precip_1hr * 100)))
+            elif precip_total is not None:
+                precip.append(int(round(precip_total * 100)))
+            if wind_mps is not None:
+                wind.append(int(round(wind_mps * 3.6 * 10)))
+            if temp_c is not None:
+                temperature.append(int(round(temp_c * 100)))
+            if temp_c is not None and dewpoint_c is not None:
+                humidity.append(int(round(relative_humidity(temp_c, dewpoint_c))))
+
+    series: Dict[str, List[int]] = {}
+    if pressure:
+        series["pressure"] = pressure
+    if precip:
+        series["precipitation"] = precip
+    if wind:
+        series["wind_speed"] = wind
+    if temperature:
+        series["temperature"] = temperature
+    if humidity:
+        series["humidity"] = humidity
+
+    return series
+
+
+def merge_payload(*sources: Dict[str, List[int]]) -> Dict[str, List[int]]:
+    payload: Dict[str, List[int]] = {}
+    for src in sources:
+        for key, series in src.items():
+            if series:
+                payload[key] = series
+    return payload
+
+
+def choose_primary(payload: Dict[str, List[int]], hazard_type: str) -> Tuple[str, List[int]]:
+    hazard_type = (hazard_type or "").upper()
+
+    if hazard_type in ["FLASH_FLOOD", "HURRICANE"]:
+        ordered = ["streamflow", "precipitation", "pressure"]
+    elif hazard_type == "FIRE_WEATHER":
+        ordered = ["humidity", "wind_speed", "temperature", "pressure"]
+    elif hazard_type in ["TORNADO", "SEVERE_STORM"]:
+        ordered = ["pressure", "wind_speed", "precipitation"]
+    elif hazard_type == "STABLE":
+        ordered = ["pressure", "streamflow", "temperature"]
+    else:
+        ordered = ["streamflow", "pressure", "precipitation", "humidity", "wind_speed", "temperature"]
+
+    for key in ordered:
+        series = payload.get(key, [])
+        if series:
+            return key, series
+
+    return "UNKNOWN", []
+
+
+def build_historical_events(events_path: str) -> Tuple[List[HistoricalEvent], Optional[str]]:
+    try:
+        with open(events_path, "r") as handle:
+            events = json.load(handle)
+    except FileNotFoundError:
+        return [], f"Missing event config: {events_path}"
+    except json.JSONDecodeError as exc:
+        return [], f"Invalid JSON in {events_path}: {exc}"
+
+    historical_events: List[HistoricalEvent] = []
+
+    for event in events:
+        payload: Dict[str, List[int]] = {}
+        usgs_csv = event.get("usgs_csv")
+        met_csv = event.get("met_csv")
+
+        if usgs_csv:
+            payload = merge_payload(payload, read_usgs_csv(usgs_csv))
+        if met_csv:
+            payload = merge_payload(payload, read_weather_csv(met_csv))
+
+        if not payload:
+            continue
+
+        hazard_type = event.get("hazard_type", "HISTORICAL")
+        primary_name, primary_series = choose_primary(payload, hazard_type)
+        if not primary_series:
+            continue
+
+        source_parts = []
+        if usgs_csv:
+            source_parts.append(usgs_csv)
+        if met_csv:
+            source_parts.append(met_csv)
+        record_reference = event.get("record_reference")
+        source = ", ".join(source_parts) if source_parts else "archived CSVs"
+        if record_reference:
+            source = f"{record_reference} | CSV: {source}"
         else:
-            # Near landfall, stabilizing at low pressure
-            pressure = 947 - (i - 25) * 1
+            source = f"CSV: {source}"
 
-        base.append(max(940, pressure))
+        historical_events.append(HistoricalEvent(
+            name=event.get("name", event.get("id", "UNKNOWN")),
+            description=event.get("name", "Historical event"),
+            data=primary_series,
+            expected_risk=event.get("expected_risk", "UNKNOWN"),
+            expected_min_score=int(event.get("expected_min_score", 0)),
+            source=source,
+            primary_series=primary_name.upper()
+        ))
 
-    return add_realistic_noise(base, noise_scale=3, seed=2017)
-
-
-def generate_camp_fire_pattern() -> List[int]:
-    """
-    Camp Fire precursor conditions (November 2018) - Paradise, CA
-
-    Fire weather characteristics:
-    - Very low humidity (relative humidity proxy: 10-20%)
-    - Rapid humidity drop
-    - Diablo wind pattern
-
-    Pattern: Relative humidity (%) over 24 1-hour intervals
-    Note: Low humidity = high fire danger
-    """
-    base = []
-    for i in range(36):
-        if i < 8:
-            # Morning, moderate humidity
-            rh = 45 - i * 3
-        elif i < 16:
-            # Afternoon drying
-            rh = 21 - (i - 8) * 1
-        elif i < 24:
-            # Diablo winds, extreme drying
-            rh = 13 - (i - 16) * 0.5
-        else:
-            # Sustained dangerous conditions
-            rh = 10 + random.randint(-2, 2)
-
-        base.append(max(8, int(rh)))
-
-    return add_realistic_noise(base, noise_scale=2, seed=2018)
+    return historical_events, None
 
 
-def generate_joplin_tornado_pattern() -> List[int]:
-    """
-    Joplin Tornado (May 22, 2011) - Joplin, MO
-
-    EF5 tornado characteristics:
-    - Extreme pressure drop in tornado core
-    - Rapid pressure oscillations
-    - High atmospheric instability
-
-    Pattern: Pressure (mb) with simulated tornado-scale variations
-    """
-    base = []
-    for i in range(30):
-        if i < 10:
-            # Pre-storm, unstable conditions
-            pressure = 1005 - i * 1 + ((-1) ** i) * 5
-        elif i < 15:
-            # Storm approach
-            pressure = 995 - (i - 10) * 4 + random.randint(-10, 10)
-        elif i < 20:
-            # Tornado passage (extreme oscillations)
-            pressure = 975 - (i - 15) * 8 + random.randint(-20, 20)
-        else:
-            # Post-passage, recovering
-            pressure = 935 + (i - 20) * 5
-
-        base.append(max(920, min(1010, pressure)))
-
-    return add_realistic_noise(base, noise_scale=8, seed=2011)
-
-
-def generate_flash_flood_hill_country() -> List[int]:
-    """
-    Texas Hill Country Flash Flood Pattern
-
-    Characteristics:
-    - Rapid water level rise (inches per hour)
-    - Exponential accumulation in narrow canyons
-    - Based on Blanco River 2015 event patterns
-
-    Pattern: Stream gauge height (inches above baseline)
-    """
-    base = []
-    for i in range(40):
-        if i < 10:
-            # Pre-storm baseline
-            height = 10 + i * 0.5
-        elif i < 20:
-            # Initial rainfall accumulation
-            height = 15 + (i - 10) * 5
-        elif i < 30:
-            # Rapid rise (exponential-like)
-            height = 65 + int(40 * (1.15 ** (i - 20)))
-        else:
-            # Peak and initial recession
-            height = max(200, 400 - (i - 30) * 20)
-
-        base.append(int(height))
-
-    return add_realistic_noise(base, noise_scale=5, seed=2015)
-
-
-def generate_stable_high_pressure() -> List[int]:
-    """
-    Stable high-pressure system (typical fair weather)
-
-    Characteristics:
-    - Pressure slowly varying around 1020-1025 mb
-    - Diurnal variation of ~2-3 mb
-    - Very predictable
-
-    Pattern: Pressure (mb) over 48 hours
-    """
-    base = []
-    import math
-    for i in range(48):
-        # Base pressure with small diurnal cycle
-        diurnal = 2 * math.sin(2 * math.pi * i / 24)
-        pressure = 1022 + diurnal
-
-        base.append(int(pressure))
-
-    return add_realistic_noise(base, noise_scale=1, seed=1234)
-
-
-def generate_cold_front_passage() -> List[int]:
-    """
-    Cold front passage pattern
-
-    Characteristics:
-    - Gradual pressure drop before front
-    - Sharp pressure rise as front passes
-    - Temperature drop (using pressure as proxy for simplicity)
-
-    Pattern: Pressure (mb) over 24 hours
-    """
-    base = []
-    for i in range(36):
-        if i < 12:
-            # Pre-frontal: gradual drop
-            pressure = 1015 - i * 1.5
-        elif i < 16:
-            # Frontal passage: rapid changes
-            pressure = 997 + (i - 12) * 5
-        else:
-            # Post-frontal: high pressure building
-            pressure = 1017 + (i - 16) * 0.3
-
-        base.append(int(pressure))
-
-    return add_realistic_noise(base, noise_scale=2, seed=5678)
-
-
-def generate_derecho_pattern() -> List[int]:
-    """
-    Derecho (June 29, 2012) - North American pattern
-
-    Characteristics:
-    - Long-lived bow echo
-    - Sustained damaging winds
-    - Pressure oscillations along squall line
-
-    Pattern: Pressure (mb) during derecho passage
-    """
-    base = []
-    for i in range(30):
-        if i < 8:
-            # Pre-derecho, unstable atmosphere
-            pressure = 1008 - i * 0.5
-        elif i < 15:
-            # Gust front arrival, pressure spike then drop
-            if i < 10:
-                pressure = 1004 + (i - 8) * 3  # Pressure spike
-            else:
-                pressure = 1010 - (i - 10) * 4  # Rapid drop behind gust front
-        elif i < 22:
-            # Main convective region
-            pressure = 990 - (i - 15) * 1 + ((-1) ** i) * 3
-        else:
-            # Recovery
-            pressure = 983 + (i - 22) * 2
-
-        base.append(int(pressure))
-
-    return add_realistic_noise(base, noise_scale=4, seed=2012)
-
-
-# Define all historical test cases
-HISTORICAL_EVENTS = [
-    HistoricalEvent(
-        name="Hurricane Harvey (2017)",
-        description="Category 4 hurricane, catastrophic flooding in Houston",
-        data=generate_hurricane_harvey_pattern(),
-        expected_risk="CRITICAL",
-        expected_min_score=70,
-        source="NOAA NHC reports, Houston Chronicle archives"
-    ),
-    HistoricalEvent(
-        name="Camp Fire Precursors (2018)",
-        description="Extreme fire weather conditions, Paradise CA",
-        data=generate_camp_fire_pattern(),
-        expected_risk="HIGH",
-        expected_min_score=50,
-        source="Cal Fire incident reports, NWS Red Flag warnings"
-    ),
-    HistoricalEvent(
-        name="Joplin Tornado (2011)",
-        description="EF5 tornado, extreme atmospheric instability",
-        data=generate_joplin_tornado_pattern(),
-        expected_risk="CRITICAL",
-        expected_min_score=70,
-        source="NWS Storm Prediction Center, peer-reviewed literature"
-    ),
-    HistoricalEvent(
-        name="Hill Country Flash Flood",
-        description="Texas Hill Country rapid flooding pattern",
-        data=generate_flash_flood_hill_country(),
-        expected_risk="CRITICAL",
-        expected_min_score=70,
-        source="USGS stream gauge data patterns, NWS flood reports"
-    ),
-    HistoricalEvent(
-        name="Stable High Pressure",
-        description="Fair weather, no hazards expected",
-        data=generate_stable_high_pressure(),
-        expected_risk="LOW",
-        expected_min_score=0,
-        source="Typical meteorological patterns"
-    ),
-    HistoricalEvent(
-        name="Cold Front Passage",
-        description="Routine cold front, minor weather changes",
-        data=generate_cold_front_passage(),
-        expected_risk="MODERATE",
-        expected_min_score=15,
-        source="Standard synoptic meteorology"
-    ),
-    HistoricalEvent(
-        name="2012 Derecho",
-        description="Long-lived damaging wind event",
-        data=generate_derecho_pattern(),
-        expected_risk="HIGH",
-        expected_min_score=50,
-        source="NWS Storm Prediction Center, NOAA post-storm reports"
-    ),
-]
+HISTORICAL_EVENTS, HISTORICAL_EVENTS_ERROR = build_historical_events(DEFAULT_EVENTS_PATH)
 
 
 def run_historical_validation():
     """Run MYSTIC against historical weather event patterns."""
     print("=" * 75)
     print("HISTORICAL WEATHER EVENT VALIDATION SUITE")
-    print("Testing MYSTIC against realistic meteorological patterns")
+    print("Testing MYSTIC against archived historical CSV data")
     print("=" * 75)
+
+    if HISTORICAL_EVENTS_ERROR:
+        print(f"\nMissing historical events: {HISTORICAL_EVENTS_ERROR}")
+        return False
+    if not HISTORICAL_EVENTS:
+        print("\nNo historical events loaded.")
+        return False
 
     predictor = MYSTICPredictorV3Production()
 
@@ -337,6 +251,7 @@ def run_historical_validation():
         print(f"Description: {event.description}")
         print(f"Data points: {len(event.data)}")
         print(f"Source: {event.source}")
+        print(f"Primary: {event.primary_series}")
         print(f"{'─' * 75}")
 
         result = predictor.predict(event.data, location="HISTORICAL", hazard_type="VALIDATION")
@@ -419,8 +334,16 @@ def print_event_data_samples():
     print("SAMPLE DATA FROM HISTORICAL EVENTS")
     print("=" * 75)
 
+    if HISTORICAL_EVENTS_ERROR:
+        print(f"\nMissing historical events: {HISTORICAL_EVENTS_ERROR}")
+        return
+    if not HISTORICAL_EVENTS:
+        print("\nNo historical events loaded.")
+        return
+
     for event in HISTORICAL_EVENTS:
         print(f"\n{event.name}:")
+        print(f"  Primary series: {event.primary_series}")
         print(f"  First 10 values: {event.data[:10]}")
         print(f"  Last 10 values: {event.data[-10:]}")
         print(f"  Range: {min(event.data)} - {max(event.data)}")
@@ -428,7 +351,14 @@ def print_event_data_samples():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run historical validation suite")
+    parser.add_argument("--events", default=DEFAULT_EVENTS_PATH, help="Path to gauntlet events JSON")
+    args = parser.parse_args()
+
+    if args.events != DEFAULT_EVENTS_PATH:
+        HISTORICAL_EVENTS, HISTORICAL_EVENTS_ERROR = build_historical_events(args.events)
+
     print_event_data_samples()
     print()
     success = run_historical_validation()
-    exit(0 if success else 1)
+    raise SystemExit(0 if success else 1)

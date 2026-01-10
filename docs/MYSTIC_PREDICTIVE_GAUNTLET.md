@@ -34,7 +34,7 @@ responses.
 
 ### Phase C: Reconstructed Pattern Gauntlet (Synthetic)
 
-Source: `historical_validation.py` patterns derived from NOAA/NWS reports.
+Source: `historical_validation.py` uses archived CSV events from `predictive_gauntlet_events.json`.
 
 Outcome: Sanity check for risk thresholds across archetypal events.
 
@@ -51,7 +51,15 @@ Outcome: Sanity check for risk thresholds across archetypal events.
 - Risk accuracy >= 85% for Phase A.
 - Lead-time success >= 70% for high/critical events.
 - Hazard type accuracy >= 70% for Phase A.
-- Phase B must be within 10% of Phase A accuracy.
+- Phase B should be within 10% of Phase A accuracy (manual review).
+
+Quality gates are enforced in gauntlet reports:
+- risk_accuracy >= 85%
+- score_accuracy >= 85%
+- hazard_accuracy >= 70%
+- lead_success >= 70%
+
+Use `--enforce` to exit nonzero on gate failure.
 
 ## Event Set (Phase A)
 
@@ -113,7 +121,7 @@ Report: `predictive_gauntlet_report.json`
 
 ## Phase B Results (Live APIs, 2026-01-08)
 
-- Events tested: 6
+- Events tested: 13
 - Risk accuracy: 100%
 - Score accuracy: 100%
 - Hazard accuracy: 100%

@@ -152,6 +152,37 @@
           </div>
         </section>
 
+        <section class="panel gate-card reveal" style="--delay: 0.32s">
+          <div class="panel-header">
+            <h2>Gauntlet Quality Gates</h2>
+            <span class="tag neutral" id="gateStatus">PENDING</span>
+          </div>
+          <div class="gate-summary">
+            <div class="gate-metric">
+              <span class="label">Events</span>
+              <span class="value" id="gateEvents">--</span>
+            </div>
+            <div class="gate-metric">
+              <span class="label">Risk</span>
+              <span class="value" id="gateRisk">--</span>
+            </div>
+            <div class="gate-metric">
+              <span class="label">Hazard</span>
+              <span class="value" id="gateHazard">--</span>
+            </div>
+            <div class="gate-metric">
+              <span class="label">Lead</span>
+              <span class="value" id="gateLead">--</span>
+            </div>
+          </div>
+          <div class="gate-grid" id="gateGrid"></div>
+          <div class="gate-actions">
+            <button class="btn ghost" id="loadGauntlet">Load Live Gauntlet</button>
+            <span class="gate-note" id="gateNote">Source: predictive_gauntlet_live_report.json</span>
+          </div>
+          <div class="gate-table" id="gateTable"></div>
+        </section>
+
         <section class="panel control-card reveal" style="--delay: 0.35s">
           <div class="panel-header">
             <h2>Control Deck</h2>
