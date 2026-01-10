@@ -1,0 +1,36 @@
+# MYSTIC GitHub Pages Configuration
+
+# Site settings
+title: MYSTIC - Multi-hazard Yield Simulation and Tactical Intelligence Core
+description: Revolutionary zero-drift, unlimited-horizon flood prediction system using QMNF innovations
+url: ""
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+theme: null
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Include static assets
+include:
+  - assets
+  - _config.yml
+
+# Collections (if needed in future)
+collections:
+  innovations:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
