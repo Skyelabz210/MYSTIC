@@ -34,6 +34,17 @@ from fibonacci_phi_validator import phi_from_fibonacci
 from shadow_entropy import ShadowEntropyPRNG
 from oscillation_analytics import analyze_oscillations, OscillationAnalysis, OscillationPattern
 
+# SPANKY Layer 2: Attractor Basin Detection
+try:
+    from attractor_detector import (
+        AttractorDetector, ChaosSignature, DetectionResult,
+        create_weather_detector, detect_from_time_series, AlertLevel, HazardType,
+        LYAP_SCALE
+    )
+    ATTRACTOR_DETECTOR_AVAILABLE = True
+except ImportError:
+    ATTRACTOR_DETECTOR_AVAILABLE = False
+
 
 def scale_by_percent(score: int, percent: int) -> int:
     """Scale a signed score by a percentage using integer math."""
@@ -71,6 +82,11 @@ class PredictionResult:
     timestamp: float
     location: str
     hazard_type: str
+    # SPANKY Layer 2: Enhanced attractor detection
+    spanky_detection: Optional["DetectionResult"] = None
+    alert_level: Optional[str] = None
+    estimated_hours_to_event: Optional[float] = None
+    in_dangerous_basin: bool = False
 
 
 class MYSTICPredictorV3Production:
@@ -569,9 +585,25 @@ class MYSTICPredictorV3Production:
         self,
         time_series: List[int],
         location: str = "UNKNOWN",
-        hazard_type: str = "GENERAL"
+        hazard_type: str = "GENERAL",
+        pressure_series: Optional[List[int]] = None,
+        temp_series: Optional[List[int]] = None,
+        humidity_series: Optional[List[int]] = None
     ) -> PredictionResult:
-        """Generate prediction with all components."""
+        """
+        Generate prediction with all components.
+
+        Args:
+            time_series: Primary data series (typically streamflow or pressure)
+            location: Location identifier
+            hazard_type: Type of hazard being assessed
+            pressure_series: Optional pressure data for SPANKY detection
+            temp_series: Optional temperature data for SPANKY detection
+            humidity_series: Optional humidity data for SPANKY detection
+
+        For full SPANKY attractor basin detection, provide all three weather series.
+        If not provided, detection falls back to using time_series as pressure proxy.
+        """
         timestamp = time.time()
 
         # 1. Robust trend analysis
@@ -601,6 +633,49 @@ class MYSTICPredictorV3Production:
             time_series, oscillation
         )
 
+        # 8. SPANKY Layer 2: Enhanced attractor basin detection
+        spanky_detection = None
+        alert_level = None
+        hours_to_event = None
+        in_dangerous_basin = False
+
+        if ATTRACTOR_DETECTOR_AVAILABLE:
+            # Use provided weather series or create proxies from time_series
+            if pressure_series is None:
+                # Use time_series as pressure proxy (scaled for typical hPa range)
+                pressure_series = time_series
+            if temp_series is None:
+                # Use constant temperature as fallback
+                temp_series = [2200] * len(time_series)  # ~22C
+            if humidity_series is None:
+                # Use constant humidity as fallback
+                humidity_series = [6000] * len(time_series)  # ~60%
+
+            # Perform SPANKY detection
+            spanky_detection = detect_from_time_series(
+                pressure_series, temp_series, humidity_series
+            )
+
+            if spanky_detection.detected:
+                alert_level = spanky_detection.alert_level.name
+                hours_to_event = spanky_detection.estimated_hours_to_event
+                in_dangerous_basin = spanky_detection.in_basin
+
+                # Boost risk score and confidence based on SPANKY detection
+                if spanky_detection.alert_level >= AlertLevel.EMERGENCY:
+                    risk_score = max(risk_score, 90)
+                    risk_level = "CRITICAL"
+                    confidence = max(confidence, spanky_detection.confidence)
+                elif spanky_detection.alert_level >= AlertLevel.WARNING:
+                    risk_score = max(risk_score, 70)
+                    if risk_level not in ["CRITICAL"]:
+                        risk_level = "HIGH"
+                    confidence = max(confidence, spanky_detection.confidence - 10)
+                elif spanky_detection.alert_level >= AlertLevel.ADVISORY:
+                    risk_score = max(risk_score, 50)
+                    if risk_level not in ["CRITICAL", "HIGH"]:
+                        risk_level = "MODERATE"
+
         return PredictionResult(
             risk_level=risk_level,
             risk_score=risk_score,
@@ -617,7 +692,11 @@ class MYSTICPredictorV3Production:
             oscillation=oscillation,
             timestamp=timestamp,
             location=location,
-            hazard_type=hazard_type
+            hazard_type=hazard_type,
+            spanky_detection=spanky_detection,
+            alert_level=alert_level,
+            estimated_hours_to_event=hours_to_event,
+            in_dangerous_basin=in_dangerous_basin
         )
 
 
