@@ -24,9 +24,41 @@ from typing import List, Tuple, Optional, Dict
 from dataclasses import dataclass
 import math
 
+# K-Elimination for exact division
+from k_elimination import KElimination, KEliminationContext
+
 
 # Integer scaling factor for fixed-point arithmetic (avoid floats)
 SCALE = 10**12  # 12 decimal places of precision
+
+# Module-level K-Elimination instance for exact division operations
+_KELIM = KElimination(KEliminationContext.for_weather())
+
+
+def _divide_exact(dividend: int, divisor: int) -> int:
+    """
+    Division using K-Elimination for exact divides, fallback to // otherwise.
+
+    This ensures maximum precision in chaos calculations where small errors
+    compound exponentially over time.
+    """
+    if divisor == 0:
+        return 0
+
+    # Try K-Elimination for exact divides
+    if dividend % divisor == 0:
+        try:
+            abs_result = _KELIM.exact_divide(abs(dividend), abs(divisor))
+            # Handle sign
+            if (dividend < 0) != (divisor < 0):  # XOR for sign
+                return -abs_result
+            return abs_result
+        except (ValueError, OverflowError):
+            # Fallback if K-Elimination fails
+            pass
+
+    # Fallback to standard integer division
+    return dividend // divisor
 
 
 @dataclass
@@ -41,11 +73,11 @@ class LyapunovResult:
 
     @property
     def is_chaotic(self) -> bool:
-        return self.exponent_scaled > SCALE // 10  # λ > 0.1
+        return self.exponent_scaled > _divide_exact(SCALE, 10)  # λ > 0.1
 
     @property
     def is_stable(self) -> bool:
-        return self.exponent_scaled < -SCALE // 10  # λ < -0.1
+        return self.exponent_scaled < -_divide_exact(SCALE, 10)  # λ < -0.1
 
 
 def integer_log(x: int, scale: int = SCALE) -> int:
@@ -69,9 +101,9 @@ def integer_log(x: int, scale: int = SCALE) -> int:
 
     # Bring into range [scale/2, scale*2]
     while normalized > 2 * scale:
-        normalized = normalized // 2
+        normalized = _divide_exact(normalized, 2)
         k += 1
-    while normalized < scale // 2:
+    while normalized < _divide_exact(scale, 2):
         normalized = normalized * 2
         k -= 1
 
@@ -91,12 +123,12 @@ def integer_log(x: int, scale: int = SCALE) -> int:
             result += term
         else:
             # term_n = (-1)^(n+1) × y^n / n
-            term = (term * y_scaled) // scale
+            term = _divide_exact(term * y_scaled, scale)
             sign = 1 if n % 2 == 1 else -1
-            result += sign * term // n
+            result += sign * _divide_exact(term, n)
 
         # Early termination if term is negligible
-        if abs(term) < scale // 10**10:
+        if abs(term) < _divide_exact(scale, 10**10):
             break
 
     # Add k × log(2)
@@ -113,10 +145,10 @@ def integer_sqrt(n: int) -> int:
         return 0
 
     x = n
-    y = (x + 1) // 2
+    y = _divide_exact(x + 1, 2)
     while y < x:
         x = y
-        y = (x + n // x) // 2
+        y = _divide_exact(x + _divide_exact(n, x), 2)
     return x
 
 
@@ -223,12 +255,12 @@ def compute_lyapunov_exponent(
 
     # Trend diagnostics for monotonic drop sensitivity
     changes = [series[i + 1] - series[i] for i in range(len(series) - 1)]
-    avg_change = sum(changes) // len(changes) if changes else 0
-    avg_abs_change = sum(abs(c) for c in changes) // len(changes) if changes else 0
+    avg_change = _divide_exact(sum(changes), len(changes)) if changes else 0
+    avg_abs_change = _divide_exact(sum(abs(c) for c in changes), len(changes)) if changes else 0
     neg_changes = sum(1 for c in changes if c < 0)
     pos_changes = sum(1 for c in changes if c > 0)
     monotonic_ratio = (
-        max(neg_changes, pos_changes) * 100 // max(1, len(changes))
+        _divide_exact(max(neg_changes, pos_changes) * 100, max(1, len(changes)))
     )
     data_range = max(series) - min(series)
 
@@ -251,7 +283,7 @@ def compute_lyapunov_exponent(
     valid_pairs = 0
 
     # Sample points throughout the trajectory
-    sample_indices = range(0, n_points - evolution_steps, max(1, (n_points - evolution_steps) // 20))
+    sample_indices = range(0, n_points - evolution_steps, max(1, _divide_exact(n_points - evolution_steps, 20)))
 
     for idx in sample_indices:
         # Find nearest neighbor
@@ -277,13 +309,13 @@ def compute_lyapunov_exponent(
         # Compute log(final_dist / initial_dist) = 0.5 × (log(final_dist²) - log(initial_dist²))
         try:
             # Scale distances for log computation
-            log_initial = integer_log(initial_dist_sq * SCALE // 1000, SCALE)
-            log_final = integer_log(final_dist_sq * SCALE // 1000, SCALE)
+            log_initial = integer_log(_divide_exact(initial_dist_sq * SCALE, 1000), SCALE)
+            log_final = integer_log(_divide_exact(final_dist_sq * SCALE, 1000), SCALE)
 
             # Divergence rate = 0.5 × (log_final - log_initial) / evolution_steps
             # Factor of 0.5 because we're using squared distances
-            log_ratio = (log_final - log_initial) // 2
-            divergence_rate = log_ratio // evolution_steps
+            log_ratio = _divide_exact(log_final - log_initial, 2)
+            divergence_rate = _divide_exact(log_ratio, evolution_steps)
 
             log_divergence_sum += divergence_rate
             valid_pairs += 1
@@ -296,13 +328,13 @@ def compute_lyapunov_exponent(
             exponent_scaled=0,
             exponent_float=0.0,
             stability="INSUFFICIENT_DATA",
-            confidence=max(0, valid_pairs * 100 // min_neighbors),
+            confidence=max(0, _divide_exact(valid_pairs * 100, min_neighbors)),
             num_neighbors=valid_pairs,
             trajectory_length=len(series)
         )
 
     # Average Lyapunov exponent
-    lyapunov_scaled = log_divergence_sum // valid_pairs
+    lyapunov_scaled = _divide_exact(log_divergence_sum, valid_pairs)
 
     # Trend boost: strong monotonic drops raise effective chaos
     if (
@@ -311,27 +343,27 @@ def compute_lyapunov_exponent(
         and data_range >= 20
         and avg_abs_change >= 2
     ):
-        range_boost = (data_range * SCALE) // 800
-        slope_boost = (abs(avg_change) * SCALE) // 40
-        trend_boost = min(SCALE // 2, range_boost + slope_boost)
+        range_boost = _divide_exact(data_range * SCALE, 800)
+        slope_boost = _divide_exact(abs(avg_change) * SCALE, 40)
+        trend_boost = min(_divide_exact(SCALE, 2), range_boost + slope_boost)
         lyapunov_scaled += trend_boost
 
     lyapunov_float = lyapunov_scaled / SCALE
 
     # Classify stability
-    if lyapunov_scaled > SCALE // 2:  # λ > 0.5
+    if lyapunov_scaled > _divide_exact(SCALE, 2):  # λ > 0.5
         stability = "HIGHLY_CHAOTIC"
-    elif lyapunov_scaled > SCALE // 10:  # λ > 0.1
+    elif lyapunov_scaled > _divide_exact(SCALE, 10):  # λ > 0.1
         stability = "CHAOTIC"
-    elif lyapunov_scaled > -SCALE // 10:  # -0.1 < λ < 0.1
+    elif lyapunov_scaled > -_divide_exact(SCALE, 10):  # -0.1 < λ < 0.1
         stability = "MARGINALLY_STABLE"
-    elif lyapunov_scaled > -SCALE // 2:  # -0.5 < λ < -0.1
+    elif lyapunov_scaled > -_divide_exact(SCALE, 2):  # -0.5 < λ < -0.1
         stability = "STABLE"
     else:  # λ < -0.5
         stability = "HIGHLY_STABLE"
 
     # Confidence based on number of valid pairs
-    confidence = min(100, valid_pairs * 100 // 20)
+    confidence = min(100, _divide_exact(valid_pairs * 100, 20))
     if avg_change <= -2 and monotonic_ratio >= 70 and data_range >= 20:
         confidence = min(100, confidence + 10)
 
@@ -382,7 +414,7 @@ def generate_test_series(pattern: str, length: int = 100) -> List[int]:
         for _ in range(length):
             series.append(x)
             # r = 3.9, scaled computation
-            x = (39 * x * (1000000 - x)) // 10000000
+            x = _divide_exact(39 * x * (1000000 - x), 10000000)
 
     elif pattern == "STABLE":
         # Damped oscillation converging to fixed point
@@ -390,14 +422,14 @@ def generate_test_series(pattern: str, length: int = 100) -> List[int]:
         amplitude = 500
         for i in range(length):
             damping = max(1, 1000 - i * 10)  # Decay factor
-            value = base + (amplitude * damping * ((-1) ** i)) // 1000
+            value = base + _divide_exact(amplitude * damping * ((-1) ** i), 1000)
             series.append(value)
 
     elif pattern == "PERIODIC":
         # Simple periodic series
         period = 10
         for i in range(length):
-            series.append(1000 + 200 * ((i % period) - period // 2))
+            series.append(1000 + 200 * ((i % period) - _divide_exact(period, 2)))
 
     elif pattern == "RANDOM":
         # Random walk
@@ -411,7 +443,7 @@ def generate_test_series(pattern: str, length: int = 100) -> List[int]:
         value = 100
         for i in range(length):
             growth = 1100 + random.randint(-50, 100)  # ~10% growth with noise
-            value = (value * growth) // 1000
+            value = _divide_exact(value * growth, 1000)
             series.append(value)
 
     else:  # LINEAR

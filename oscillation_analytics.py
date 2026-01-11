@@ -23,6 +23,38 @@ from typing import List, Dict, Tuple, Any, Optional
 from dataclasses import dataclass
 from enum import Enum
 
+# K-Elimination for exact division
+from k_elimination import KElimination, KEliminationContext
+
+# Module-level K-Elimination instance for exact division operations
+_KELIM = KElimination(KEliminationContext.for_weather())
+
+
+def _divide_exact(dividend: int, divisor: int) -> int:
+    """
+    Division using K-Elimination for exact divides, fallback to // otherwise.
+
+    This ensures maximum precision in oscillation pattern detection where
+    exact amplitude and frequency calculations are critical.
+    """
+    if divisor == 0:
+        return 0
+
+    # Try K-Elimination for exact divides
+    if dividend % divisor == 0:
+        try:
+            abs_result = _KELIM.exact_divide(abs(dividend), abs(divisor))
+            # Handle sign
+            if (dividend < 0) != (divisor < 0):  # XOR for sign
+                return -abs_result
+            return abs_result
+        except (ValueError, OverflowError):
+            # Fallback if K-Elimination fails
+            pass
+
+    # Fallback to standard integer division
+    return dividend // divisor
+
 
 class OscillationPattern(Enum):
     """Classification of oscillation patterns by meteorological meaning."""
@@ -85,7 +117,7 @@ def compute_oscillation_metrics(series: List[int]) -> Dict[str, Any]:
             sign_changes += 1
 
     # Calculate mean-centered oscillations
-    mean_val = sum(series) // len(series)
+    mean_val = _divide_exact(sum(series), len(series))
     centered = [v - mean_val for v in series]
 
     # Zero crossings (around mean)
@@ -112,12 +144,12 @@ def compute_oscillation_metrics(series: List[int]) -> Dict[str, Any]:
             if amp > 0:
                 amplitudes.append(amp)
 
-    mean_amplitude = sum(amplitudes) // len(amplitudes) if amplitudes else 0
+    mean_amplitude = _divide_exact(sum(amplitudes), len(amplitudes)) if amplitudes else 0
 
     # Amplitude trend (is oscillation growing or shrinking?)
     if len(amplitudes) >= 3:
-        first_third = sum(amplitudes[:len(amplitudes)//3]) // max(1, len(amplitudes)//3)
-        last_third = sum(amplitudes[-len(amplitudes)//3:]) // max(1, len(amplitudes)//3)
+        first_third = _divide_exact(sum(amplitudes[:_divide_exact(len(amplitudes), 3)]), max(1, _divide_exact(len(amplitudes), 3)))
+        last_third = _divide_exact(sum(amplitudes[-_divide_exact(len(amplitudes), 3):]), max(1, _divide_exact(len(amplitudes), 3)))
         if last_third > first_third * 1.3:
             amplitude_trend = "INCREASING"
         elif last_third < first_third * 0.7:
@@ -130,14 +162,14 @@ def compute_oscillation_metrics(series: List[int]) -> Dict[str, Any]:
     # Frequency estimate (oscillations per unit time)
     n = len(series)
     oscillation_count = min(len(peaks), len(troughs))
-    frequency_scaled = (oscillation_count * 100) // n if n > 0 else 0
+    frequency_scaled = _divide_exact(oscillation_count * 100, n) if n > 0 else 0
 
     # Detect spikes (sudden jumps compared to local mean)
     spikes = []
     data_range = max(series) - min(series)
-    spike_threshold = max(4, data_range // 12)
+    spike_threshold = max(4, _divide_exact(data_range, 12))
     for i in range(1, len(series) - 1):
-        local_mean = (series[i - 1] + series[i + 1]) // 2
+        local_mean = _divide_exact(series[i - 1] + series[i + 1], 2)
         deviation = series[i] - local_mean
         if deviation >= spike_threshold:
             spikes.append((i, deviation, "up"))
@@ -149,14 +181,14 @@ def compute_oscillation_metrics(series: List[int]) -> Dict[str, Any]:
     # Detect gust front pattern: stable baseline, spike, then sustained drop
     has_gust_front = False
     gust_front_magnitude = 0
-    baseline_threshold = max(3, data_range // 10)
-    gust_spike_threshold = max(6, data_range // 8)
-    gust_drop_threshold = max(5, data_range // 8)
+    baseline_threshold = max(3, _divide_exact(data_range, 10))
+    gust_spike_threshold = max(6, _divide_exact(data_range, 8))
+    gust_drop_threshold = max(5, _divide_exact(data_range, 8))
     for i in range(3, len(series) - 5):
         baseline_window = series[i - 4:i - 1]
         if len(baseline_window) < 3:
             continue
-        baseline = sum(baseline_window) // len(baseline_window)
+        baseline = _divide_exact(sum(baseline_window), len(baseline_window))
         baseline_range = max(baseline_window) - min(baseline_window)
         if baseline_range > baseline_threshold:
             continue
@@ -178,14 +210,14 @@ def compute_oscillation_metrics(series: List[int]) -> Dict[str, Any]:
     # Look for consistent period in oscillations
     if len(peaks) >= 3:
         periods = [peaks[i + 1][0] - peaks[i][0] for i in range(len(peaks) - 1)]
-        avg_period = sum(periods) // len(periods) if periods else 0
-        period_variance = sum((p - avg_period) ** 2 for p in periods) // len(periods) if periods else 0
+        avg_period = _divide_exact(sum(periods), len(periods)) if periods else 0
+        period_variance = _divide_exact(sum((p - avg_period) ** 2 for p in periods), len(periods)) if periods else 0
         is_regular = period_variance < 5 and avg_period > 8  # Regular, longer period
     else:
         is_regular = False
         avg_period = 0
 
-    oscillation_ratio = (sign_changes * 100) // max(1, len(diffs) - 1)
+    oscillation_ratio = _divide_exact(sign_changes * 100, max(1, len(diffs) - 1))
 
     return {
         "sign_changes": sign_changes,
@@ -227,7 +259,7 @@ def classify_oscillation_pattern(metrics: Dict[str, Any]) -> Tuple[OscillationPa
     n = metrics.get("series_length", 1)
 
     # Calculate oscillation intensity
-    osc_ratio = (sign_changes * 100) // max(1, n - 2)
+    osc_ratio = _divide_exact(sign_changes * 100, max(1, n - 2))
 
     # Minimal oscillation check - very small variations regardless of frequency
     if mean_amp <= 2 and data_range <= 3:
@@ -518,7 +550,7 @@ def run_oscillation_tests():
         print(f"  Reason: {result.risk_reason}")
 
     print(f"\n{'=' * 70}")
-    print(f"RESULTS: {correct}/{total} correct ({100 * correct // total}%)")
+    print(f"RESULTS: {correct}/{total} correct ({_divide_exact(100 * correct, total)}%)")
     print(f"{'=' * 70}")
 
     return correct == total
