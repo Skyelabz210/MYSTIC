@@ -1026,3 +1026,403 @@ pre code {
 .mb-2 { margin-bottom: var(--spacing-md); }
 .mb-3 { margin-bottom: var(--spacing-lg); }
 .mb-4 { margin-bottom: var(--spacing-xl); }
+
+/* ============================================
+   SPANKY Framework Section
+   ============================================ */
+.spanky-framework {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl);
+}
+
+.spanky-layer {
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    overflow: hidden;
+    transition: all var(--transition-base);
+}
+
+.spanky-layer:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.spanky-layer.layer-1 {
+    border-color: var(--success-color);
+}
+
+.spanky-layer.layer-2 {
+    border-color: var(--secondary-color);
+}
+
+.spanky-layer.layer-3 {
+    border-color: var(--accent-color);
+}
+
+.layer-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+}
+
+.layer-1 .layer-header {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+}
+
+.layer-2 .layer-header {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.05));
+}
+
+.layer-3 .layer-header {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+}
+
+.layer-number {
+    font-size: 2rem;
+    font-weight: 900;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+}
+
+.layer-1 .layer-number {
+    background: var(--success-color);
+}
+
+.layer-2 .layer-number {
+    background: var(--secondary-color);
+}
+
+.layer-3 .layer-number {
+    background: var(--accent-color);
+}
+
+.layer-title h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.layer-range {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.layer-content {
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+}
+
+.layer-content ul {
+    list-style: none;
+    margin-bottom: var(--spacing-md);
+}
+
+.layer-content li {
+    padding: var(--spacing-xs) 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.layer-content li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--success-color);
+    font-weight: 700;
+}
+
+.layer-tech {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.tech-tag {
+    background-color: var(--bg-dark);
+    color: var(--text-inverse);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+.spanky-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+}
+
+.connector-line {
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, var(--border-color), var(--primary-color));
+}
+
+.connector-arrow {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.spanky-flow {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-xl);
+}
+
+.spanky-flow h3 {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.flow-step {
+    background-color: white;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 6px;
+    border: 2px solid var(--border-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.flow-step.highlight {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+}
+
+.flow-arrow {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+/* ============================================
+   Speedup Grid
+   ============================================ */
+.speedup-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.speedup-card {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    text-align: center;
+    border: 2px solid var(--border-color);
+    transition: all var(--transition-base);
+}
+
+.speedup-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+}
+
+.speedup-card.highlight {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+}
+
+.speedup-card.highlight .speedup-value,
+.speedup-card.highlight .speedup-label {
+    color: white;
+}
+
+.speedup-value {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.speedup-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ============================================
+   Architecture Dual Column
+   ============================================ */
+.architecture-dual {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.arch-column {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.arch-header {
+    padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.arch-header.rust {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+}
+
+.arch-header.python {
+    background: linear-gradient(135deg, #3776ab, #ffd43b);
+}
+
+.arch-header h3 {
+    color: white;
+    margin-bottom: var(--spacing-xs);
+}
+
+.arch-path {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.arch-modules {
+    list-style: none;
+    padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.arch-modules li {
+    padding: var(--spacing-xs) 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.arch-modules code {
+    color: var(--primary-light);
+    background: transparent;
+    padding: 0;
+}
+
+.arch-binaries {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.arch-binaries h4 {
+    color: white;
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.binary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.binary-tag {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+}
+
+/* ============================================
+   Case Study
+   ============================================ */
+.case-study {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-xl);
+    border-left: 4px solid var(--primary-color);
+}
+
+.case-study h3 {
+    margin-bottom: var(--spacing-md);
+}
+
+.case-study-content {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.case-study-text ul {
+    list-style: none;
+    margin-top: var(--spacing-md);
+}
+
+.case-study-text li {
+    padding: var(--spacing-xs) 0;
+    color: var(--text-secondary);
+}
+
+.case-study-command {
+    background-color: var(--bg-dark);
+    padding: var(--spacing-md);
+    border-radius: 6px;
+}
+
+.case-study-command code {
+    color: var(--success-color);
+    background: transparent;
+}
+
+/* ============================================
+   Validation Detail
+   ============================================ */
+.validation-detail {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+/* ============================================
+   Section Dark Overrides for Comparison Table
+   ============================================ */
+.section:not(.section-dark) .comparison-table-wrapper {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+}
+
+.section:not(.section-dark) .comparison-table {
+    background-color: white;
+}
+
+.section:not(.section-dark) .comparison-table thead {
+    background-color: var(--bg-dark);
+}
+
+.section:not(.section-dark) .comparison-table th {
+    color: white;
+}
+
+.section:not(.section-dark) .comparison-table td {
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section:not(.section-dark) .highlight-row {
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
+.section:not(.section-dark) .highlight-row td {
+    color: var(--text-primary);
+}
