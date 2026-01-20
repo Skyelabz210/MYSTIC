@@ -7,7 +7,7 @@
 
 ## Revolutionary Zero-Drift, Unlimited-Horizon Flood Prediction System
 
-MYSTIC represents a **paradigm-shifting breakthrough** in flood prediction technology, utilizing Quantum-Modular Numerical Framework (QMNF) innovations to achieve **zero-drift, unlimited-horizon weather forecasting**. This system solves the century-old challenge of chaotic weather prediction through exact integer arithmetic and five fundamental mathematical innovations.
+MYSTIC represents a nessisary application of advanced mathtamatics and and innovative design closing the gap in flood prediction technology, utilizing Quantum-Modular Numerical Framework (QMNF) systems to achieve **zero-drift, unlimited-horizon weather forecasting**. This system solves the century-old challenge of chaotic weather prediction through exact integer arithmetic and five fundamental mathematical innovations.
 
 ---
 
@@ -304,7 +304,7 @@ osc_result = analyze_oscillation_pattern(time_series)
 
 MYSTIC has been validated against:
 
-- **Camp Mystic 2007 Event**: Synthetic data reconstruction
+- **Camp Mystic 2025 Event**: Synthetic data reconstruction
 - **Texas Storm Events**: Multiple flash flood scenarios
 - **Continuous Operation**: Zero drift over extended periods
 
@@ -441,10 +441,9 @@ This system incorporates groundbreaking innovations from:
 
 For inquiries, partnerships, or technical support:
 
-- **Email**: mystic-support@example.com
-- **Website**: https://yourusername.github.io/MYSTIC
-- **GitHub**: https://github.com/yourusername/MYSTIC
-
+- **Email**: founder@hackfate.us.com
+- **Website**: https://skyelabz210.github.io/MYSTIC
+- **Creator**: Anthony Diaz
 ---
 
 ## Citation
@@ -457,7 +456,7 @@ If you use MYSTIC in your research, please cite:
   author={MYSTIC Development Team},
   year={2025},
   version={3.0},
-  url={https://github.com/yourusername/MYSTIC}
+  url={https://github.com/skyelabz210/MYSTIC}
 }
 ```
 
